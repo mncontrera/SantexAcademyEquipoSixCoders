@@ -1,0 +1,69 @@
+<div id="seccion-de-iniciar-sesion">
+  <div class="contenedor-de-iniciar-sesion">
+    <div class="parte-izquierda">
+      <div class="imagen-izquierda">
+        <img src="../../../../../assets/pexels-ayşe-altaylar-gördeyen-14085647.jpg" alt="">
+      </div>
+    </div>
+    <div class="parte-derecha">
+      <div class="formulario-para-iniciar-sesion">
+        <div class="mensajes">
+          <div class="mensaje-de-bienvenida">
+            <p>¡Hola Bienvenido a la incubadora del NOC!</p>
+          </div>
+          <div class="titulo-principal">
+            <h4>Iniciar Sesión</h4>
+          </div>
+          <div class="subtitulo">
+            <h2>¿Aún no tienes cuenta? Registrate aquí.</h2>
+          </div>
+        </div>
+        <div class="campos-del-formulario">
+          <form [formGroup]="formLogin" (ngSubmit)="saveForm($event)">
+            <mat-form-field [floatLabel]="'always'" class="email-label correo" hideRequiredMarker="">
+              <mat-label class="mat-label-email">Correo electrónico</mat-label>
+              <input
+              matInput
+              type="email"
+              placeholder="john@gmail.com"
+              formControlName="email"
+              class="emailInput"
+              >
+            </mat-form-field>
+            <div class="messages" [class.active]="formLogin.get('email')?.invalid">
+              <mat-error *ngIf="emailField?.touched && emailField?.hasError('required')">
+                Campo requerido
+              </mat-error>
+              <mat-error *ngIf="emailField?.touched && emailField?.hasError('email')">
+                Necesita formato de email
+              </mat-error>
+            </div>
+
+
+            <mat-form-field [floatLabel]="'always'" class="password-label" hideRequiredMarker="">
+              <mat-label class="mat-label-email">Contraseña</mat-label>
+              <input matInput type="password" placeholder="********" formControlName="password" class="passwordInput">
+              <mat-icon matSuffix>visibility_off</mat-icon>
+            </mat-form-field>
+            <div class="messages" [class.active]="formLogin.get('password')?.invalid">
+              <mat-error *ngIf="passwordField?.touched && passwordField?.hasError('required')">
+                Campo requerido
+              </mat-error>
+              <mat-error *ngIf="passwordField?.touched && passwordField?.hasError('minlength')">
+                Debe tener al menos 8 caracteres
+              </mat-error>
+            </div>
+            <div class="checkbox-y-contraseña">
+              <div class="checkbox-texto">
+                <input type="checkbox" name="asd"><span>Recordarme</span>
+              </div>
+              <p>¿Olvidaste tu contraseña?</p>
+            </div>
+            <button mat-raised-button color="accent">Iniciar sesión</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
