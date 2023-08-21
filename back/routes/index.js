@@ -1,5 +1,6 @@
 const Express = require('express');
 const userRoutes = require('./userRoutes');
+const filesRoutes = require('./filesRoutes');
 
 // Middlewares:
 const rootPath = require('../middleware/root_path.middleware');
@@ -11,6 +12,7 @@ const app = Express();
 
 // use=
 app.use('/user', userRoutes);
+app.use('/files', filesRoutes);
 
 app.use('/ping', (req, res) => {
   res.json({
