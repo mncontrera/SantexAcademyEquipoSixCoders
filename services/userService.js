@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const db = require('../models');
-const { arrayBufferToBase64 } = require('../helpers/handlerArrayBufer');
+const { arrayBufferToBase64, readFile } = require('../helpers/handlerArrayBufer');
 
 const saltRound = 10;
 
@@ -36,7 +36,8 @@ async function login(email, password) {
     name: user.name,
   }, 'claveSixCoders');
 
-  const imageByteArray = new Uint8Array(user.image);
+  const imageBuffer = await readFile(user.image);
+  const imageByteArray = new Uint8Array(imageBuffer);
   const base64Image = arrayBufferToBase64(imageByteArray);
 
   return {
@@ -50,17 +51,17 @@ async function login(email, password) {
 }
 
 async function edit(id, name, lastname, email, password, rolId, image) {
-  // const passwordHash = await bcrypt.hash(password, saltRound);
+  const passwordHash = await bcrypt.hash(password, saltRound);
   const user = await db.User.findByPk(id);
 
   if (!user) {
-    throw new Error(JSON.stringify('Usuario no encontrado')); //
+    throw new Error(JSON.stringify('Usuario no encontrado'));
   }
   const updatedFields = {
     name,
     lastname,
     email,
-    // password: passwordHash,
+    password: passwordHash,
     rolId,
     image,
   };

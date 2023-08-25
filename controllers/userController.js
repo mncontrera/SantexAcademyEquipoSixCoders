@@ -40,11 +40,11 @@ async function editUser(req, res, next) {
 
   const { id } = req.params;
   const {
-    name, lastname, email, password, rolId,
-  } = JSON.parse(req.body.data);
+    name, lastname, email, password, rolId, telephone,
+  } = req.body;
   const image = `./resources/assets/uploads/${req.file.originalname}`;
   try {
-    await userService.edit(id, name, lastname, email, password, rolId, image);
+    await userService.edit(id, name, lastname, email, password, rolId, image, telephone);
     res.status(200).send(JSON.stringify('Usuario editado correctamente'));
   } catch (error) {
     next(error);
