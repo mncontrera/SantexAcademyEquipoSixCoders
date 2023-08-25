@@ -4,10 +4,11 @@ const uploadFile = require('../middleware/multer.middleware');
 
 async function createUser(req, res) {
   const {
-    name, lastname, email, password, rolId, image,
+    name, lastname, email, password, RoleId, image, enrolledId, CourEnrolledId,
   } = req.body;
-  await userService.create(name, lastname, email, password, rolId, image);
-  res.status(201).send(JSON.stringify('Usuario creado correctamente'));
+  await userService.create(name, lastname, email, password, RoleId,
+    image, enrolledId, CourEnrolledId);
+  res.status(201).send('Usuario creado correctamente');
 }
 
 async function loginUser(req, res, next) {
@@ -32,20 +33,18 @@ async function editUser(req, res, next) {
     //   message: `Uploaded the file successfully: ${req.file.originalname}`,
     // });
   } catch (err) {
-    res.status(500).send({
-      message: `Could not upload the file: ${req.file.originalname}. ${err}`,
-    });
     return err;
   }
 
   const { id } = req.params;
   const {
-    name, lastname, email, password, rolId,
-  } = JSON.parse(req.body.data);
+    name, lastname, email, password, RoleId, enrolledId, CourEnrolledId,
+  } = req.body.data;
   const image = `./resources/assets/uploads/${req.file.originalname}`;
   try {
-    await userService.edit(id, name, lastname, email, password, rolId, image);
-    res.status(200).send(JSON.stringify('Usuario editado correctamente'));
+    await userService.edit(id, name, lastname, email, password, RoleId, image,
+      enrolledId, CourEnrolledId);
+    res.status(200).send('Usuario editado correctamente');
   } catch (error) {
     next(error);
   }
