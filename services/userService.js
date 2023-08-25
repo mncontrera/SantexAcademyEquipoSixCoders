@@ -5,14 +5,14 @@ const { arrayBufferToBase64 } = require('../helpers/handlerArrayBufer');
 
 const saltRound = 10;
 
-async function create(name, lastname, email, password, RoleId, image) {
+async function create(name, lastname, email, password, rolId, image) {
   const passwordHash = await bcrypt.hash(password, saltRound);
   const user = await db.User.create({
     name,
     lastname,
     email,
     password: passwordHash,
-    RoleId,
+    rolId,
     image,
   });
   const logedUser = user;
@@ -49,19 +49,19 @@ async function login(email, password) {
   };
 }
 
-async function edit(id, name, lastname, email, password, RoleId, image) {
-  const passwordHash = await bcrypt.hash(password, saltRound);
+async function edit(id, name, lastname, email, password, rolId, image) {
+  // const passwordHash = await bcrypt.hash(password, saltRound);
   const user = await db.User.findByPk(id);
 
   if (!user) {
-    throw new Error('Usuario no encontrado');
+    throw new Error(JSON.stringify('Usuario no encontrado')); //
   }
   const updatedFields = {
     name,
     lastname,
     email,
-    password: passwordHash,
-    RoleId,
+    // password: passwordHash,
+    rolId,
     image,
   };
   await user.update(updatedFields);

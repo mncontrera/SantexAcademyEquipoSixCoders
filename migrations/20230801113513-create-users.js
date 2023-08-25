@@ -32,7 +32,7 @@ module.exports = {
       password: {
         type: Sequelize.STRING
       },
-      RoleId: {
+      rolId: {
         type: Sequelize.INTEGER,
         references:{
           model:'Roles',
@@ -46,12 +46,6 @@ module.exports = {
       },
       updatedAt: {
         type: Sequelize.DATE
-      },
-      enrolledId:{
-        type: Sequelize.INTEGER
-      },
-      CourEnrolledId:{
-        type: Sequelize.INTEGER
       }
     });
   },
