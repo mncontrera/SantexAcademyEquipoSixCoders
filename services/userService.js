@@ -1,7 +1,8 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const fs = require('fs/promises');
+const path = require('path');
 const db = require('../models');
-const { arrayBufferToBase64, readFile } = require('../helpers/handlerArrayBufer');
 
 const saltRound = 10;
 
@@ -15,8 +16,7 @@ async function create(name, lastname, email, password, rolId, image) {
     rolId,
     image,
   });
-  const logedUser = user;
-  return logedUser;
+  return user;
 }
 
 async function login(email, password) {
@@ -31,38 +31,47 @@ async function login(email, password) {
   if (!checkPassword) {
     throw new Error('Contrasena incorrecta');
   }
+  let imageBuffer = null;
+  if (user.image) {
+    const imagePath = path.join(__dirname, '../resources/assets/uploads', user.image);
+    imageBuffer = await fs.readFile(imagePath);
+  }
+
   const token = jwt.sign({
     id: user.id,
     name: user.name,
   }, 'claveSixCoders');
-
-  const imageBuffer = await readFile(user.image);
-  const imageByteArray = new Uint8Array(imageBuffer);
-  const base64Image = arrayBufferToBase64(imageByteArray);
 
   return {
     accessToken: token,
     user: {
       id: user.id,
       name: user.name,
-      image: `data:image/jpeg;base64,${base64Image}`,
+      image: imageBuffer,
     },
   };
 }
 
 async function edit(id, name, lastname, email, password, rolId, image) {
   const passwordHash = await bcrypt.hash(password, saltRound);
+
   const user = await db.User.findByPk(id);
 
   if (!user) {
-    throw new Error(JSON.stringify('Usuario no encontrado'));
+    throw new Error('Usuario no encontrado');
   }
   const updatedFields = {
+
     name,
+
     lastname,
+
     email,
+
     password: passwordHash,
+
     rolId,
+
     image,
   };
   await user.update(updatedFields);
