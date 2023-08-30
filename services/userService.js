@@ -52,9 +52,7 @@ async function login(email, password) {
   };
 }
 
-async function edit(id, name, lastname, email, password, rolId, image) {
-  const passwordHash = await bcrypt.hash(password, saltRound);
-
+async function edit(id, name, lastname, image) {
   const user = await db.User.findByPk(id);
 
   if (!user) {
@@ -65,12 +63,6 @@ async function edit(id, name, lastname, email, password, rolId, image) {
     name,
 
     lastname,
-
-    email,
-
-    password: passwordHash,
-
-    rolId,
 
     image,
   };

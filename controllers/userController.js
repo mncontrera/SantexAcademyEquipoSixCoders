@@ -32,11 +32,11 @@ async function editUser(req, res) {
 
     const { id } = req.params;
     const {
-      name, lastname, email, password, rolId,
+      name, lastname,
     } = req.body;
     const image = req.file.originalname;
 
-    await userService.edit(id, name, lastname, email, password, rolId, image);
+    await userService.edit(id, name, lastname, image);
     return res.status(200).send('Usuario editado correctamente');
   } catch (error) {
     return res.status(500).send({

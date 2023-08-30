@@ -34,7 +34,7 @@ const validateLogin = [
     .isEmail(),
   body('password')
     .exists()
-    // .isAlphanumeric()
+    .isAlphanumeric()
     .isLength({ min: 5, max: 9 }),
   (req, res, next) => {
     validateResults(req, res, next);
@@ -42,14 +42,10 @@ const validateLogin = [
 ];
 
 const validateEdit = [
-  body('email')
-    .exists()
-    .isEmail(),
-  body('password')
-    .isAlphanumeric(),
-  body('rolId')
-    .exists()
-    .isNumeric(),
+  body('name')
+    .exists(),
+  body('lastname')
+    .exists(),
   (req, res, next) => {
     validateResults(req, res, next);
   },
