@@ -19,7 +19,7 @@
           </div>
         </div>
         <div class="campos-del-formulario">
-          <form [formGroup]="formLogin" (ngSubmit)="saveForm($event)">
+          <form [formGroup]="formLogin" (ngSubmit)="sendLoginForm($event)">
             <mat-form-field [floatLabel]="'always'" class="email-label correo" hideRequiredMarker="">
               <mat-label class="mat-label-email">Correo electrónico</mat-label>
               <input

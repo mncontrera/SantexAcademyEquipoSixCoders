@@ -1,0 +1,96 @@
+
+<div id="profile-section">
+  <div class="profile-container">
+    <div class="side-nav">
+      <div class="display-basic-info">
+        <div class="profile-image">
+          <img id="image" [src]="currentImage" alt="profilec-image" height="200px">
+          <!-- <button
+            class="someClass"
+            [disabled]="!selectedFiles"
+            (click)="upload()"
+          >
+            Upload
+          </button> -->
+        </div>
+        <div class="names">
+          <p>{{userName}} {{userLastname}}</p>
+        </div>
+      </div>
+      <div class="options">
+        <ul>
+          <li>
+            <a >Ver pefil</a>
+          </li>
+          <li>
+            <a >Editar pefil</a>
+          </li>
+          <li>
+            <a >cerrar sesión</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="profile-info">
+      <div class="profile-header">
+        <div class="title">
+          <p>Perfil público</p>
+        </div>
+        <div class="subtitle">
+          Añade información sobre ti
+        </div>
+      </div>
+      <div class="profile-form">
+        <form [formGroup]="profileForm" (ngSubmit)="editProfile2($event)">
+          <div class="label-and-input">
+            <label for="inputId" class="input-label">Nombre</label>
+            <input
+            type="text"
+            placeholder="Ej: John"
+            formControlName="name"
+            class="inputForm"
+            id="inputId"
+            >
+            <div class="error-message" [class.isInvalid]="nameField?.invalid && nameField?.touched">
+              <p>Nombre requerido</p>
+            </div>
+
+          </div>
+
+          <div class="label-and-input">
+            <label class="input-label">Apellido</label>
+            <input
+            type="text"
+            placeholder="Ej: Doe"
+            formControlName="lastname"
+            class="inputForm"
+            >
+            <div class="error-message" [class.isInvalid]="lastnameField?.invalid && lastnameField?.touched">
+              <p>Apellido requerido</p>
+            </div>
+          </div>
+
+          <div class="label-and-input">
+            <label class="input-label">Teléfono</label>
+            <input
+            type="text"
+            placeholder="Ej: +54 3516548259"
+            formControlName="phone"
+            class="inputForm"
+            >
+            <div class="error-message" [class.isInvalid]="phoneField?.invalid && phoneField?.touched">
+              <p>Teléfono requerido</p>
+            </div>
+          </div>
+
+          <label for="someInput">
+            <input type="file" (change)="onSelectFile($event);onUpload2($event)"  id="someInput" />
+          </label>
+
+          <button mat-raised-button color="primary" class="custom-btn">Guardar</button>
+          <p>formulario valido? {{allFields.valid}}
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

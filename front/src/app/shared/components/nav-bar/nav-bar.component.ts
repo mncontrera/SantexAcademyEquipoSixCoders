@@ -1,6 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'src/app/core/services/user/login.service';
 import { User } from 'src/app/core/interfaces/user-interface';
+import { FilesService } from 'src/app/core/services/user/files.service';
+import { DomSanitizer } from '@angular/platform-browser';
+
+export interface File {
+  originalname: string,
+  location: string,
+  filename: string
+}
 
 @Component({
   selector: 'app-nav-bar',
@@ -9,27 +17,68 @@ import { User } from 'src/app/core/interfaces/user-interface';
 })
 export class NavBarComponent implements OnInit {
 
-  userLogin:boolean = false;
-  userData?:User;
+  userIsLogued?:boolean;
+  userProfile?:User;
+  userName:any;
 
-  constructor(private loginService: LoginService) { }
+  // imgRta = '';
+  imgRta:any;
+  public files: any = [];
+  previsualization: string = "";
+  loading?: boolean;
+
+  constructor(
+    private loginService: LoginService,
+    private filesService: FilesService,
+    private sanitizer: DomSanitizer
+    ) { }
 
   ngOnInit(): void {
+
     this.loginService.currentUserLogin.subscribe({
       next: (logedIn) => {
-        this.userLogin = logedIn;
+        this.userIsLogued = logedIn;
       }
     })
+
+    if(localStorage.getItem('token')){
+      console.log("hay token")
+      this.userIsLogued = true;
+    }else{
+      console.log("no hay token")
+    }
 
     this.loginService.currentUserData.subscribe({
       next: (loguedUserData) => {
-        this.userData = loguedUserData;
+        this.userName = loguedUserData.user.name;
       }
     })
+
+    if(this.userIsLogued){
+      this.userName = localStorage.getItem('userName')
+    }
+
   }
 
   logOut() {
-    this.userLogin = !this.userLogin;
+    this.userIsLogued = !this.userIsLogued;
+    localStorage.removeItem('token');
+    localStorage.removeItem('userName');
+    localStorage.removeItem('imagebase64');
+    localStorage.removeItem('userLastname');
+    localStorage.removeItem('userId');
+  }
+
+  // toProfile() { // peticion para testear el acceso a rutas protegidas con el envio del token
+  //   this.loginService.profile().subscribe({
+  //     next: (profileResponse) => {
+  //       console.log(profileResponse)
+  //     }
+  //   })
+  // }
+
+  toProfile() {
+    console.log("Bienvenido a la pagina de perfil de usuario.")
   }
 
 }
