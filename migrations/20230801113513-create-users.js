@@ -46,6 +46,9 @@ module.exports = {
       },
       updatedAt: {
         type: Sequelize.DATE
+      },
+      deleted:{
+        type: Sequelize.INTEGER
       }
     });
   },

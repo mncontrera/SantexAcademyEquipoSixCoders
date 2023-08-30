@@ -45,4 +45,12 @@ async function editUser(req, res) {
   }
 }
 
-module.exports = { loginUser, createUser, editUser };
+async function deleteUserController(req, res) {
+  const { id } = req.params;
+  await userService.deleteUser(id);
+  return res.status(200).send(`El usuario ${id} fue eliminado correctamente`);
+}
+
+module.exports = {
+  loginUser, createUser, editUser, deleteUserController,
+};

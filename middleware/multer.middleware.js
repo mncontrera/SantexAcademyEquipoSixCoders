@@ -20,7 +20,9 @@ const uploadFile = multer({
 
 const loginUploadFile = multer({
   storage: multer.memoryStorage(),
-  limits: { fileSize: maxSize },
+  limits: {
+    fileSize: maxSize,
+  },
 }).single('image');
 
 const loginUploadFileMiddleware = util.promisify(loginUploadFile);

@@ -31,6 +31,9 @@ async function login(email, password) {
   if (!checkPassword) {
     throw new Error('Contrasena incorrecta');
   }
+  if (user.deleted === 1) {
+    throw new Error('Usuario no encontrado');
+  }
   let imageBuffer = null;
   if (user.image) {
     const imagePath = path.join(__dirname, '../resources/assets/uploads', user.image);
@@ -77,5 +80,15 @@ async function edit(id, name, lastname, email, password, rolId, image) {
   await user.update(updatedFields);
   return user;
 }
+async function deleteUser(id) {
+  const user = await db.User.findByPk(id);
+  const deletedFields = {
+    deleted: 1,
+  };
+  await user.update(deletedFields);
+  return user;
+}
 
-module.exports = { login, create, edit };
+module.exports = {
+  login, create, edit, deleteUser,
+};
