@@ -3,22 +3,22 @@ const { validateResults } = require('../helpers/validateHelpers');
 
 const validateCreate = [
   body('name')
-    .exists()
     .not()
     .isEmpty(),
   body('lastname')
-    .exists()
+    .not()
     .isEmpty(),
   body('email')
-    .exists()
+    .not()
     .isEmpty()
     .isEmail(),
   body('password')
-    .exists()
+    .not()
+    .isEmpty()
     .isAlphanumeric()
     .isLength({ min: 5, max: 9 }),
   body('rolId')
-    .exists()
+    .not()
     .isEmpty()
     .isNumeric(),
   (req, res, next) => {
@@ -28,12 +28,12 @@ const validateCreate = [
 
 const validateLogin = [
   body('email')
-    .exists()
     .not()
     .isEmpty()
     .isEmail(),
   body('password')
-    .exists()
+    .not()
+    .isEmpty()
     .isAlphanumeric()
     .isLength({ min: 5, max: 9 }),
   (req, res, next) => {
@@ -43,9 +43,11 @@ const validateLogin = [
 
 const validateEdit = [
   body('name')
-    .exists(),
+    .not()
+    .isEmpty(),
   body('lastname')
-    .exists(),
+    .not()
+    .isEmpty(),
   (req, res, next) => {
     validateResults(req, res, next);
   },
