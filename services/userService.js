@@ -24,9 +24,6 @@ async function login(email, password) {
     where: { email },
   });
 
-  if (!user) {
-    throw new Error('usuario no encontrado');
-  }
   const checkPassword = await bcrypt.compare(password, user.password);
   if (!checkPassword) {
     throw new Error('Contrasena incorrecta');
