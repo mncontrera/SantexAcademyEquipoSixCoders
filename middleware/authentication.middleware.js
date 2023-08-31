@@ -1,15 +1,12 @@
 const passport = require('passport');
 
 const isAuthenticated = (req, res, next) => {
-    passport.authenticate('jwt', { session: false }, (err, user, info) => {
-        console.log(info)
-        if (err || !user) {
-            const error = new Error(JSON.stringify('Usuario no autorizado'))
+  passport.authenticate('jwt', { session: false }, (err, user) => {
+    if (err || !user) {
+      next(err);
+    }
+    next();
+  })(req, res, next);
+};
 
-            return next(error)
-        }
-        next()
-    })(req, res, next)
-}
-
-module.exports = { isAuthenticated }
+module.exports = { isAuthenticated };

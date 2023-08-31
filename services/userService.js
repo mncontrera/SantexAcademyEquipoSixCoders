@@ -24,6 +24,10 @@ async function login(email, password) {
     where: { email },
   });
 
+  if (!user) {
+    throw new Error('Correo electrónico no encontrado');
+  }
+
   const checkPassword = await bcrypt.compare(password, user.password);
   if (!checkPassword) {
     throw new Error('Contrasena incorrecta');
@@ -52,17 +56,16 @@ async function login(email, password) {
   };
 }
 
-async function edit(id, name, lastname, image) {
+async function edit(id, name, lastname, telephone, image) {
   const user = await db.User.findByPk(id);
 
-  if (!user) {
-    throw new Error('Usuario no encontrado');
-  }
   const updatedFields = {
 
     name,
 
     lastname,
+
+    telephone,
 
     image,
   };
