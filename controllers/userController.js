@@ -3,6 +3,7 @@ const multerMiddleware = require('../middleware/multer.middleware');
 const {
   nameValidation, lastnameValidation, telephoneValidation,
   emailValidation, passwordValidation, rolValidation,
+  validateLoginEmail,
 } = require('../helpers/validate.helpers');
 const { checkValidationResult } = require('../middleware/validation.middleware');
 
@@ -32,18 +33,16 @@ async function createUser(req, res) {
 async function loginUser(req, res, next) {
   try {
     await Promise.all([
-      emailValidation.run(req),
+      validateLoginEmail.run(req),
       passwordValidation.run(req),
     ]);
 
     checkValidationResult(req, res, async () => {
       const { email, password } = req.body;
-
       try {
-        const result = await userService.login(email, password);
-        return res.status(200).json(result);
+        await userService.login(email, password);
       } catch (error) {
-        return res.status(401).json({ error: 'Error al crear usuario' });
+        next(error);
       }
     });
   } catch (error) {
@@ -56,8 +55,6 @@ async function editUser(req, res, next) {
     await multerMiddleware.uploadFileMiddleware(req, res);
 
     await Promise.all([
-      nameValidation.run(req),
-      lastnameValidation.run(req),
       telephoneValidation.run(req),
     ]);
 
@@ -82,14 +79,24 @@ async function editUser(req, res, next) {
 
 async function deleteUserController(req, res) {
   const { id } = req.params;
+  const { deleted } = req.body;
   try {
-    await userService.deleteUser(id);
+    await userService.deleteUser(id, deleted);
     return res.status(200).json({ message: `El usuario ${id} fue eliminado correctamente` });
   } catch (error) {
     return res.status(500).json({ error: 'Error al eliminar el usuario' });
   }
 }
 
+async function userProfile(req, res, next) {
+  const { email } = req.body;
+  try {
+    await userService.profile(email);
+  } catch (error) {
+    next(error);
+  }
+}
+
 module.exports = {
-  createUser, loginUser, editUser, deleteUserController,
+  createUser, loginUser, editUser, deleteUserController, userProfile,
 };

@@ -23,7 +23,9 @@ async function login(email, password) {
   const user = await db.User.findOne({
     where: { email },
   });
-
+  if (user.deleted === 1) {
+    throw new Error('Usuario no encontrado');
+  }
   if (!user) {
     throw new Error('Correo electrónico no encontrado');
   }
@@ -32,9 +34,7 @@ async function login(email, password) {
   if (!checkPassword) {
     throw new Error('Contrasena incorrecta');
   }
-  if (user.deleted === 1) {
-    throw new Error('Usuario no encontrado');
-  }
+
   let imageBuffer = null;
   if (user.image) {
     const imagePath = path.join(__dirname, '../resources/assets/uploads', user.image);
@@ -72,15 +72,49 @@ async function edit(id, name, lastname, telephone, image) {
   await user.update(updatedFields);
   return user;
 }
-async function deleteUser(id) {
+async function deleteUser(id, deleted) {
   const user = await db.User.findByPk(id);
+
   const deletedFields = {
-    deleted: 1,
+
+    deleted,
   };
   await user.update(deletedFields);
   return user;
 }
 
+async function profile(email) {
+  const user = await db.User.findOne({
+    where: { email },
+  });
+  if (!user) {
+    throw new Error('Correo electrónico no encontrado');
+  }
+
+  let imageBuffer = null;
+  if (user.image) {
+    const imagePath = path.join(__dirname, '../resources/assets/uploads', user.image);
+    imageBuffer = await fs.readFile(imagePath);
+  }
+
+  const token = jwt.sign({
+    id: user.id,
+    name: user.name,
+  }, 'claveSixCoders');
+
+  return {
+    accessToken: token,
+    user: {
+      id: user.id,
+      name: user.name,
+      image: imageBuffer,
+      telephone: user.telephone,
+      lastname: user.lastname,
+
+    },
+  };
+}
+
 module.exports = {
-  login, create, edit, deleteUser,
+  login, create, edit, deleteUser, profile,
 };
