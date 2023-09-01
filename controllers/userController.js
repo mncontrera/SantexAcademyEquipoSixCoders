@@ -40,7 +40,8 @@ async function loginUser(req, res, next) {
     checkValidationResult(req, res, async () => {
       const { email, password } = req.body;
       try {
-        await userService.login(email, password);
+        const result = await userService.login(email, password);
+        res.status(200).json(result);
       } catch (error) {
         next(error);
       }
@@ -91,7 +92,8 @@ async function deleteUserController(req, res) {
 async function userProfile(req, res, next) {
   const { email } = req.body;
   try {
-    await userService.profile(email);
+    const result = await userService.profile(email);
+    res.status(200).json(result);
   } catch (error) {
     next(error);
   }

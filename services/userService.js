@@ -97,13 +97,8 @@ async function profile(email) {
     imageBuffer = await fs.readFile(imagePath);
   }
 
-  const token = jwt.sign({
-    id: user.id,
-    name: user.name,
-  }, 'claveSixCoders');
-
   return {
-    accessToken: token,
+
     user: {
       id: user.id,
       name: user.name,
