@@ -69,14 +69,6 @@ export class NavBarComponent implements OnInit {
     localStorage.removeItem('userId');
   }
 
-  // toProfile() { // peticion para testear el acceso a rutas protegidas con el envio del token
-  //   this.loginService.profile().subscribe({
-  //     next: (profileResponse) => {
-  //       console.log(profileResponse)
-  //     }
-  //   })
-  // }
-
   toProfile() {
     console.log("Bienvenido a la pagina de perfil de usuario.")
   }

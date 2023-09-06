@@ -59,6 +59,7 @@ export class LoginComponent implements OnInit{
 
           localStorage.setItem('userId', userLoginData.user.id);
           localStorage.setItem('userLastname', userLoginData.user.lastname);
+          localStorage.setItem('userEmail', userLoginData.user.email);
         },
         error: (errorData) => {
           console.log("Error en la peticion")
@@ -84,7 +85,7 @@ export class LoginComponent implements OnInit{
         binary += String.fromCharCode( bytes[ i ] );
     }
     return window.btoa( binary );
-}
+  }
 
   get userData():Observable<any>{
     return this.currentUserData.asObservable();

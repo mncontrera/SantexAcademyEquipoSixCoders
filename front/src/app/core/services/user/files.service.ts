@@ -31,4 +31,9 @@ export class FilesService {
     return this.apiService.put<any>(`${this.baseUrl}${userId}`, dto);
   }
 
+  getUserProfile(profileData: HttpParams){
+    let userId = localStorage.getItem('userId');
+    return this.apiService.get<any>(`/api/user/profile/${userId}`, profileData);
+  }
+
 }

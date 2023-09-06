@@ -75,20 +75,19 @@
             <input
             type="text"
             placeholder="Ej: +54 3516548259"
-            formControlName="phone"
+            formControlName="telephone"
             class="inputForm"
             >
-            <div class="error-message" [class.isInvalid]="phoneField?.invalid && phoneField?.touched">
+            <div class="error-message" [class.isInvalid]="telephoneField?.invalid && telephoneField?.touched">
               <p>Teléfono requerido</p>
             </div>
           </div>
 
-          <label for="someInput">
-            <input type="file" (change)="onSelectFile($event);onUpload2($event)"  id="someInput" />
-          </label>
+          <input type="file" (change)="onSelectFile($event);onUpload2($event)"  id="imageInput" style="display: none;" />
+          <label for="imageInput" class="imageInput">Elegir imagen</label>
 
           <button mat-raised-button color="primary" class="custom-btn">Guardar</button>
-          <p>formulario valido? {{allFields.valid}}
+          <!-- <p>formulario valido? {{allFields.valid}} -->
         </form>
       </div>
     </div>

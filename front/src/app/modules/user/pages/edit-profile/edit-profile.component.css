@@ -54,6 +54,16 @@
         & form{
           display: flex;
           flex-direction: column;
+          & .imageInput{
+            border: 1px solid #9E896A;
+            width: 25%;
+            padding: 4px;
+            text-align: center;
+            border-radius: 32px;
+          }
+          & .imageInput:hover{
+            cursor: pointer;
+          }
           & button{
             width: 34%;
             align-self: center;
