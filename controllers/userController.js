@@ -64,7 +64,7 @@ async function editUser(req, res, next) {
       const image = req.file ? req.file.originalname : null;
       const {
         name, lastname, telephone,
-      } = req.body;
+      } = JSON.parse(req.body.data);
 
       try {
         await userService.edit(id, name, lastname, telephone, image);
@@ -90,9 +90,9 @@ async function deleteUserController(req, res) {
 }
 
 async function userProfile(req, res, next) {
-  const { email } = req.body;
+  const { id } = req.params;
   try {
-    const result = await userService.profile(email);
+    const result = await userService.profile(id);
     res.status(200).json(result);
   } catch (error) {
     next(error);

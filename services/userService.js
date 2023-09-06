@@ -51,6 +51,8 @@ async function login(email, password) {
     user: {
       id: user.id,
       name: user.name,
+      lastname: user.lastname,
+      email: user.email,
       image: imageBuffer,
     },
   };
@@ -83,10 +85,9 @@ async function deleteUser(id, deleted) {
   return user;
 }
 
-async function profile(email) {
-  const user = await db.User.findOne({
-    where: { email },
-  });
+async function profile(id) {
+  const user = await db.User.findByPk(id);
+
   if (!user) {
     throw new Error('Correo electrónico no encontrado');
   }
@@ -105,7 +106,6 @@ async function profile(email) {
       image: imageBuffer,
       telephone: user.telephone,
       lastname: user.lastname,
-
     },
   };
 }
