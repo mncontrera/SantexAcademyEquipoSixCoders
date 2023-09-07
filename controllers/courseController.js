@@ -22,6 +22,57 @@ async function createCourse(req, res, next) {
   }
 }
 
+async function getCourse(req, res, next) {
+  const { id } = req.params;
+  try {
+    const result = await courseService.getCourse(id);
+    res.status(200).json(result);
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function getAllCourses(req, res, next) {
+  try {
+    const result = await courseService.getAllCourses();
+    res.status(200).json(result);
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function editCourse(req, res, next) {
+  try {
+    await multerMiddleware.uploadFileMiddleware(req, res);
+
+    const { id } = req.params;
+    const image = req.file ? req.file.originalname : null;
+    const {
+      title, description, price, startDate, endDate,
+    } = JSON.parse(req.body.data);
+
+    try {
+      await courseService.editCourse(id, title, description, price, startDate, endDate, image);
+      return res.status(200).json({ message: 'Curso editado correctamente' });
+    } catch (error) {
+      return res.status(500).json({ error: 'Error al editar el curso' });
+    }
+  } catch (error) {
+    next(error);
+    return error;
+  }
+}
+
+async function deleteCourse(req, res) {
+  const { id } = req.params;
+  try {
+    await courseService.deleteCourse(id);
+    return res.status(200).json({ message: `El curso ${id} fue eliminado correctamente` });
+  } catch (error) {
+    return res.status(500).json({ error: 'Error al eliminar el curso' });
+  }
+}
+
 module.exports = {
-  createCourse,
+  createCourse, getCourse, getAllCourses, editCourse, deleteCourse,
 };

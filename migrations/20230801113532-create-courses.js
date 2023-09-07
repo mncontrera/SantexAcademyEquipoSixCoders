@@ -12,22 +12,25 @@ module.exports = {
       title: {
         type: Sequelize.STRING
       },
-      startDate: {
-        type: Sequelize.DATE
-      },
-      endDate: {
-        type: Sequelize.DATE
-      },
       description: {
         type: Sequelize.STRING
       },
       price: {
         type: Sequelize.STRING
       },
+      startDate: {
+        type: Sequelize.DATE
+      },
+      endDate: {
+        type: Sequelize.DATE
+      },
       image: { 
         type: Sequelize.STRING,
         onDelete:'CASCADE',
         onUpdate:'CASCADE'
+      },
+      deleted:{
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
@@ -36,7 +39,7 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
-      }
+      },
     });
   },
   async down(queryInterface, Sequelize) {
