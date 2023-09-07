@@ -18,6 +18,17 @@ module.exports = {
       endDate: {
         type: Sequelize.DATE
       },
+      description: {
+        type: Sequelize.STRING
+      },
+      price: {
+        type: Sequelize.STRING
+      },
+      image: { 
+        type: Sequelize.STRING,
+        onDelete:'CASCADE',
+        onUpdate:'CASCADE'
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

@@ -11,9 +11,6 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      // Courses.hasMany(models.Enrolled, {
-      //   foreignKey: 'courseId',
-      // });
 
       models.Enrolled.belongsTo(Courses, {
         foreignKey: 'courseId',
@@ -24,9 +21,12 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     startDate: DataTypes.DATE,
     endDate: DataTypes.DATE,
+    description: DataTypes.STRING,
+    price: DataTypes.STRING,
+    image: DataTypes.STRING,
   }, {
     sequelize,
-    modelName: 'Cours',
+    modelName: 'Course',
   });
   return Courses;
 };
