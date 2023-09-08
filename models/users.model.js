@@ -29,6 +29,7 @@ module.exports = (sequelize, DataTypes) => {
     rolId: DataTypes.INTEGER,
     image: DataTypes.STRING,
     telephone: DataTypes.STRING,
+    deleted: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'User',
