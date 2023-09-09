@@ -1,18 +1,18 @@
 const Express = require('express');
 const userRoutes = require('./userRoutes');
-const filesRoutes = require('./filesRoutes');
 
 // Middlewares:
 const rootPath = require('../middleware/root_path.middleware');
 const errors = require('../middleware/error_handler.middleware');
+const { initializeAuthetication } = require('../auth/auth');
 
+initializeAuthetication();
 const app = Express();
 
 // Rutas
 
 // use=
 app.use('/user', userRoutes);
-app.use('/files', filesRoutes);
 
 app.use('/ping', (req, res) => {
   res.json({
