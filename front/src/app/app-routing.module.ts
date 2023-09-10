@@ -16,7 +16,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'user/signup'
+    redirectTo: 'user/edit-profile'
   }
 ];
 

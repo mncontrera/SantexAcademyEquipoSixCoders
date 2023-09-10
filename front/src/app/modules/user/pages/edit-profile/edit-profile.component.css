@@ -1,0 +1,165 @@
+#profile-section{
+  margin-top: 140px;
+  margin-bottom: 200px;
+
+  & .profile-container{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    margin: 0px 120px;
+    border: 1px solid black;
+    border-radius: 8px;
+
+    & .side-nav{
+      /* border:1px solid blue; */
+      border-right: 1px solid black;
+      padding: 20px 40px;
+      grid-area: 1 / 1 / 6 / 2;
+
+      & .profile-image{
+        text-align: center;
+      }
+      & .names{
+        text-align: center;
+      }
+    }
+
+    & .profile-info{
+      /* border:1px solid black; */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      /* padding: 20px 40px; */
+      grid-area: 1 / 2 / 6 / 6;
+
+      & .profile-header{
+        border-bottom: 1px solid;
+        width: 100%;
+        padding: 20px 10px;
+        max-width: -webkit-fill-available;
+        text-align: center;
+        margin-bottom: 40px;
+
+        & .title{
+          font-size: 24px;
+        }
+      }
+
+      & .profile-form{
+        /* padding: 40px 1px; */
+        margin-bottom: 40px;
+        width: 50%;
+        & form{
+          display: flex;
+          flex-direction: column;
+          & .imageInput{
+            border: 1px solid #9E896A;
+            width: 25%;
+            padding: 4px;
+            text-align: center;
+            border-radius: 32px;
+          }
+          & .imageInput:hover{
+            cursor: pointer;
+          }
+          & button{
+            width: 34%;
+            align-self: center;
+            border-radius: 32px;
+            margin-top: 10px;
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+}
+
+#profile-section .profile-container .profile-info .profile-form{
+  :host{
+    ::ng-deep{
+      .custom-btn{
+        border: red !important;
+        color: red !important;
+      }
+    }
+  }
+}
+
+:host{
+  ::ng-deep mat-raised-button{
+    .custom-btn{
+      border: red !important;
+      color: red !important;
+      height: 150px;
+    }
+  }
+}
+
+::ng-deep .mat-form-field {
+  .mat-input-element {
+      color: rgb(44, 173, 44);
+      border: 1px solid #9E896A;
+      padding: 10px;
+      border-radius: 32px;
+  }
+
+  .mat-form-field-underline{
+    display: none;
+  }
+
+  .mat-form-field-wrapper{
+    padding-bottom: 0px;
+  }
+}
+
+/* #profile-section .profile-container{
+  & .profile-form{
+    & .mat-form-field-label-wrapper{
+      overflow: inherit;
+      & .mat-form-field-label{
+
+      }
+    }
+    & .mat-label{
+      font-size: 24px;
+      margin-top: -10px !important;
+    }
+  }
+} */
+
+#profile-section .profile-container {
+  & .profile-form {
+    & .label-and-input{
+      & .input-label{
+        display: block;
+        padding-bottom: 3px;
+        font-size: 18px;
+      }
+      & .inputForm{
+        border-radius: 32px;
+        border: 1px solid #9E896A;
+        padding: 10px;
+        width: 100%;
+      }
+    }
+    & .mat-form-field-infix{
+      border: none;
+      padding: 0px;
+    }
+    & .error-message{
+      color: red;
+      margin-bottom: 4px;
+      visibility: hidden;
+      & p{
+        padding-top: 3px;
+        margin: 0px;
+      }
+    }
+    & .isInvalid{
+      visibility: visible;
+    }
+  }
+}
