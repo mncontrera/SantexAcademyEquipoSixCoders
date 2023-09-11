@@ -84,6 +84,14 @@ async function deleteCourse(id) {
   return course;
 }
 
+async function subscribeToCourse(userId, courseId) {
+  const subscription = await db.Enrolled.create({
+    userId,
+    courseId,
+  });
+  return subscription;
+}
+
 module.exports = {
-  create, getCourse, getAllCourses, editCourse, deleteCourse,
+  create, getCourse, getAllCourses, editCourse, deleteCourse, subscribeToCourse,
 };

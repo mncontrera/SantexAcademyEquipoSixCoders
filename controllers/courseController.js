@@ -73,6 +73,24 @@ async function deleteCourse(req, res) {
   }
 }
 
+async function subscribeToCourse(req, res, next) {
+  try {
+    const {
+      userId, courseId,
+    } = req.body;
+
+    try {
+      await courseService.subscribeToCourse(userId, courseId);
+      return res.status(200).json({ message: 'Se ha subscripto a curso correctamente.' });
+    } catch (error) {
+      return res.status(500).json({ error: 'Error en la subscripción al curso.' });
+    }
+  } catch (error) {
+    next(error);
+    return error;
+  }
+}
+
 module.exports = {
-  createCourse, getCourse, getAllCourses, editCourse, deleteCourse,
+  createCourse, getCourse, getAllCourses, editCourse, deleteCourse, subscribeToCourse,
 };
