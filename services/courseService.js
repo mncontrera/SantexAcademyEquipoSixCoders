@@ -1,5 +1,6 @@
 const fs = require('fs/promises');
 const path = require('path');
+const { QueryTypes } = require('sequelize');
 const db = require('../models');
 
 async function create(title, description, price, startDate, endDate, image) {
@@ -92,6 +93,16 @@ async function subscribeToCourse(userId, courseId) {
   return subscription;
 }
 
+async function getEnrolledCourses(userId) {
+  const Courses = await db.sequelize.query('SELECT c.title, c.description FROM Enrolleds JOIN Courses c ON Enrolleds.courseId = c.id JOIN Users u ON Enrolleds.userId = u.id WHERE Enrolleds.userId = :userId;',
+    {
+      replacements: { userId },
+      type: QueryTypes.SELECT,
+    });
+  // console.log(JSON.stringify(Courses, null, 2));
+  return Courses;
+}
+
 module.exports = {
-  create, getCourse, getAllCourses, editCourse, deleteCourse, subscribeToCourse,
+  create, getCourse, getAllCourses, editCourse, deleteCourse, subscribeToCourse, getEnrolledCourses,
 };

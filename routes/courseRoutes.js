@@ -10,5 +10,6 @@ router.get('/getAllCourses', courseController.getAllCourses);
 router.put('/editCourse/:id', courseController.editCourse);
 router.delete('/deleteCourse/:id', courseController.deleteCourse);
 router.post('/subscribe/', courseController.subscribeToCourse);
+router.get('/getEnrolledCourses/:id', courseController.getEnrolledCourses);
 
 module.exports = router;

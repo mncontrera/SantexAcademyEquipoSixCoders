@@ -91,6 +91,27 @@ async function subscribeToCourse(req, res, next) {
   }
 }
 
+async function getEnrolledCourses(req, res, next) {
+  try {
+    const { id } = req.params;
+    try {
+      const result = await courseService.getEnrolledCourses(id);
+      return res.status(200).json(result);
+    } catch (error) {
+      return res.status(500).json({ error: 'Error en la peticion de cursos.' });
+    }
+  } catch (error) {
+    next(error);
+    return error;
+  }
+}
+
 module.exports = {
-  createCourse, getCourse, getAllCourses, editCourse, deleteCourse, subscribeToCourse,
+  createCourse,
+  getCourse,
+  getAllCourses,
+  editCourse,
+  deleteCourse,
+  subscribeToCourse,
+  getEnrolledCourses,
 };
