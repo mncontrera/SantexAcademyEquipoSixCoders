@@ -17,18 +17,22 @@ export class CreateCourseComponent implements OnInit {
 
   profileImg:any = "data:image/jpeg;base64,";
 
+  teacherId:any;
+
   constructor(
     private uFormBuilder: UntypedFormBuilder,
     private router: Router,
     private fileService: FilesService,
     private apiService: ApiService,
   ) {
+    this.teacherId = localStorage.getItem('userId');
     this.courseForm = this.uFormBuilder.group({
       title: [``,[Validators.required, Validators.maxLength(150)]],
       description: [``,[Validators.required, Validators.maxLength(300),]],
       startDate: ['',[Validators.required,]],
       endDate: ['',[]],
       price: ['',[Validators.required,]],
+      userId: [`${this.teacherId}`],
     })
    }
 
