@@ -78,11 +78,10 @@ async function editUser(req, res, next) {
   }
 }
 
-async function deleteUserController(req, res) {
+async function deleteUser(req, res) {
   const { id } = req.params;
-  const { deleted } = req.body;
   try {
-    await userService.deleteUser(id, deleted);
+    await userService.deleteUser(id);
     return res.status(200).json({ message: `El usuario ${id} fue eliminado correctamente` });
   } catch (error) {
     return res.status(500).json({ error: 'Error al eliminar el usuario' });
@@ -100,5 +99,5 @@ async function userProfile(req, res, next) {
 }
 
 module.exports = {
-  createUser, loginUser, editUser, deleteUserController, userProfile,
+  createUser, loginUser, editUser, deleteUser, userProfile,
 };

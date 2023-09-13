@@ -42,7 +42,6 @@ export class SignUpComponent implements OnInit {
   sendForm(event: any) {
     if(this.formSignUp.valid){
       console.log(this.formSignUp.value)
-      console.log("acontinuacion debe estar la peticion post");
 
       this.data = this.formSignUp.value as SignUpReq;
 

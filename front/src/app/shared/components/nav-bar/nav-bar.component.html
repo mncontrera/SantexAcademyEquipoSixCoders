@@ -18,13 +18,12 @@
       </li>
     </ul>
     <div class="botones">
+      <button mat-raised-button color="accent" routerLink="/user/login" *ngIf="!userIsLogued">Entrar</button>
+      <button mat-raised-button color="primary" class="registro" *ngIf="!userIsLogued" routerLink="/user/signup" >Registrarse <img src="../../../../assets/2124045_arrow_essential_app_up_icon.svg" alt=""></button>
 
-      <span *ngIf="userLogin" class="userLogued">Hola {{userData?.name}}</span>
-      <button mat-raised-button color="accent" routerLink="/user/login" *ngIf="!userLogin">Entrar</button>
-      <button mat-raised-button color="primary" class="registro" *ngIf="!userLogin" routerLink="/user/signup" >Registrarse <img src="../../../../assets/2124045_arrow_essential_app_up_icon.svg" alt=""></button>
-      <button mat-raised-button color="accent" routerLink="/dashboard" *ngIf="userLogin">A perfil</button>
-      <button mat-raised-button color="primary" *ngIf="userLogin" class="registro" (click)="logOut()" routerLink="/home">Salir <img src="../../../../assets/2124045_arrow_essential_app_up_icon.svg" alt=""></button>
-
+      <span *ngIf="userIsLogued" class="userLogued">Hola {{userName}}</span>
+      <button mat-raised-button color="accent" routerLink="/user/edit-profile" *ngIf="userIsLogued" (click)="toProfile()">A perfil</button>
+      <button mat-raised-button color="primary" *ngIf="userIsLogued" class="registro" (click)="logOut()" routerLink="/home">Salir <img src="../../../../assets/2124045_arrow_essential_app_up_icon.svg" alt=""></button>
     </div>
   </div>
 </mat-toolbar>

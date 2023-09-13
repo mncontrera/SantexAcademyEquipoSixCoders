@@ -94,6 +94,14 @@
             padding: 10px 12px;
           }
         } */
+        & button{
+          width: 40%;
+          margin-top: 10px;
+          border-radius: 33px;
+          align-self: end;
+          padding: 4px 0px;
+          /* font-size: 16px; */
+        }
       }
 
     }

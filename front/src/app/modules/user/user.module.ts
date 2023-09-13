@@ -8,13 +8,15 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule, FloatLabelType } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { AccountCreatedComponent } from './pages/account-created/account-created.component';
+import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
 
 
 @NgModule({
   declarations: [
     LoginComponent,
     SignUpComponent,
-    AccountCreatedComponent
+    AccountCreatedComponent,
+    EditProfileComponent
   ],
   imports: [
     CommonModule,
