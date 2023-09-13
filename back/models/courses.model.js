@@ -18,15 +18,29 @@ module.exports = (sequelize, DataTypes) => {
       models.Enrolled.belongsTo(Courses, {
         foreignKey: 'courseId',
       });
+
+      models.User.hasMany(Courses, {
+        foreignKey: 'userId',
+      });
+
+      Courses.belongsTo(models.User, {
+        foreignKey: 'userId',
+      });
     }
   }
   Courses.init({
     title: DataTypes.STRING,
     startDate: DataTypes.DATE,
     endDate: DataTypes.DATE,
+    description: DataTypes.STRING,
+    price: DataTypes.STRING,
+    image: DataTypes.STRING,
+    lessons: DataTypes.INTEGER,
+    userId: DataTypes.INTEGER,
+    deleted: DataTypes.INTEGER,
   }, {
     sequelize,
-    modelName: 'Cours',
+    modelName: 'Course',
   });
   return Courses;
 };

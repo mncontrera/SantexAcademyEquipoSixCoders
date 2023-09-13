@@ -1,5 +1,6 @@
 const Express = require('express');
 const userRoutes = require('./userRoutes');
+const courseRoutes = require('./courseRoutes');
 
 // Middlewares:
 const rootPath = require('../middleware/root_path.middleware');
@@ -13,6 +14,7 @@ const app = Express();
 
 // use=
 app.use('/user', userRoutes);
+app.use('/course', courseRoutes);
 
 app.use('/ping', (req, res) => {
   res.json({
