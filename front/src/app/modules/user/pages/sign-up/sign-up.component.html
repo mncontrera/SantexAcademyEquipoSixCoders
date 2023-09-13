@@ -1,0 +1,119 @@
+<div id="seccion-de-iniciar-sesion">
+  <div class="contenedor-de-iniciar-sesion">
+    <div class="parte-izquierda">
+      <div class="imagen-izquierda">
+        <img src="../../../../../assets/pexels-alena-darmel-7750978 (1).jpg" alt="" *ngIf="rolIdField?.value==1 || rolIdField?.value==false">
+        <img src="../../../../../assets/pexels-vanessa-garcia-6325958.jpg" alt="" *ngIf="rolIdField?.value==2">
+      </div>
+    </div>
+    <div class="parte-derecha">
+      <div class="formulario-para-iniciar-sesion">
+        <div class="mensaje-de-bienvenida">
+          <p>¡Hola Bienvenido a la incubadora del NOC!</p>
+        </div>
+
+        <div class="campos-del-formulario">
+          <form [formGroup]="formSignUp" (ngSubmit)="sendForm($event)">
+
+            <mat-radio-group formControlName="rolId" class="radio-group">
+              <mat-radio-button value="1" class="radio-input-1" checked="true">Estudiante</mat-radio-button>
+              <mat-radio-button value="2" class="emailInput" class="radio-input-2">Profesor</mat-radio-button>
+            </mat-radio-group>
+
+            <div class="messages" [class.active]="formSignUp.get('name')?.invalid">
+              <mat-error  *ngIf="rolIdField?.touched && rolIdField?.hasError('required')">
+                Campo radio es requerido
+              </mat-error>
+            </div>
+
+            <div class="subtitulo">
+              <h2>¡Aprende y animate a crear tu propio emprendimiento!</h2>
+            </div>
+
+            <mat-form-field [floatLabel]="'always'" class="email-label" hideRequiredMarker="">
+              <mat-label class="mat-label-email">Nombre</mat-label>
+              <input
+              matInput
+              type="text"
+              placeholder="John"
+              formControlName="name"
+              class="emailInput"
+              >
+            </mat-form-field>
+            <div class="messages" [class.active]="formSignUp.get('name')?.invalid">
+              <mat-error *ngIf="nameField?.touched && nameField?.hasError('required')">
+                Campo requerido
+              </mat-error>
+            </div>
+
+            <mat-form-field [floatLabel]="'always'" class="email-label" hideRequiredMarker="">
+              <mat-label class="mat-label-email">Apellido</mat-label>
+              <input
+              matInput
+              type="text"
+              placeholder="Doe"
+              formControlName="lastname"
+              class="emailInput"
+              >
+            </mat-form-field>
+            <div class="messages" [class.active]="formSignUp.get('name')?.invalid">
+              <mat-error *ngIf="lastnameField?.touched && lastnameField?.hasError('required')">
+                Campo requerido
+              </mat-error>
+              <!-- <p>lastName is valid?: {{emailField?.valid}}</p> -->
+            </div>
+
+            <mat-form-field [floatLabel]="'always'" class="email-label" hideRequiredMarker="">
+              <mat-label class="mat-label-email">Correo electrónico</mat-label>
+              <input
+              matInput
+              type="email"
+              placeholder="john@gmail.com"
+              formControlName="email"
+              class="emailInput"
+              >
+            </mat-form-field>
+            <div class="messages" [class.active]="formSignUp.get('name')?.invalid">
+              <mat-error *ngIf="emailField?.touched && emailField?.hasError('required')">
+                Campo requerido
+              </mat-error>
+              <mat-error *ngIf="emailField?.touched && emailField?.hasError('email')">
+                Necesita formato de email
+              </mat-error>
+            </div>
+
+            <mat-form-field [floatLabel]="'always'" class="password-label" hideRequiredMarker="">
+              <mat-label class="mat-label-email">Contraseña</mat-label>
+              <input matInput type="password" placeholder="********" formControlName="password" class="passwordInput">
+              <mat-icon matSuffix>visibility_off</mat-icon>
+            </mat-form-field>
+            <div class="messages" [class.active]="formSignUp.get('password')?.invalid">
+              <mat-error *ngIf="passwordField?.touched && passwordField?.hasError('required')">
+                Campo requerido
+              </mat-error>
+              <mat-error *ngIf="passwordField?.touched && passwordField?.hasError('minlength')">
+                Debe tener al menos 8 caracteres
+              </mat-error>
+            </div>
+
+            <mat-form-field [floatLabel]="'always'" class="password-label" hideRequiredMarker="">
+              <mat-label class="mat-label-email">Repetir contraseña</mat-label>
+              <input matInput type="password" placeholder="********" formControlName="repeatPassword" class="passwordInput">
+              <mat-icon matSuffix>visibility_off</mat-icon>
+            </mat-form-field>
+            <div class="messages" [class.active]="formSignUp.get('password')?.invalid">
+              <mat-error *ngIf="repeatPasswordField?.touched && repeatPasswordField?.hasError('required')">
+                Campo requerido
+              </mat-error>
+              <mat-error *ngIf="repeatPasswordField?.touched && repeatPasswordField?.hasError('minlength')">
+                Debe tener al menos 8 caracteres
+              </mat-error>
+            </div>
+
+            <button mat-raised-button color="accent">Crear cuenta</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
