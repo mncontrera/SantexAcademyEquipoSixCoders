@@ -16,10 +16,9 @@ module.exports = (sequelize, DataTypes) => {
       // Enrolled.belongsToMany(models.Cours, {
       //   through: 'User',
       // });
+      models.Courses.belongsToMany(models.User, { through: 'Enrolled', foreignKey: 'courseId' });
 
-      Enrolled.belongsTo(models.User, {
-        foreignKey: 'userId',
-      });
+      Enrolled.belongsTo(models.User, { foreignKey: 'userId' });
     }
   }
   Enrolled.init({

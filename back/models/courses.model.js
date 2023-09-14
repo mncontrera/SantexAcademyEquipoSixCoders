@@ -22,10 +22,6 @@ module.exports = (sequelize, DataTypes) => {
       models.User.hasMany(Courses, {
         foreignKey: 'userId',
       });
-
-      Courses.belongsTo(models.User, {
-        foreignKey: 'userId',
-      });
     }
   }
   Courses.init({
@@ -40,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
     deleted: DataTypes.INTEGER,
   }, {
     sequelize,
-    modelName: 'Course',
+    modelName: 'Courses',
   });
   return Courses;
 };
