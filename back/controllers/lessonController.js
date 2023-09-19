@@ -67,10 +67,29 @@ async function deleteLesson(req, res) {
   }
 }
 
+async function attendedLesson(req, res, next) {
+  try {
+    const {
+      userId, lessonId,
+    } = req.body;
+
+    try {
+      await lessonService.attendedUser(userId, lessonId);
+      return res.status(200).json({ message: 'Asistencia asignada.' });
+    } catch (error) {
+      return res.status(500).json({ error: 'Error en la asignar asistencia.' });
+    }
+  } catch (error) {
+    next(error);
+    return error;
+  }
+}
+
 module.exports = {
   createLesson,
   getLesson,
   getAllLessons,
   editLesson,
   deleteLesson,
+  attendedLesson,
 };

@@ -12,12 +12,19 @@ async function create(lessonTitle, description, lessonDateTime, courseId, delete
 }
 
 async function getLesson(id) {
-  const lesson = await db.Lessons.findByPk(id);
+  const lesson = await db.Lessons.findByPk(id, {
+    include: [{ model: db.LessonsAttendant, as: 'LessonsAttendants', separate: true }],
+  });
 
   if (!lesson) {
-    throw new Error('no encontrada');
+    throw new Error('Leccion no encontrada');
   }
-
+  const attendants = lesson.LessonsAttendants.map((attendant) => ({
+    id: attendant.id,
+    lessonId: attendant.lessonId,
+    userId: attendant.userId,
+    attended: attendant.attended,
+  }));
   return {
     lesson: {
       id: lesson.id,
@@ -26,6 +33,7 @@ async function getLesson(id) {
       lessonDateTime: lesson.lessonDateTime,
       courseId: lesson.courseId,
     },
+    attendants,
   };
 }
 
@@ -61,6 +69,14 @@ async function deleteLesson(id) {
   return lesson;
 }
 
+async function attendedUser(userId, lessonId) {
+  const attended = await db.LessonsAttendant.create({
+    userId,
+    lessonId,
+  });
+  return attended;
+}
+
 module.exports = {
-  create, getLesson, getAllLessons, editLesson, deleteLesson,
+  create, getLesson, getAllLessons, editLesson, deleteLesson, attendedUser,
 };
