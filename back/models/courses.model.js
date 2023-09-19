@@ -14,14 +14,11 @@ module.exports = (sequelize, DataTypes) => {
       // Courses.hasMany(models.Enrolled, {
       //   foreignKey: 'courseId',
       // });
+      models.Lessons.belongsTo(Courses, { foreignKey: 'courseId' });
 
-      models.Enrolled.belongsTo(Courses, {
-        foreignKey: 'courseId',
-      });
+      models.Enrolled.belongsTo(Courses, { foreignKey: 'courseId' });
 
-      models.User.hasMany(Courses, {
-        foreignKey: 'userId',
-      });
+      models.User.hasMany(Courses, { foreignKey: 'userId' });
     }
   }
   Courses.init({
