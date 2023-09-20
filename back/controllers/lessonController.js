@@ -61,7 +61,7 @@ async function deleteLesson(req, res) {
   const { id } = req.params;
   try {
     await lessonService.deleteLesson(id);
-    return res.status(200).json({ message: `La clase ${id} fue eliminado correctamente` });
+    return res.status(200).json({ message: `La clase ${id} fue eliminada correctamente` });
   } catch (error) {
     return res.status(500).json({ error: 'Error al eliminar la clase' });
   }
