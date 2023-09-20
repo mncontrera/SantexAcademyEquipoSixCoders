@@ -5,13 +5,6 @@
       <div class="display-basic-info">
         <div class="profile-image">
           <img id="image" [src]="currentImage" alt="profilec-image" height="200px">
-          <!-- <button
-            class="someClass"
-            [disabled]="!selectedFiles"
-            (click)="upload()"
-          >
-            Upload
-          </button> -->
         </div>
         <div class="names">
           <p>{{userName}} {{userLastname}}</p>
@@ -26,7 +19,7 @@
             <a >Editar pefil</a>
           </li>
           <li>
-            <a >cerrar sesión</a>
+            <a (click)="deleteAccount()" routerLink="/dashboard">Borrar cuenta</a>
           </li>
         </ul>
       </div>
@@ -86,8 +79,9 @@
           <input type="file" (change)="onSelectFile($event);onUpload2($event)"  id="imageInput" style="display: none;" />
           <label for="imageInput" class="imageInput">Elegir imagen</label>
 
-          <button mat-raised-button color="primary" class="custom-btn">Guardar</button>
+          <button mat-raised-button color="primary" class="custom-btn" (click)="showToast()">Guardar</button>
           <!-- <p>formulario valido? {{allFields.valid}} -->
+          <div id="toast">Perfil guardado correctamente.</div>
         </form>
       </div>
     </div>

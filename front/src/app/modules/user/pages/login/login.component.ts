@@ -60,6 +60,7 @@ export class LoginComponent implements OnInit{
           localStorage.setItem('userId', userLoginData.user.id);
           localStorage.setItem('userLastname', userLoginData.user.lastname);
           localStorage.setItem('userEmail', userLoginData.user.email);
+          localStorage.setItem('userTelephone', userLoginData.user.telephone);
         },
         error: (errorData) => {
           console.log("Error en la peticion")

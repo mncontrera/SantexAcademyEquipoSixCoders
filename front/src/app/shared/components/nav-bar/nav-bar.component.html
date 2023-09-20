@@ -8,7 +8,7 @@
         <a routerLink="/home" routerLinkActive="router-link-active" >Inicio</a>
       </li>
       <li>
-        <a routerLink="/dashboard" routerLinkActive="router-link-active" >Cursos</a>
+        <a routerLink="/course/courses" routerLinkActive="router-link-active" >Cursos</a>
       </li>
       <li>
         <a routerLink="/dashboard" routerLinkActive="router-link-active" >Nosotros</a>
@@ -22,6 +22,7 @@
       <button mat-raised-button color="primary" class="registro" *ngIf="!userIsLogued" routerLink="/user/signup" >Registrarse <img src="../../../../assets/2124045_arrow_essential_app_up_icon.svg" alt=""></button>
 
       <span *ngIf="userIsLogued" class="userLogued">Hola {{userName}}</span>
+      <button mat-raised-button color="primary" routerLink="/course/create-course" *ngIf="userIsLogued" style="margin-right: 15px;">Nuevo curso</button>
       <button mat-raised-button color="accent" routerLink="/user/edit-profile" *ngIf="userIsLogued" (click)="toProfile()">A perfil</button>
       <button mat-raised-button color="primary" *ngIf="userIsLogued" class="registro" (click)="logOut()" routerLink="/home">Salir <img src="../../../../assets/2124045_arrow_essential_app_up_icon.svg" alt=""></button>
     </div>

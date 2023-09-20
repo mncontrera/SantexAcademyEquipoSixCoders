@@ -67,6 +67,8 @@ export class NavBarComponent implements OnInit {
     localStorage.removeItem('imagebase64');
     localStorage.removeItem('userLastname');
     localStorage.removeItem('userId');
+    localStorage.removeItem('userTelephone');
+    localStorage.removeItem('userEmail');
   }
 
   toProfile() {

@@ -10,6 +10,7 @@ import { MatInput, MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule} from '@angular/material/datepicker'
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatRadioModule } from '@angular/material/radio';
+import {MatCardModule} from '@angular/material/card';
 
 const MATERIALCOMPONENTS = [
   MatButtonModule,
@@ -24,6 +25,7 @@ const MATERIALCOMPONENTS = [
   MatDatepickerModule,
   MatNativeDateModule,
   MatRadioModule,
+  MatCardModule
 ]
 
 @NgModule({
