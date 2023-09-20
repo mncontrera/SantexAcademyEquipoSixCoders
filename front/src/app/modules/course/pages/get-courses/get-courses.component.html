@@ -1,0 +1,30 @@
+<div id="all-courses-section">
+  <div class="all-courses-container">
+    <div class="courses-title">
+      Lista de cursos
+    </div>
+    <div class="cards-container">
+      <div class="course-cards" *ngFor="let item of coursesList">
+        <mat-card class="example-card">
+          <div class="img-card" style=" background-image: url('{{item.image}}');"></div>
+          <mat-card-header>
+            <!-- <div mat-card-avatar class="example-header-image"></div> -->
+            <mat-card-title>{{item.title}}</mat-card-title>
+          </mat-card-header>
+          <!-- <img mat-card-image src={{item.image}} alt="Photo of"> -->
+          <mat-card-content>
+            <p>
+              {{item.description}}
+            </p>
+          </mat-card-content>
+          <mat-card-actions class="actions">
+            <!-- <mat-card-subtitle>Precio {{item.price}}</mat-card-subtitle> -->
+            <div class="course-price">$ {{item.price}}</div>
+            <!-- <button mat-button>Ver</button> -->
+            <button mat-button routerLink="/course/course-information">Ver curso</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
