@@ -4,7 +4,7 @@ const { QueryTypes } = require('sequelize');
 const db = require('../models');
 
 async function create(title, description, price, startDate, endDate, image, userId, lessons) {
-  const course = await db.Course.create({
+  const course = await db.Courses.create({
     title,
     description,
     price,
@@ -18,7 +18,9 @@ async function create(title, description, price, startDate, endDate, image, user
 }
 
 async function getCourse(id) {
-  const course = await db.Course.findByPk(id);
+  const course = await db.Courses.findByPk(id, {
+    include: db.Lessons,
+  });
 
   if (!course) {
     throw new Error('no encontrado');
@@ -29,6 +31,15 @@ async function getCourse(id) {
     const imagePath = path.join(__dirname, '../resources/assets/uploads', course.image);
     imageBuffer = await fs.readFile(imagePath);
   }
+  const lessons = course.Lessons.map((lesson) => ({
+    id: lesson.id,
+    lessonTitle: lesson.lessonTitle,
+    description: lesson.description,
+    lessonDateTime: lesson.lessonDateTime,
+    courseId: lesson.courseId,
+    createdAt: lesson.createdAt,
+    updatedAt: lesson.updatedAt,
+  }));
 
   return {
     course: {
@@ -41,11 +52,12 @@ async function getCourse(id) {
       endDate: course.endDate,
       userId: course.userId,
     },
+    lessons,
   };
 }
 
 async function getAllCourses() {
-  const courses = await db.Course.findAll();
+  const courses = await db.Courses.findAll();
 
   if (!courses) {
     throw new Error('no encontrado');
@@ -66,7 +78,7 @@ async function getAllCourses() {
 }
 
 async function editCourse(id, title, description, price, startDate, endDate, image, lessons) {
-  const course = await db.Course.findByPk(id);
+  const course = await db.Courses.findByPk(id);
 
   const updatedFields = {
     title,
@@ -82,7 +94,7 @@ async function editCourse(id, title, description, price, startDate, endDate, ima
 }
 
 async function deleteCourse(id) {
-  const course = await db.Course.findByPk(id);
+  const course = await db.Courses.findByPk(id);
   course.deleted = 1;
 
   await course.save();

@@ -11,21 +11,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      // Courses.hasMany(models.Enrolled, {
-      //   foreignKey: 'courseId',
-      // });
+      models.Lessons.belongsTo(Courses, { foreignKey: 'courseId' });
 
-      models.Enrolled.belongsTo(Courses, {
-        foreignKey: 'courseId',
-      });
+      models.Enrolled.belongsTo(Courses, { foreignKey: 'courseId' });
 
-      models.User.hasMany(Courses, {
-        foreignKey: 'userId',
-      });
-
-      Courses.belongsTo(models.User, {
-        foreignKey: 'userId',
-      });
+      models.User.hasMany(Courses, { foreignKey: 'userId' });
     }
   }
   Courses.init({
@@ -40,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
     deleted: DataTypes.INTEGER,
   }, {
     sequelize,
-    modelName: 'Course',
+    modelName: 'Courses',
   });
   return Courses;
 };
