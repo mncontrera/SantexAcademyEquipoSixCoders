@@ -5,6 +5,7 @@ import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { AccountCreatedComponent } from './pages/account-created/account-created.component';
 import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
 import { VigilantGuard } from 'src/app/core/guards/vigilant.guard';
+import { StudentCoursesComponent } from './pages/student-courses/student-courses.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,11 @@ const routes: Routes = [
   {
     path: 'edit-profile',
     component: EditProfileComponent,
+    // canActivate: [VigilantGuard]
+  },
+  {
+    path: 'student-courses',
+    component: StudentCoursesComponent,
     // canActivate: [VigilantGuard]
   },
 ];

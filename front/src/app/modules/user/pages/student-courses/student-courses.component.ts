@@ -3,11 +3,11 @@ import { CourseService } from 'src/app/core/services/course/course.service';
 import { FilesService } from 'src/app/core/services/user/files.service';
 
 @Component({
-  selector: 'app-get-courses',
-  templateUrl: './get-courses.component.html',
-  styleUrls: ['./get-courses.component.css']
+  selector: 'app-student-courses',
+  templateUrl: './student-courses.component.html',
+  styleUrls: ['./student-courses.component.css']
 })
-export class GetCoursesComponent implements OnInit {
+export class StudentCoursesComponent implements OnInit {
 
   coursesList:any;
   courseImage = "";
@@ -16,13 +16,13 @@ export class GetCoursesComponent implements OnInit {
   constructor(
     private courseService: CourseService,
     private fileService: FilesService,
-
   ) { }
 
   ngOnInit(): void {
     try {
-      this.courseService.getAllCourses().subscribe({
+      this.courseService.getStudentCourses().subscribe({
         next: (res) => {
+          console.log(res)
           this.coursesList = res;
           for (let index = 0; index < this.coursesList.length; index++) {
             if(this.coursesList[index].image){
@@ -47,9 +47,22 @@ export class GetCoursesComponent implements OnInit {
     }
   }
 
-  watchCourseById(teacherId: any){
-    console.log("hola"+teacherId)
-    localStorage.setItem('currentCourseId', teacherId);
+  watchProfessorCourseById(courseId: any){
+    console.log("hola"+courseId);
+    localStorage.setItem('currentProfessorCourseId', courseId);
+    this.courseService.getProfessorCourse().subscribe({
+      next: (res) => {
+        console.log(res.course);
+        localStorage.setItem('teacherCourseTitle', res.course.title);
+        localStorage.setItem('teacherCourseDescription', res.course.description);
+        localStorage.setItem('teacherId', res.course.userId);
+        localStorage.setItem('teacherCoursePrice', res.course.price);
+        localStorage.setItem('teacherCourseStartDate', res.course.startDate);
+        let newStringChar;
+        newStringChar = this.fileService.arrayBufferToBase64(res.course.image.data);
+        localStorage.setItem('teacherCourseImage', newStringChar);
+      }
+    })
   }
 
 }
