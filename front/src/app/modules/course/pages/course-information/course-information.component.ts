@@ -10,6 +10,9 @@ import { FilesService } from 'src/app/core/services/user/files.service';
 })
 export class CourseInformationComponent implements OnInit {
 
+  courseData:any;
+  courseImg:any = "";
+  courseImgBase:any = "data:image/jpeg;base64,";
 
   constructor(
     private router: Router,
@@ -21,8 +24,9 @@ export class CourseInformationComponent implements OnInit {
     try {
       this.courseService.getSingleCourse().subscribe({
         next: (res) => {
+          this.courseData = res.course;
+          this.courseImg = this.courseImgBase + this.fileService.arrayBufferToBase64(this.courseData.image.data);
           console.log(res);
-
         },
         error: (errorData) => {
           console.log(errorData);
@@ -35,6 +39,14 @@ export class CourseInformationComponent implements OnInit {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  subscribeToCourse(){
+    this.courseService.subscribeToCourse().subscribe({
+      next: (res) => {
+        console.log(res);
+      }
+    })
   }
 
 }

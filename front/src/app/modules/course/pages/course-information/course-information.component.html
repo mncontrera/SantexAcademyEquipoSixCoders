@@ -2,7 +2,15 @@
   <div class="course-info-container">
     <div class="">
       <p>Info de un curso</p>
-      <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Reprehenderit ut, aperiam harum esse aut nostrum cumque? Laudantium sapiente architecto nemo ea ipsam enim nobis? Ad eum eveniet et asperiores deserunt!</p>
+      <h1>{{courseData.title}}</h1>
+      <p>Descripción: {{courseData.description}}</p>
+      <p>Creado por {{courseData.teacher}}</p>
+      <p>Duración: 3 semanas</p>
+      <p>Contenido: lista detallada de las clases</p>
+      <p>Clases inician el {{courseData.startDate | date: 'EEEE d of MMMM' }}</p>
+      <p>Precio: $ {{courseData.price}}</p>
+      <img [src]="courseImg" alt="" style="width: 340px; height: auto;">
+      <button mat-raised-button color="accent" (click)="subscribeToCourse()">Inscribirse</button>
     </div>
   </div>
 </div>

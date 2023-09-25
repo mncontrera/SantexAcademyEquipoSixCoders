@@ -10,13 +10,17 @@ import { MatFormFieldModule, FloatLabelType } from '@angular/material/form-field
 import { MatInputModule } from '@angular/material/input';
 import { GetCoursesComponent } from './pages/get-courses/get-courses.component';
 import { CourseInformationComponent } from './pages/course-information/course-information.component';
+import { EditCourseComponent } from './pages/edit-course/edit-course.component';
+import { ProfessorCoursesComponent } from './pages/professor-courses/professor-courses.component';
 
 
 @NgModule({
   declarations: [
     CreateCourseComponent,
     GetCoursesComponent,
-    CourseInformationComponent
+    CourseInformationComponent,
+    EditCourseComponent,
+    ProfessorCoursesComponent
   ],
   imports: [
     CommonModule,
