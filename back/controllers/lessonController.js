@@ -77,7 +77,7 @@ async function attendedLesson(req, res, next) {
       await lessonService.attendedUser(userId, lessonId);
       return res.status(200).json({ message: 'Asistencia asignada.' });
     } catch (error) {
-      return res.status(500).json({ error: 'Error en la asignar asistencia.' });
+      return res.status(500).json({ error: 'Error al asignar asistencia.' });
     }
   } catch (error) {
     next(error);

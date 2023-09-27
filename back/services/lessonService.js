@@ -70,11 +70,15 @@ async function deleteLesson(id) {
 }
 
 async function attendedUser(userId, lessonId) {
-  const attended = await db.LessonsAttendant.create({
-    userId,
-    lessonId,
+  const user = await db.LessonsAttendant.findOne({
+    where: {
+      userId,
+      lessonId,
+    },
   });
-  return attended;
+  user.attended = true;
+  await user.save();
+  return user;
 }
 
 module.exports = {
