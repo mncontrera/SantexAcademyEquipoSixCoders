@@ -9,6 +9,7 @@ import { MatFormFieldModule, FloatLabelType } from '@angular/material/form-field
 import { MatInputModule } from '@angular/material/input';
 import { AccountCreatedComponent } from './pages/account-created/account-created.component';
 import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
+import { StudentCoursesComponent } from './pages/student-courses/student-courses.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { EditProfileComponent } from './pages/edit-profile/edit-profile.componen
     LoginComponent,
     SignUpComponent,
     AccountCreatedComponent,
-    EditProfileComponent
+    EditProfileComponent,
+    StudentCoursesComponent
   ],
   imports: [
     CommonModule,

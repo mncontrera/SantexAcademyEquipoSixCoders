@@ -11,36 +11,24 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      // Courses.hasMany(models.Enrolled, {
-      //   foreignKey: 'courseId',
-      // });
+      models.Lessons.belongsTo(Courses, { foreignKey: 'courseId' });
 
-      models.Enrolled.belongsTo(Courses, {
-        foreignKey: 'courseId',
-      });
-
-      models.User.hasMany(Courses, {
-        foreignKey: 'userId',
-      });
-
-      Courses.belongsTo(models.User, {
-        foreignKey: 'userId',
-      });
+      models.Enrolled.belongsTo(Courses, { foreignKey: 'courseId', as: 'CourseEnrollments' });
     }
   }
   Courses.init({
     title: DataTypes.STRING,
-    startDate: DataTypes.DATE,
-    endDate: DataTypes.DATE,
     description: DataTypes.STRING,
     price: DataTypes.STRING,
+    startDate: DataTypes.DATE,
+    endDate: DataTypes.DATE,
     image: DataTypes.STRING,
-    lessons: DataTypes.INTEGER,
     userId: DataTypes.INTEGER,
+    lessons: DataTypes.INTEGER,
     deleted: DataTypes.INTEGER,
   }, {
     sequelize,
-    modelName: 'Course',
+    modelName: 'Courses',
   });
   return Courses;
 };

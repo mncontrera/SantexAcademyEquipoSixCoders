@@ -4,7 +4,7 @@ const { QueryTypes } = require('sequelize');
 const db = require('../models');
 
 async function create(title, description, price, startDate, endDate, image, userId, lessons) {
-  const course = await db.Course.create({
+  const course = await db.Courses.create({
     title,
     description,
     price,
@@ -18,7 +18,9 @@ async function create(title, description, price, startDate, endDate, image, user
 }
 
 async function getCourse(id) {
-  const course = await db.Course.findByPk(id);
+  const course = await db.Courses.findByPk(id, {
+    include: db.Lessons,
+  });
 
   if (!course) {
     throw new Error('no encontrado');
@@ -29,6 +31,15 @@ async function getCourse(id) {
     const imagePath = path.join(__dirname, '../resources/assets/uploads', course.image);
     imageBuffer = await fs.readFile(imagePath);
   }
+  const lessons = course.Lessons.map((lesson) => ({
+    id: lesson.id,
+    lessonTitle: lesson.lessonTitle,
+    description: lesson.description,
+    lessonDateTime: lesson.lessonDateTime,
+    courseId: lesson.courseId,
+    createdAt: lesson.createdAt,
+    updatedAt: lesson.updatedAt,
+  }));
 
   const userNames = await db.sequelize.query('select u.name, u.lastname from Users u where u.id = :userId;',
     {
@@ -49,6 +60,7 @@ async function getCourse(id) {
       endDate: course.endDate,
       teacher,
     },
+    lessons,
   };
 }
 
@@ -83,7 +95,7 @@ async function getAllCourses() {
 }
 
 async function editCourse(id, title, description, price, startDate, endDate, image, lessons) {
-  const course = await db.Course.findByPk(id);
+  const course = await db.Courses.findByPk(id);
 
   if (image) {
     const updatedFields = {
@@ -111,7 +123,7 @@ async function editCourse(id, title, description, price, startDate, endDate, ima
 }
 
 async function deleteCourse(id) {
-  const course = await db.Course.findByPk(id);
+  const course = await db.Courses.findByPk(id);
   course.deleted = 1;
 
   await course.save();
@@ -119,11 +131,54 @@ async function deleteCourse(id) {
 }
 
 async function subscribeToCourse(userId, courseId) {
-  const subscription = await db.Enrolled.create({
+  await db.Enrolled.create({
     userId,
     courseId,
   });
-  return subscription;
+
+  const enrolledUsers = await db.Enrolled.findAll({
+    where: { courseId },
+    include: { association: 'UserEnrollments' },
+  });
+
+  const course = await db.Courses.findByPk(courseId);
+
+  if (!course) {
+    throw new Error('Curso no encontrado');
+  }
+  const lessons = await db.Lessons.findAll({
+    where: { courseId },
+  });
+
+  const attendanceRecords = await Promise.all(
+    enrolledUsers.map(async (enrollment) => {
+      const enrolledUserId = enrollment.userId;
+      const lessonAttendants = await Promise.all(
+        lessons.map(async (lesson) => {
+          const lessonAttendant = await db.LessonsAttendant.create({
+            courseId,
+            lessonId: lesson.id,
+            userId: enrolledUserId,
+            attended: false,
+          });
+          return lessonAttendant;
+        }),
+      );
+      return lessonAttendants;
+    }),
+  );
+
+  return {
+    course: {
+      id: course.id,
+      title: course.title,
+      description: course.description,
+      price: course.price,
+      startDate: course.startDate,
+      endDate: course.endDate,
+    },
+    attendanceRecords,
+  };
 }
 
 async function getEnrolledCourses(userId) {

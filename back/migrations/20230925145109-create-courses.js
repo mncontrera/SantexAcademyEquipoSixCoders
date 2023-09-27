@@ -1,4 +1,5 @@
 'use strict';
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -24,18 +25,22 @@ module.exports = {
       endDate: {
         type: Sequelize.DATE
       },
-      image: { 
-        type: Sequelize.STRING,
+      image: {
+        type: Sequelize.STRING
+      },
+      userId: {
+        type: Sequelize.INTEGER,
+        references:{
+          model:'Users',
+          key:'id'
+        },
         onDelete:'CASCADE',
         onUpdate:'CASCADE'
       },
-      lessons:{
+      lessons: {
         type: Sequelize.INTEGER
       },
-      userId:{
-        type: Sequelize.INTEGER
-      },
-      deleted:{
+      deleted: {
         type: Sequelize.INTEGER
       },
       createdAt: {
@@ -45,7 +50,7 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
-      },
+      }
     });
   },
   async down(queryInterface, Sequelize) {

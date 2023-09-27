@@ -1,0 +1,103 @@
+<div id="create-course-section">
+  <div class="create-course-container">
+    <div class="side-nav">
+      <div class="options">
+        <ul>
+          <li>
+            <a routerLink="/course/professor-courses">Ver cursos</a>
+          </li>
+          <li>
+            <a >Crear curso</a>
+          </li>
+          <li>
+            <a routerLink="/course/edit-course">Editar curso</a>
+          </li>
+          <li>
+            <a >Borrar curso</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="profile-info">
+      <div class="profile-header">
+        <div class="title">
+          <p>Creación de curso</p>
+        </div>
+        <div class="subtitle">
+          Completa la información para crear el curso
+        </div>
+      </div>
+      <div class="profile-form">
+        <form [formGroup]="courseForm" (ngSubmit)="createCourse($event)">
+          <div class="label-and-input">
+            <label for="inputId" class="input-label">Título</label>
+            <input
+            type="text"
+            placeholder="Ej: Fullstack con angular y node"
+            formControlName="title"
+            class="inputForm"
+            id="inputId">
+            <div class="error-message" [class.isInvalid]="titleField?.invalid && titleField?.touched">
+              <p>Título requerido</p>
+            </div>
+          </div>
+
+          <div class="label-and-input">
+            <label class="input-label" for="courseDescription">Descripción</label>
+            <textarea class="inputForm" id="courseDescription" cols="88" rows="5" formControlName="description"></textarea>
+            <div class="error-message" [class.isInvalid]="descriptionField?.invalid && descriptionField?.touched">
+              <p>Descripción requerida</p>
+            </div>
+          </div>
+          <div class="label-and-input">
+            <label for="startDate" class="input-label">Fecha de inicio</label>
+            <input
+            type="date"
+            placeholder="Ej: 1"
+            formControlName="startDate"
+            class="inputForm"
+            id="startDate">
+            <div class="error-message" [class.isInvalid]="startDateField?.invalid && startDateField?.touched">
+              <p>Fecha inicial requerida</p>
+            </div>
+          </div>
+
+          <div class="label-and-input">
+            <label for="endDate" class="input-label">Fecha de finalización</label>
+            <input
+            type="date"
+            placeholder="Ej: 2"
+            formControlName="endDate"
+            class="inputForm"
+            id="endDate">
+            <div class="error-message" [class.isInvalid]="endDateField?.invalid && endDateField?.touched">
+              <p>Fecha final requerida</p>
+            </div>
+          </div>
+
+          <div class="label-and-input">
+            <label for="price" class="input-label">Precio</label>
+            <input
+            type="text"
+            placeholder="Ej: $1"
+            formControlName="price"
+            class="inputForm"
+            id="price">
+            <div class="error-message" [class.isInvalid]="priceField?.invalid && priceField?.touched">
+              <p>Precio requerido</p>
+            </div>
+          </div>
+
+          <div class="profile-image">
+            <img id="image" [src]="currentImage" alt="profilec-image" height="200px">
+          </div>
+
+          <input type="file" (change)="onSelectFile($event);onUpload2($event)"  id="imageInput" style="display: none;" />
+          <label for="imageInput" class="imageInput">Seleccionar imagen</label>
+          <button mat-raised-button color="primary" class="custom-btn">Crear curso</button>
+          <!-- <p>formulario valido? {{allFields.valid}} -->
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
