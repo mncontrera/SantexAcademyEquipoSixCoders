@@ -85,6 +85,21 @@ async function attendedLesson(req, res, next) {
   }
 }
 
+async function getAsists(req, res, next) {
+  try {
+    const { userId, courseId } = req.params;
+    try {
+      const result = await lessonService.getAsists(userId, courseId);
+      return res.status(200).json(result);
+    } catch (error) {
+      return res.status(500).json({ message: 'Usuario no encontrado' });
+    }
+  } catch (error) {
+    next(error);
+    return error;
+  }
+}
+
 module.exports = {
   createLesson,
   getLesson,
@@ -92,4 +107,5 @@ module.exports = {
   editLesson,
   deleteLesson,
   attendedLesson,
+  getAsists,
 };

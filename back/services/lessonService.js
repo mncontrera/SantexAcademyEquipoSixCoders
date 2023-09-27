@@ -76,6 +76,11 @@ async function attendedUser(userId, lessonId) {
   return user;
 }
 
+async function getAsists(userId, courseId) {
+  const userAttendant = await db.LessonsAttendant.findOne({ where: { userId, courseId } });
+  return userAttendant;
+}
+
 module.exports = {
-  create, getLesson, getAllLessons, editLesson, deleteLesson, attendedUser,
+  create, getLesson, getAllLessons, editLesson, deleteLesson, attendedUser, getAsists,
 };

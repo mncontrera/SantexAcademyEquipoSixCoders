@@ -11,5 +11,6 @@ router.put('/editLesson/:id', lessonController.editLesson);
 router.delete('/deleteLesson/:id', lessonController.deleteLesson);
 
 router.put('/attendant', lessonController.attendedLesson);
+router.get('/getAsists', lessonController.getAsists);
 
 module.exports = router;
