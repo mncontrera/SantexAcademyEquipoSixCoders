@@ -54,6 +54,7 @@ async function login(email, password) {
       lastname: user.lastname,
       email: user.email,
       image: imageBuffer,
+      telephone: user.telephone,
     },
   };
 }
@@ -61,27 +62,28 @@ async function login(email, password) {
 async function edit(id, name, lastname, telephone, image) {
   const user = await db.User.findByPk(id);
 
-  const updatedFields = {
-
-    name,
-
-    lastname,
-
-    telephone,
-
-    image,
-  };
-  await user.update(updatedFields);
+  if (image) {
+    const updatedFields = {
+      name,
+      lastname,
+      telephone,
+      image,
+    };
+    await user.update(updatedFields);
+  } else {
+    const updatedFields = {
+      name,
+      lastname,
+      telephone,
+    };
+    await user.update(updatedFields);
+  }
   return user;
 }
-async function deleteUser(id, deleted) {
+async function deleteUser(id) {
   const user = await db.User.findByPk(id);
-
-  const deletedFields = {
-
-    deleted,
-  };
-  await user.update(deletedFields);
+  user.deleted = 1;
+  await user.save();
   return user;
 }
 
