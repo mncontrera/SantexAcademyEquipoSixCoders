@@ -69,13 +69,8 @@ async function deleteLesson(id) {
   return lesson;
 }
 
-async function attendedUser(userId, lessonId) {
-  const user = await db.LessonsAttendant.findOne({
-    where: {
-      userId,
-      lessonId,
-    },
-  });
+async function attendedUser(userId) {
+  const user = await db.LessonsAttendant.findOne({ where: { userId } });
   user.attended = true;
   await user.save();
   return user;

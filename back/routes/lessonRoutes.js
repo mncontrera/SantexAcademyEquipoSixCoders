@@ -10,6 +10,6 @@ router.get('/getAllLessons', lessonController.getAllLessons);
 router.put('/editLesson/:id', lessonController.editLesson);
 router.delete('/deleteLesson/:id', lessonController.deleteLesson);
 
-router.post('/attendant', lessonController.attendedLesson);
+router.put('/attendant', lessonController.attendedLesson);
 
 module.exports = router;
