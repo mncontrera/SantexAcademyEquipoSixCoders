@@ -70,15 +70,13 @@ async function deleteLesson(req, res) {
 async function attendedLesson(req, res, next) {
   try {
     const {
-      userId,
+      userId, lessonId,
     } = req.body;
 
     try {
-      await lessonService.attendedUser(userId);
-      console.log(userId);
+      await lessonService.attendedUser(userId, lessonId);
       return res.status(200).json({ message: 'Asistencia asignada.' });
     } catch (error) {
-      console.log(error);
       return res.status(500).json({ error: 'Error al asignar asistencia.' });
     }
   } catch (error) {
