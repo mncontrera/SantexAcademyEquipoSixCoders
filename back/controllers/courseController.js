@@ -107,6 +107,21 @@ async function getEnrolledCourses(req, res, next) {
   }
 }
 
+async function getTeacherCourses(req, res, next) {
+  try {
+    const { id } = req.params;
+    try {
+      const result = await courseService.getTeacherCourses(id);
+      return res.status(200).json(result);
+    } catch (error) {
+      return res.status(500).json({ error: 'Error en la peticion de cursos.' });
+    }
+  } catch (error) {
+    next(error);
+    return error;
+  }
+}
+
 module.exports = {
   createCourse,
   getCourse,
@@ -115,4 +130,5 @@ module.exports = {
   deleteCourse,
   subscribeToCourse,
   getEnrolledCourses,
+  getTeacherCourses,
 };
