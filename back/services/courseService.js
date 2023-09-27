@@ -3,7 +3,17 @@ const path = require('path');
 const { QueryTypes } = require('sequelize');
 const db = require('../models');
 
+async function validateUserRole(userId) {
+  const user = await db.User.findByPk(userId);
+
+  return user;
+}
+
 async function create(title, description, price, startDate, endDate, image, userId, lessons) {
+  const userRol = await validateUserRole(userId);
+  if (userRol.rolId === '2') {
+    throw new Error('No tienes permiso para suscribirte a cursos');
+  }
   const course = await db.Courses.create({
     title,
     description,
@@ -78,8 +88,11 @@ async function getAllCourses() {
 }
 
 async function editCourse(id, title, description, price, startDate, endDate, image, lessons) {
+  const userRol = await validateUserRole(id);
+  if (userRol.rolId === '2') {
+    throw new Error('No tienes permiso para suscribirte a cursos');
+  }
   const course = await db.Courses.findByPk(id);
-
   const updatedFields = {
     title,
     description,
@@ -94,6 +107,10 @@ async function editCourse(id, title, description, price, startDate, endDate, ima
 }
 
 async function deleteCourse(id) {
+  const userRol = await validateUserRole(id);
+  if (userRol.rolId === '2') {
+    throw new Error('No tienes permiso para suscribirte a cursos');
+  }
   const course = await db.Courses.findByPk(id);
   course.deleted = 1;
 
@@ -101,12 +118,76 @@ async function deleteCourse(id) {
   return course;
 }
 
+async function isSubscribed(userId, courseId) {
+  const enrollment = await db.Enrolled.findOne({
+    where: {
+      userId,
+      courseId,
+    },
+  });
+
+  return !!enrollment;
+}
+
 async function subscribeToCourse(userId, courseId) {
-  const subscription = await db.Enrolled.create({
+  const userRol = await validateUserRole(userId);
+  if (userRol.rolId === '2') {
+    throw new Error('No tienes permiso para suscribirte a cursos');
+  }
+
+  const alreadySubscribed = await isSubscribed(userId, courseId);
+
+  if (alreadySubscribed) {
+    throw new Error('Ya estás suscrito a este curso');
+  }
+  await db.Enrolled.create({
     userId,
     courseId,
   });
-  return subscription;
+
+  const enrolledUsers = await db.Enrolled.findAll({
+    where: { courseId },
+    include: { association: 'UserEnrollments' },
+  });
+
+  const course = await db.Courses.findByPk(courseId);
+
+  if (!course) {
+    throw new Error('Curso no encontrado');
+  }
+  const lessons = await db.Lessons.findAll({
+    where: { courseId },
+  });
+
+  const attendanceRecords = await Promise.all(
+    enrolledUsers.map(async (enrollment) => {
+      const enrolledUserId = enrollment.userId;
+      const lessonAttendants = await Promise.all(
+        lessons.map(async (lesson) => {
+          const lessonAttendant = await db.LessonsAttendant.create({
+            courseId,
+            lessonId: lesson.id,
+            userId: enrolledUserId,
+            attended: false,
+          });
+          return lessonAttendant;
+        }),
+      );
+      return lessonAttendants;
+    }),
+  );
+
+  return {
+    course: {
+      id: course.id,
+      title: course.title,
+      description: course.description,
+      price: course.price,
+      startDate: course.startDate,
+      endDate: course.endDate,
+    },
+    attendanceRecords,
+  };
 }
 
 async function getEnrolledCourses(userId) {
@@ -120,5 +201,13 @@ async function getEnrolledCourses(userId) {
 }
 
 module.exports = {
-  create, getCourse, getAllCourses, editCourse, deleteCourse, subscribeToCourse, getEnrolledCourses,
+  create,
+  getCourse,
+  getAllCourses,
+  editCourse,
+  deleteCourse,
+  subscribeToCourse,
+  getEnrolledCourses,
+  isSubscribed,
+  validateUserRole,
 };

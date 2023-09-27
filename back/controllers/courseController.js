@@ -79,7 +79,16 @@ async function subscribeToCourse(req, res, next) {
     const {
       userId, courseId,
     } = req.body;
+    const isUserRoleValid = await courseService.validateUserRole(userId, '2');
 
+    if (!isUserRoleValid) {
+      return res.status(403).json({ error: 'No tienes permiso para suscribirte a cursos' });
+    }
+    const isSubscribed = await courseService.isSubscribed(userId, courseId);
+
+    if (isSubscribed) {
+      return res.status(400).json({ error: 'Ya estás suscrito a este curso' });
+    }
     try {
       await courseService.subscribeToCourse(userId, courseId);
       return res.status(200).json({ message: 'Se ha subscripto a curso correctamente.' });
