@@ -3,7 +3,17 @@ const path = require('path');
 const { QueryTypes } = require('sequelize');
 const db = require('../models');
 
+async function validateUserRole(userId) {
+  const user = await db.User.findByPk(userId);
+
+  return user;
+}
+
 async function create(title, description, price, startDate, endDate, image, userId, lessons) {
+  const userRol = await validateUserRole(userId);
+  if (userRol.rolId === '2') {
+    throw new Error('No tienes permiso para suscribirte a cursos');
+  }
   const course = await db.Courses.create({
     title,
     description,
@@ -78,8 +88,11 @@ async function getAllCourses() {
 }
 
 async function editCourse(id, title, description, price, startDate, endDate, image, lessons) {
+  const userRol = await validateUserRole(id);
+  if (userRol.rolId === '2') {
+    throw new Error('No tienes permiso para suscribirte a cursos');
+  }
   const course = await db.Courses.findByPk(id);
-
   const updatedFields = {
     title,
     description,
@@ -94,6 +107,10 @@ async function editCourse(id, title, description, price, startDate, endDate, ima
 }
 
 async function deleteCourse(id) {
+  const userRol = await validateUserRole(id);
+  if (userRol.rolId === '2') {
+    throw new Error('No tienes permiso para suscribirte a cursos');
+  }
   const course = await db.Courses.findByPk(id);
   course.deleted = 1;
 
@@ -101,7 +118,28 @@ async function deleteCourse(id) {
   return course;
 }
 
+async function isSubscribed(userId, courseId) {
+  const enrollment = await db.Enrolled.findOne({
+    where: {
+      userId,
+      courseId,
+    },
+  });
+
+  return !!enrollment;
+}
+
 async function subscribeToCourse(userId, courseId) {
+  const userRol = await validateUserRole(userId);
+  if (userRol.rolId === '2') {
+    throw new Error('No tienes permiso para suscribirte a cursos');
+  }
+
+  const alreadySubscribed = await isSubscribed(userId, courseId);
+
+  if (alreadySubscribed) {
+    throw new Error('Ya estás suscrito a este curso');
+  }
   await db.Enrolled.create({
     userId,
     courseId,
@@ -163,5 +201,13 @@ async function getEnrolledCourses(userId) {
 }
 
 module.exports = {
-  create, getCourse, getAllCourses, editCourse, deleteCourse, subscribeToCourse, getEnrolledCourses,
+  create,
+  getCourse,
+  getAllCourses,
+  editCourse,
+  deleteCourse,
+  subscribeToCourse,
+  getEnrolledCourses,
+  isSubscribed,
+  validateUserRole,
 };
