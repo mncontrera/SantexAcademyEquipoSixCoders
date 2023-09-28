@@ -51,6 +51,14 @@ async function getCourse(id) {
     updatedAt: lesson.updatedAt,
   }));
 
+  const userNames = await db.sequelize.query('select u.name, u.lastname from Users u where u.id = :userId;',
+    {
+      replacements: { userId: course.userId },
+      type: QueryTypes.SELECT,
+    });
+
+  const teacher = `${userNames[0].name} ${userNames[0].lastname}`;
+
   return {
     course: {
       id: course.id,
@@ -60,21 +68,26 @@ async function getCourse(id) {
       price: course.price,
       startDate: course.startDate,
       endDate: course.endDate,
-      userId: course.userId,
+      teacher,
     },
     lessons,
   };
 }
 
 async function getAllCourses() {
-  const courses = await db.Courses.findAll();
+  const courses = await db.Course.findAll(
+    {
+      where: {
+        deleted: null,
+      },
+    },
+  );
 
   if (!courses) {
     throw new Error('no encontrado');
   }
 
-  // eslint-disable-next-line no-plusplus
-  for (let index = 0; index < courses.length; index++) {
+  for (let index = 0; index < courses.length; index += 1) {
     const element = courses[index];
     let imageBuffer = null;
     if (element.image) {
@@ -93,16 +106,29 @@ async function editCourse(id, title, description, price, startDate, endDate, ima
     throw new Error('No tienes permiso para suscribirte a cursos');
   }
   const course = await db.Courses.findByPk(id);
-  const updatedFields = {
-    title,
-    description,
-    price,
-    startDate,
-    endDate,
-    image,
-    lessons,
-  };
-  await course.update(updatedFields);
+
+  if (image) {
+    const updatedFields = {
+      title,
+      description,
+      price,
+      startDate,
+      endDate,
+      image,
+      lessons,
+    };
+    await course.update(updatedFields);
+  } else {
+    const updatedFields = {
+      title,
+      description,
+      price,
+      startDate,
+      endDate,
+      lessons,
+    };
+    await course.update(updatedFields);
+  }
   return course;
 }
 
@@ -191,12 +217,51 @@ async function subscribeToCourse(userId, courseId) {
 }
 
 async function getEnrolledCourses(userId) {
-  const Courses = await db.sequelize.query('SELECT c.title, c.description FROM Enrolleds JOIN Courses c ON Enrolleds.courseId = c.id JOIN Users u ON Enrolleds.userId = u.id WHERE Enrolleds.userId = :userId;',
+  // const Courses = await db.Course.findAll({
+  //   where: {
+  //     userId,
+  //     deleted: null,
+  //   },
+  // });
+  const Courses = await db.sequelize.query('SELECT c.* FROM Enrolleds JOIN Courses c ON Enrolleds.courseId = c.id JOIN Users u ON Enrolleds.userId = u.id WHERE Enrolleds.userId = :userId;',
     {
       replacements: { userId },
       type: QueryTypes.SELECT,
     });
   // console.log(JSON.stringify(Courses, null, 2));
+  // eslint-disable-next-line no-plusplus
+  for (let index = 0; index < Courses.length; index++) {
+    const element = Courses[index];
+    let imageBuffer = null;
+    if (element.image) {
+      const imagePath = path.join(__dirname, '../resources/assets/uploads', element.image);
+      // eslint-disable-next-line no-await-in-loop
+      imageBuffer = await fs.readFile(imagePath);
+      element.image = imageBuffer;
+    }
+  }
+  return Courses;
+}
+
+async function getTeacherCourses(teacherId) {
+  const Courses = await db.Course.findAll({
+    where: {
+      userId: teacherId,
+      deleted: null,
+    },
+  });
+
+  // eslint-disable-next-line no-plusplus
+  for (let index = 0; index < Courses.length; index++) {
+    const element = Courses[index];
+    let imageBuffer = null;
+    if (element.image) {
+      const imagePath = path.join(__dirname, '../resources/assets/uploads', element.image);
+      // eslint-disable-next-line no-await-in-loop
+      imageBuffer = await fs.readFile(imagePath);
+      element.image = imageBuffer;
+    }
+  }
   return Courses;
 }
 
@@ -208,6 +273,7 @@ module.exports = {
   deleteCourse,
   subscribeToCourse,
   getEnrolledCourses,
+  getTeacherCourses,
   isSubscribed,
   validateUserRole,
 };

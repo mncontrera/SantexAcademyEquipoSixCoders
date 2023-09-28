@@ -15,9 +15,13 @@ const routes: Routes = [
     loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule),
   },
   {
-    path: '**',
-    redirectTo: 'user/edit-profile'
-  }
+    path: 'course',
+    loadChildren: () => import('./modules/course/course.module').then(m => m.CourseModule),
+  },
+  // {
+  //   path: '**',
+  //   redirectTo: 'user/edit-profile'
+  // }
 ];
 
 @NgModule({
