@@ -4,7 +4,8 @@ async function createLesson(req, res, next) {
   try {
     const {
       lessonTitle, description, lessonDateTime, courseId, deleted,
-    } = JSON.parse(req.body.data);
+    } = req.body;
+    // JSON.parse(req.body.data);
 
     try {
       await lessonService.create(lessonTitle, description, lessonDateTime, courseId, deleted);
@@ -77,7 +78,22 @@ async function attendedLesson(req, res, next) {
       await lessonService.attendedUser(userId, lessonId);
       return res.status(200).json({ message: 'Asistencia asignada.' });
     } catch (error) {
-      return res.status(500).json({ error: 'Error en la asignar asistencia.' });
+      return res.status(500).json({ error: 'Error al asignar asistencia.' });
+    }
+  } catch (error) {
+    next(error);
+    return error;
+  }
+}
+
+async function getAsists(req, res, next) {
+  try {
+    const { userId, courseId } = req.params;
+    try {
+      const result = await lessonService.getAsists(userId, courseId);
+      return res.status(200).json(result);
+    } catch (error) {
+      return res.status(500).json({ message: 'Usuario no encontrado' });
     }
   } catch (error) {
     next(error);
@@ -92,4 +108,5 @@ module.exports = {
   editLesson,
   deleteLesson,
   attendedLesson,
+  getAsists,
 };

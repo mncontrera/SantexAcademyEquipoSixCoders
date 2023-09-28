@@ -3,7 +3,17 @@ const path = require('path');
 const { QueryTypes } = require('sequelize');
 const db = require('../models');
 
+async function validateUserRole(userId) {
+  const user = await db.User.findByPk(userId);
+
+  return user;
+}
+
 async function create(title, description, price, startDate, endDate, image, userId, lessons) {
+  const userRol = await validateUserRole(userId);
+  if (userRol.rolId === '2') {
+    throw new Error('No tienes permiso para suscribirte a cursos');
+  }
   const course = await db.Courses.create({
     title,
     description,
@@ -65,7 +75,7 @@ async function getCourse(id) {
 }
 
 async function getAllCourses() {
-  const courses = await db.Course.findAll(
+  const courses = await db.Courses.findAll(
     {
       where: {
         deleted: null,
@@ -73,10 +83,6 @@ async function getAllCourses() {
     },
   );
 
-  // // eslint-disable-next-line no-plusplus
-  // for (let index = 0; index < courses.length; index++) {
-  //   const element = courses[index];
-  // }
   if (!courses) {
     throw new Error('no encontrado');
   }
@@ -95,6 +101,10 @@ async function getAllCourses() {
 }
 
 async function editCourse(id, title, description, price, startDate, endDate, image, lessons) {
+  const userRol = await validateUserRole(id);
+  if (userRol.rolId === '2') {
+    throw new Error('No tienes permiso para suscribirte a cursos');
+  }
   const course = await db.Courses.findByPk(id);
 
   if (image) {
@@ -123,6 +133,10 @@ async function editCourse(id, title, description, price, startDate, endDate, ima
 }
 
 async function deleteCourse(id) {
+  const userRol = await validateUserRole(id);
+  if (userRol.rolId === '2') {
+    throw new Error('No tienes permiso para suscribirte a cursos');
+  }
   const course = await db.Courses.findByPk(id);
   course.deleted = 1;
 
@@ -130,11 +144,49 @@ async function deleteCourse(id) {
   return course;
 }
 
+async function isSubscribed(userId, courseId) {
+  const enrollment = await db.Enrolled.findOne({
+    where: {
+      userId,
+      courseId,
+    },
+  });
+
+  return !!enrollment;
+}
+
 async function subscribeToCourse(userId, courseId) {
+  const userRol = await validateUserRole(userId);
+  if (userRol.rolId === '2') {
+    throw new Error('No tienes permiso para suscribirte a cursos');
+  }
+
+  const alreadySubscribed = await isSubscribed(userId, courseId);
+
+  if (alreadySubscribed) {
+    throw new Error('Ya estás suscrito a este curso');
+  }
   await db.Enrolled.create({
     userId,
     courseId,
   });
+
+  // const check = await db.Enrolled.findOne({ where: { userId, courseId } });
+
+  // // const checkEnrollment = await db.sequelize.query('SELECT userId, courseId, createdAt,
+  // // updatedAt FROM academy8.Enrolleds WHERE userId = :userId AND courseId = :courseId;',
+  // //   {
+  // //     replacements: { userId, courseId },
+  // //     type: QueryTypes.SELECT,
+  // //   });
+
+  // if (!check) { // cambiar el mensaje de respuesta cuando que no se
+  // agrega nuevo registro a la tabla
+  //   await db.Enrolled.create({
+  //     userId,
+  //     courseId,
+  //   });
+  // }
 
   const enrolledUsers = await db.Enrolled.findAll({
     where: { courseId },
@@ -209,18 +261,13 @@ async function getEnrolledCourses(userId) {
 }
 
 async function getTeacherCourses(teacherId) {
-  const Courses = await db.Course.findAll({
+  const Courses = await db.Courses.findAll({
     where: {
       userId: teacherId,
       deleted: null,
     },
   });
-  // const Courses = await db.sequelize.query('select c.title, c.description, c.id, c.image
-  // from Courses c WHERE c.userId = :userId;',
-  //   {
-  //     replacements: { userId: teacherId },
-  //     type: QueryTypes.SELECT,
-  //   });
+
   // eslint-disable-next-line no-plusplus
   for (let index = 0; index < Courses.length; index++) {
     const element = Courses[index];
@@ -236,6 +283,14 @@ async function getTeacherCourses(teacherId) {
 }
 
 module.exports = {
-  // eslint-disable-next-line max-len
-  create, getCourse, getAllCourses, editCourse, deleteCourse, subscribeToCourse, getEnrolledCourses, getTeacherCourses,
+  create,
+  getCourse,
+  getAllCourses,
+  editCourse,
+  deleteCourse,
+  subscribeToCourse,
+  getEnrolledCourses,
+  getTeacherCourses,
+  isSubscribed,
+  validateUserRole,
 };
