@@ -75,7 +75,7 @@ async function getCourse(id) {
 }
 
 async function getAllCourses() {
-  const courses = await db.Course.findAll(
+  const courses = await db.Courses.findAll(
     {
       where: {
         deleted: null,
@@ -171,6 +171,23 @@ async function subscribeToCourse(userId, courseId) {
     courseId,
   });
 
+  // const check = await db.Enrolled.findOne({ where: { userId, courseId } });
+
+  // // const checkEnrollment = await db.sequelize.query('SELECT userId, courseId, createdAt,
+  // // updatedAt FROM academy8.Enrolleds WHERE userId = :userId AND courseId = :courseId;',
+  // //   {
+  // //     replacements: { userId, courseId },
+  // //     type: QueryTypes.SELECT,
+  // //   });
+
+  // if (!check) { // cambiar el mensaje de respuesta cuando que no se
+  // agrega nuevo registro a la tabla
+  //   await db.Enrolled.create({
+  //     userId,
+  //     courseId,
+  //   });
+  // }
+
   const enrolledUsers = await db.Enrolled.findAll({
     where: { courseId },
     include: { association: 'UserEnrollments' },
@@ -244,7 +261,7 @@ async function getEnrolledCourses(userId) {
 }
 
 async function getTeacherCourses(teacherId) {
-  const Courses = await db.Course.findAll({
+  const Courses = await db.Courses.findAll({
     where: {
       userId: teacherId,
       deleted: null,

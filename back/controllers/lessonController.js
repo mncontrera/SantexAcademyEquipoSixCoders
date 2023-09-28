@@ -4,7 +4,8 @@ async function createLesson(req, res, next) {
   try {
     const {
       lessonTitle, description, lessonDateTime, courseId, deleted,
-    } = JSON.parse(req.body.data);
+    } = req.body;
+    // JSON.parse(req.body.data);
 
     try {
       await lessonService.create(lessonTitle, description, lessonDateTime, courseId, deleted);
