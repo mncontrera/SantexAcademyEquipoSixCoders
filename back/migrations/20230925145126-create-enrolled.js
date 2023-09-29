@@ -10,7 +10,9 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       userId: {
+        allowNull: false,
         type: Sequelize.INTEGER,
+        primaryKey: true,
         references:{
           model:'Users',
           key:'id'
@@ -19,7 +21,9 @@ module.exports = {
         onUpdate:'CASCADE'
       },
       courseId: {
+        allowNull: false,
         type: Sequelize.INTEGER,
+        primaryKey: true,
         references:{
           model:'Courses',
           key:'id'

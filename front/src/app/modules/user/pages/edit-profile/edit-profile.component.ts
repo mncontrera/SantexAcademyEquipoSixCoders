@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ApiService } from 'src/app/core/http/api.service';
 import { EditProfileReq } from 'src/app/core/interfaces/edit-user-interface';
 import { FilesService } from 'src/app/core/services/user/files.service';
+import { UserService } from 'src/app/core/services/user/user.service';
 
 
 @Component({
@@ -24,17 +25,19 @@ export class EditProfileComponent implements OnInit {
 
   userName: any = localStorage.getItem('userName');
   userLastname: any = localStorage.getItem('userLastname');
+  userTelephone: any = localStorage.getItem('userTelephone');
 
   constructor(
     private uFormBuilder: UntypedFormBuilder,
     private router: Router,
     private fileService: FilesService,
     private apiService: ApiService,
+    private userService: UserService
   ) {
       this.profileForm = this.uFormBuilder.group({
         name: [`${this.userName}`,[Validators.required, Validators.maxLength(40)]],
         lastname: [`${this.userLastname}`,[Validators.required, Validators.maxLength(40),]],
-        telephone: ['',[]],
+        telephone: [`${this.userTelephone}`,[]],
         image: ['',[]],
       })
    }
@@ -69,22 +72,22 @@ export class EditProfileComponent implements OnInit {
       this.profileData = this.profileForm.value;
 
       try {
-        this.fileService.uploadFile2(this.elemento, this.profileData).subscribe({
+        this.userService.editUserProfile(this.elemento, this.profileData).subscribe({
           next: (editProfileData) => {
             console.log("data response: \n")
             console.log(editProfileData);
 
 
-            this.fileService.getUserProfile(this.profileForm.value).subscribe({
+            this.userService.getUserProfile(this.profileForm.value).subscribe({
               next: (userProfile) => {
                 console.log('user profile data!', userProfile);
                 localStorage.setItem('userName', userProfile.user.name);
                 localStorage.setItem('userLastname', userProfile.user.lastname);
-                // localStorage.setItem('telephone', userProfile.user.telephone);
+                localStorage.setItem('userTelephone', userProfile.user.telephone);
 
                 let newStringChar;
                 if(userProfile.user.image){
-                  newStringChar = this.arrayBufferToBase64(userProfile.user.image.data);
+                  newStringChar = this.fileService.arrayBufferToBase64(userProfile.user.image.data);
                   localStorage.setItem('imagebase64', newStringChar);
                 }
               }
@@ -113,14 +116,27 @@ export class EditProfileComponent implements OnInit {
     this.elemento = element.files?.item(0);
   }
 
-  arrayBufferToBase64( buffer: any ) {
-    var binary = '';
-    var bytes = new Uint8Array( buffer );
-    var len = bytes.byteLength;
-    for (var i = 0; i < len; i++) {
-        binary += String.fromCharCode( bytes[ i ] );
+  deleteAccount() {
+    try {
+      this.userService.deleteUser().subscribe({
+        next: (res) => {
+          console.log(res);
+        }
+      })
+    } catch (error) {
+
     }
-    return window.btoa( binary );
+  }
+
+  showToast() {
+    // Get the snackbar DIV
+  var x = document.getElementById("toast");
+
+  // Add the "show" class to DIV
+  x!.className = "show";
+
+  // After 3 seconds, remove the show class from DIV
+  setTimeout(function(){ x!.className = x!.className.replace("show", ""); }, 3000);
   }
 
   get nameField(){

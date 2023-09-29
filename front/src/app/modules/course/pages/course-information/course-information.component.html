@@ -1,0 +1,16 @@
+<div id="course-info-section">
+  <div class="course-info-container">
+    <div class="">
+      <p>Info de un curso</p>
+      <h1>{{courseData.title}}</h1>
+      <p>Descripción: {{courseData.description}}</p>
+      <p>Creado por {{courseData.teacher}}</p>
+      <p>Duración: 3 semanas</p>
+      <p>Contenido: lista detallada de las clases</p>
+      <p>Clases inician el {{courseData.startDate | date: 'EEEE d of MMMM' }}</p>
+      <p>Precio: $ {{courseData.price}}</p>
+      <img [src]="courseImg" alt="" style="width: 340px; height: auto;">
+      <button mat-raised-button color="accent" (click)="subscribeToCourse()">Inscribirse</button>
+    </div>
+  </div>
+</div>
