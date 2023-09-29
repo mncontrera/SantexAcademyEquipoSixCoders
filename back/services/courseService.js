@@ -11,7 +11,7 @@ async function validateUserRole(userId) {
 
 async function create(title, description, price, startDate, endDate, image, userId, lessons) {
   const userRol = await validateUserRole(userId);
-  if (userRol.rolId === '2') {
+  if (userRol.rolId === '1') {
     throw new Error('No tienes permiso para suscribirte a cursos');
   }
   const course = await db.Courses.create({
@@ -89,7 +89,7 @@ async function getAllCourses() {
 
 async function editCourse(id, title, description, price, startDate, endDate, image, lessons) {
   const userRol = await validateUserRole(id);
-  if (userRol.rolId === '2') {
+  if (userRol.rolId === '1') {
     throw new Error('No tienes permiso para suscribirte a cursos');
   }
   const course = await db.Courses.findByPk(id);
@@ -108,7 +108,7 @@ async function editCourse(id, title, description, price, startDate, endDate, ima
 
 async function deleteCourse(id) {
   const userRol = await validateUserRole(id);
-  if (userRol.rolId === '2') {
+  if (userRol.rolId === '1') {
     throw new Error('No tienes permiso para suscribirte a cursos');
   }
   const course = await db.Courses.findByPk(id);
