@@ -11,7 +11,7 @@ async function validateUserRole(userId) {
 
 async function create(title, description, price, startDate, endDate, image, userId, lessons) {
   const userRol = await validateUserRole(userId);
-  if (userRol.rolId === '2') {
+  if (userRol.rolId === '1') {
     throw new Error('No tienes permiso para suscribirte a cursos');
   }
   const course = await db.Courses.create({
@@ -102,7 +102,7 @@ async function getAllCourses() {
 
 async function editCourse(id, title, description, price, startDate, endDate, image, lessons) {
   const userRol = await validateUserRole(id);
-  if (userRol.rolId === '2') {
+  if (userRol.rolId === '1') {
     throw new Error('No tienes permiso para suscribirte a cursos');
   }
   const course = await db.Courses.findByPk(id);
@@ -134,7 +134,7 @@ async function editCourse(id, title, description, price, startDate, endDate, ima
 
 async function deleteCourse(id) {
   const userRol = await validateUserRole(id);
-  if (userRol.rolId === '2') {
+  if (userRol.rolId === '1') {
     throw new Error('No tienes permiso para suscribirte a cursos');
   }
   const course = await db.Courses.findByPk(id);
@@ -166,32 +166,6 @@ async function subscribeToCourse(userId, courseId) {
   if (alreadySubscribed) {
     throw new Error('Ya estás suscrito a este curso');
   }
-  await db.Enrolled.create({
-    userId,
-    courseId,
-  });
-
-  // const check = await db.Enrolled.findOne({ where: { userId, courseId } });
-
-  // // const checkEnrollment = await db.sequelize.query('SELECT userId, courseId, createdAt,
-  // // updatedAt FROM academy8.Enrolleds WHERE userId = :userId AND courseId = :courseId;',
-  // //   {
-  // //     replacements: { userId, courseId },
-  // //     type: QueryTypes.SELECT,
-  // //   });
-
-  // if (!check) { // cambiar el mensaje de respuesta cuando que no se
-  // agrega nuevo registro a la tabla
-  //   await db.Enrolled.create({
-  //     userId,
-  //     courseId,
-  //   });
-  // }
-
-  const enrolledUsers = await db.Enrolled.findAll({
-    where: { courseId },
-    include: { association: 'UserEnrollments' },
-  });
 
   const course = await db.Courses.findByPk(courseId);
 
@@ -202,23 +176,30 @@ async function subscribeToCourse(userId, courseId) {
     where: { courseId },
   });
 
-  const attendanceRecords = await Promise.all(
-    enrolledUsers.map(async (enrollment) => {
-      const enrolledUserId = enrollment.userId;
-      const lessonAttendants = await Promise.all(
-        lessons.map(async (lesson) => {
-          const lessonAttendant = await db.LessonsAttendant.create({
-            courseId,
-            lessonId: lesson.id,
-            userId: enrolledUserId,
-            attended: false,
-          });
-          return lessonAttendant;
-        }),
-      );
-      return lessonAttendants;
-    }),
-  );
+  const processedRecords = new Set();
+
+  const enrollment = await db.Enrolled.create({
+    userId,
+    courseId,
+  });
+
+  // eslint-disable-next-line no-plusplus
+  for (let j = 0; j < lessons.length; j++) {
+    const lesson = lessons[j];
+    const recordKey = `${enrollment.id}-${lesson.id}`;
+
+    if (!processedRecords.has(recordKey)) {
+      // eslint-disable-next-line no-await-in-loop
+      await db.LessonsAttendant.create({
+        courseId,
+        lessonId: lesson.id,
+        userId,
+        attended: false,
+      });
+
+      processedRecords.add(recordKey);
+    }
+  }
 
   return {
     course: {
@@ -229,7 +210,7 @@ async function subscribeToCourse(userId, courseId) {
       startDate: course.startDate,
       endDate: course.endDate,
     },
-    attendanceRecords,
+    enrollmentId: enrollment.id,
   };
 }
 
