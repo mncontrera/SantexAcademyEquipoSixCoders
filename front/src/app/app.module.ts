@@ -9,6 +9,8 @@ import { SharedModule } from './shared/shared.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { TokenInterceptor } from './core/interceptors/token.interceptor';
 import { CookieService } from 'ngx-cookie-service';
+import { CourseModule } from './modules/course/course.module';
+import { ContactModule } from './modules/contact/contact.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { CookieService } from 'ngx-cookie-service';
     BrowserAnimationsModule,
     MaterialModule,
     SharedModule,
-    HttpClientModule
+    HttpClientModule,
+    CourseModule,
+    ContactModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
