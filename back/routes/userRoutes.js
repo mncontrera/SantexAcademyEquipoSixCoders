@@ -10,4 +10,6 @@ router.put('/edit/:id', isAuthenticated, userController.editUser);
 router.delete('/deleteUser/:id', isAuthenticated, userController.deleteUser);
 router.get('/profile/:id', isAuthenticated, userController.userProfile);
 
+router.post('/sendEmail', userController.sendEmail);
+
 module.exports = router;
