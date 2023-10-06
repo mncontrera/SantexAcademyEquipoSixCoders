@@ -10,7 +10,7 @@
           </div>
         </div>
         <div class="contact-form">
-          <form [formGroup]="contactForm" (ngSubmit)="sendConsult($event)">
+          <form [formGroup]="myForm" >
             <div class="label-and-input">
               <label for="inputMail" class="input-label">Email de contacto</label>
               <input type="text" placeholder="Ej: DiegoCampos@mail.com" formControlName="correo"
@@ -28,7 +28,7 @@
               <textarea class="inputForm" id="contactDescription" cols="88" rows="5" formControlName="description"></textarea>
             </div>
   
-            <button mat-raised-button color="primary" class="custom-btn">Enviar consulta</button>
+            <button mat-raised-button color="primary" class="custom-btn" (click)="enviarConsulta()">Enviar consulta</button>
           </form>
         </div>
       </div>

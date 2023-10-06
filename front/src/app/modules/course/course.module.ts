@@ -31,7 +31,7 @@ import { ProfessorCoursesComponent } from './pages/professor-courses/professor-c
     MaterialModule,
   ],
   exports: [
-    CourseInformationComponent,
+    GetCoursesComponent,
   ]
 })
 export class CourseModule {  }
