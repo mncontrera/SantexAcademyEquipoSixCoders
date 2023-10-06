@@ -29,6 +29,9 @@ import { ProfessorCoursesComponent } from './pages/professor-courses/professor-c
     MatFormFieldModule,
     MatInputModule,
     MaterialModule,
+  ],
+  exports: [
+    CourseInformationComponent,
   ]
 })
-export class CourseModule { }
+export class CourseModule {  }

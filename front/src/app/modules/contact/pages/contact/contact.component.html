@@ -1,0 +1,37 @@
+<div id="contact-section">
+    <div class="contact-container">
+      <div class="contact-info">
+        <div class="contact-header">
+          <div class="title">
+            <p>Formulario de contacto incubadoraNOC</p>
+          </div>
+          <div class="subtitle">
+            Completa la información para contactarte con nuestro equipo
+          </div>
+        </div>
+        <div class="contact-form">
+          <form [formGroup]="contactForm" (ngSubmit)="sendConsult($event)">
+            <div class="label-and-input">
+              <label for="inputMail" class="input-label">Email de contacto</label>
+              <input type="text" placeholder="Ej: DiegoCampos@mail.com" formControlName="correo"
+              class="inputForm" id="inputId">
+            </div>
+
+            <div class="label-and-input">
+              <label for="inputAffair" class="input-label">Asunto</label>
+              <input type="text" placeholder="Ej: Motivo de consulta" formControlName="asunto"
+              class="inputForm" id="inputId">
+            </div>
+  
+            <div class="label-and-input">
+              <label class="input-label" for="contactDescription">Mensaje</label>
+              <textarea class="inputForm" id="contactDescription" cols="88" rows="5" formControlName="description"></textarea>
+            </div>
+  
+            <button mat-raised-button color="primary" class="custom-btn">Enviar consulta</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
