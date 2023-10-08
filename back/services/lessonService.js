@@ -1,3 +1,5 @@
+const fs = require('fs/promises');
+const path = require('path');
 const db = require('../models');
 
 async function create(lessonTitle, description, lessonDateTime, courseId, deleted) {
@@ -19,16 +21,43 @@ async function getLesson(id) {
   if (!lesson) {
     throw new Error('Leccion no encontrada');
   }
-  const attendants = lesson.LessonsAttendants.map((attendant) => ({
+  // eslint-disable-next-line no-unused-vars
+  const attendants0 = lesson.LessonsAttendants.map((attendant) => ({
     id: attendant.id,
     lessonId: attendant.lessonId,
     userId: attendant.userId,
     attended: attendant.attended,
+    // name: user.name,
+    // lastname: user.lastname,
   }));
+
+  // eslint-disable-next-line prefer-const
+  let attendants = [];
+  for (let index = 0; index < lesson.LessonsAttendants.length; index += 1) {
+    const element = lesson.LessonsAttendants[index];
+    // eslint-disable-next-line no-await-in-loop
+    const user = await db.User.findByPk(element.userId);
+    let imageBuffer = null;
+    if (user.image) {
+      const imagePath = path.join(__dirname, '../resources/assets/uploads', user.image);
+      // eslint-disable-next-line no-await-in-loop
+      imageBuffer = await fs.readFile(imagePath);
+    }
+    const ele = {
+      id: element.id,
+      lessonId: element.lessonId,
+      userId: element.userId,
+      attended: element.attended,
+      name: user.name,
+      lastname: user.lastname,
+      userImage: imageBuffer,
+    };
+    attendants.push(ele);
+  }
   return {
     lesson: {
       id: lesson.id,
-      lessonTitle: lesson.title,
+      lessonTitle: lesson.lessonTitle,
       description: lesson.description,
       lessonDateTime: lesson.lessonDateTime,
       courseId: lesson.courseId,
@@ -71,9 +100,14 @@ async function deleteLesson(id) {
 
 async function attendedUser(userId, lessonId) {
   const user = await db.LessonsAttendant.findOne({ where: { userId, lessonId } });
-  user.attended = true;
+  user.attended = !user.attended;
   await user.save();
-  return user;
+  // return user;
+  return {
+    lessonId: user.lessonId,
+    userId: user.userId,
+    attended: user.attended,
+  };
 }
 
 async function getAsists(userId, courseId) {

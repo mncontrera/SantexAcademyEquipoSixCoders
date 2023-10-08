@@ -13,5 +13,7 @@ router.get('/getTeacherCourses/:id', courseController.getTeacherCourses);
 
 router.post('/subscribe/', courseController.subscribeToCourse);
 router.get('/getEnrolledCourses/:id', courseController.getEnrolledCourses);
+router.post('/paidRegistration', courseController.paidRegistration);
+router.get('/paidRegitrationUsers', courseController.getAllPaidRegitrationUsers);
 
 module.exports = router;

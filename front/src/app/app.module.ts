@@ -9,6 +9,8 @@ import { SharedModule } from './shared/shared.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { TokenInterceptor } from './core/interceptors/token.interceptor';
 import { CookieService } from 'ngx-cookie-service';
+import { CourseModule } from './modules/course/course.module';
+import { ContactModule } from './modules/contact/contact.module';
 
 import localeEs from "@angular/common/locales/es";
 import { registerLocaleData } from "@angular/common";
@@ -24,7 +26,9 @@ registerLocaleData(localeEs, "es");
     BrowserAnimationsModule,
     MaterialModule,
     SharedModule,
-    HttpClientModule
+    HttpClientModule,
+    CourseModule,
+    ContactModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
