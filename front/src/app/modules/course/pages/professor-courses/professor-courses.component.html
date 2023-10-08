@@ -15,7 +15,7 @@
           </mat-card-content>
           <mat-card-actions class="actions">
             <div class="course-price">$ {{item.price}}</div>
-            <button mat-button routerLink="/course/edit-course" (click)="watchProfessorCourseById(item.id);">Ver curso</button>
+            <button mat-raised-button color="primary" routerLink="/course/edit-course" (click)="watchProfessorCourseById(item.id);">Editar curso</button>
           </mat-card-actions>
         </mat-card>
       </div>

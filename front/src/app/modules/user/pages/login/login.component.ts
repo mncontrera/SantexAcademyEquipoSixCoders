@@ -11,6 +11,7 @@ import { LoginReq } from 'src/app/core/interfaces/login-request-interface';
   styleUrls: ['./login.component.css'],
   standalone: false,
 })
+
 export class LoginComponent implements OnInit{
 
   currentUserLogin: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -34,6 +35,23 @@ export class LoginComponent implements OnInit{
   ngOnInit(): void {
     this.formLogin.get('password')?.valueChanges.subscribe(value =>{
       console.log(value)
+    })
+
+    const passwordInput = document.querySelector("#passwordInput")
+    const eye = document.querySelector("#eye")
+    eye?.addEventListener("click", function(){
+      let isPass = passwordInput?.getAttribute("type");
+      let type;
+      if(isPass === "password") {
+        type = "text";
+        eye.classList.remove('fa-eye-slash');
+        eye.classList.add('fa-eye');
+      }else{
+        type = "password";
+        eye.classList.remove('fa-eye');
+        eye.classList.add('fa-eye-slash');
+      }
+      passwordInput?.setAttribute("type", type);
     })
   }
 

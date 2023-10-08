@@ -23,6 +23,44 @@
       width: 80%;
     }
     & .campos-del-formulario{
+      & .label-and-input{
+        position: relative;
+        & .fa-eye, .fa-eye-slash{
+          position: absolute;
+          top: 40%;
+          right: 0%;
+          cursor: pointer;
+          color: lightgray;
+          color: black;
+        }
+        & .input-label{
+          display: block;
+          padding-bottom: 3px;
+          font-size: 18px;
+        }
+        & .inputForm{
+          border-radius: 32px;
+          border: 1px solid #9E896A;
+          padding: 10px;
+          width: 100%;
+        }
+      }
+      & .mat-form-field-infix{
+        border: none;
+        padding: 0px;
+      }
+      & .error-message{
+        color: red;
+        margin-bottom: 4px;
+        visibility: hidden;
+        & p{
+          padding-top: 3px;
+          margin: 0px;
+        }
+      }
+      & .isInvalid{
+        visibility: visible;
+      }
       & .subtitulo{
         margin-bottom: 20px;
         display: flex;

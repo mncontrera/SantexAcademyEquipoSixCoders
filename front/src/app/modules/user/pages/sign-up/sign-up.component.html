@@ -30,84 +30,79 @@
               <h2>¡Aprende y animate a crear tu propio emprendimiento!</h2>
             </div>
 
-            <mat-form-field [floatLabel]="'always'" class="email-label" hideRequiredMarker="">
-              <mat-label class="mat-label-email">Nombre</mat-label>
+            <div class="label-and-input">
+              <label for="nameInput" class="input-label">Nombre</label>
               <input
-              matInput
               type="text"
               placeholder="John"
               formControlName="name"
-              class="emailInput"
-              >
-            </mat-form-field>
-            <div class="messages" [class.active]="formSignUp.get('name')?.invalid">
-              <mat-error *ngIf="nameField?.touched && nameField?.hasError('required')">
-                Campo requerido
-              </mat-error>
+              class="inputForm"
+              id="nameInput">
+              <div class="error-message" [class.isInvalid]="nameField?.invalid && nameField?.touched">
+                <p>Nombre requerido</p>
+              </div>
             </div>
 
-            <mat-form-field [floatLabel]="'always'" class="email-label" hideRequiredMarker="">
-              <mat-label class="mat-label-email">Apellido</mat-label>
+            <div class="label-and-input">
+              <label for="lastnameInput" class="input-label">Apellido</label>
               <input
-              matInput
               type="text"
               placeholder="Doe"
               formControlName="lastname"
-              class="emailInput"
-              >
-            </mat-form-field>
-            <div class="messages" [class.active]="formSignUp.get('name')?.invalid">
-              <mat-error *ngIf="lastnameField?.touched && lastnameField?.hasError('required')">
-                Campo requerido
-              </mat-error>
-              <!-- <p>lastName is valid?: {{emailField?.valid}}</p> -->
+              class="inputForm"
+              id="lastnameInput">
+              <div class="error-message" [class.isInvalid]="lastnameField?.invalid && lastnameField?.touched">
+                <p>Apellido requerido</p>
+              </div>
             </div>
 
-            <mat-form-field [floatLabel]="'always'" class="email-label" hideRequiredMarker="">
-              <mat-label class="mat-label-email">Correo electrónico</mat-label>
+            <div class="label-and-input">
+              <label for="nameInput" class="input-label">Correo electrónico</label>
               <input
-              matInput
               type="email"
-              placeholder="john@gmail.com"
+              placeholder="John@gmail.com"
               formControlName="email"
-              class="emailInput"
-              >
-            </mat-form-field>
-            <div class="messages" [class.active]="formSignUp.get('name')?.invalid">
-              <mat-error *ngIf="emailField?.touched && emailField?.hasError('required')">
-                Campo requerido
-              </mat-error>
-              <mat-error *ngIf="emailField?.touched && emailField?.hasError('email')">
-                Necesita formato de email
-              </mat-error>
+              class="inputForm"
+              id="emailInput">
+              <div class="error-message" [class.isInvalid]="emailField?.invalid && emailField?.touched">
+                <p>Email requerido</p>
+              </div>
             </div>
 
-            <mat-form-field [floatLabel]="'always'" class="password-label" hideRequiredMarker="">
-              <mat-label class="mat-label-email">Contraseña</mat-label>
-              <input matInput type="password" placeholder="********" formControlName="password" class="passwordInput">
-              <mat-icon matSuffix>visibility_off</mat-icon>
-            </mat-form-field>
-            <div class="messages" [class.active]="formSignUp.get('password')?.invalid">
-              <mat-error *ngIf="passwordField?.touched && passwordField?.hasError('required')">
-                Campo requerido
-              </mat-error>
-              <mat-error *ngIf="passwordField?.touched && passwordField?.hasError('minlength')">
-                Debe tener al menos 8 caracteres
-              </mat-error>
+            <div class="label-and-input">
+              <label for="passwordInput" class="input-label">Contraseña</label>
+              <input
+              type="password"
+              placeholder="********"
+              formControlName="password"
+              class="inputForm"
+              id="passwordInput">
+              <i class="fa-solid fa-eye-slash" id="eye"></i>
+              <div class="error-message" [class.isInvalid]="passwordField?.invalid && passwordField?.touched" >
+                <p *ngIf="(passwordField?.hasError('required'))">Contraseña requerida</p>
+              </div>
+              <div class="error-message" [class.isInvalid]="passwordField?.hasError('minlength') && passwordField?.touched" >
+                <p *ngIf="passwordField?.hasError('minlength')">Debe tener al menos 8 caracteres</p>
+                <p *ngIf="!(passwordField?.hasError('required')) && !(passwordField?.hasError('minlength'))">a</p>
+              </div>
             </div>
 
-            <mat-form-field [floatLabel]="'always'" class="password-label" hideRequiredMarker="">
-              <mat-label class="mat-label-email">Repetir contraseña</mat-label>
-              <input matInput type="password" placeholder="********" formControlName="repeatPassword" class="passwordInput">
-              <mat-icon matSuffix>visibility_off</mat-icon>
-            </mat-form-field>
-            <div class="messages" [class.active]="formSignUp.get('password')?.invalid">
-              <mat-error *ngIf="repeatPasswordField?.touched && repeatPasswordField?.hasError('required')">
-                Campo requerido
-              </mat-error>
-              <mat-error *ngIf="repeatPasswordField?.touched && repeatPasswordField?.hasError('minlength')">
-                Debe tener al menos 8 caracteres
-              </mat-error>
+            <div class="label-and-input">
+              <label for="passwordInput" class="input-label">Repetir contraseña</label>
+              <input
+              type="password"
+              placeholder="********"
+              formControlName="repeatPassword"
+              class="inputForm"
+              id="passwordInput2">
+              <i class="fa-solid fa-eye-slash" id="eye2"></i>
+              <div class="error-message" [class.isInvalid]="repeatPasswordField?.invalid && repeatPasswordField?.touched" >
+                <p *ngIf="repeatPasswordField?.hasError('required')">Contraseña requerida</p>
+              </div>
+              <div class="error-message" [class.isInvalid]="repeatPasswordField?.hasError('minlength') && repeatPasswordField?.touched" >
+                <p *ngIf="repeatPasswordField?.hasError('minlength')">Debe tener al menos 8 caracteres</p>
+                <p *ngIf="!(repeatPasswordField?.hasError('required')) && !(repeatPasswordField?.hasError('minlength'))">a</p>
+              </div>
             </div>
 
             <button mat-raised-button color="accent">Crear cuenta</button>

@@ -14,6 +14,8 @@ export class CourseInformationComponent implements OnInit {
   courseImg:any = "";
   courseImgBase:any = "data:image/jpeg;base64,";
 
+  disabledBtn:boolean = false;
+
   constructor(
     private router: Router,
     private courseService: CourseService,
@@ -47,6 +49,11 @@ export class CourseInformationComponent implements OnInit {
         console.log(res);
       }
     })
+  }
+
+  disableButton(){
+    this.disabledBtn = true;
+    console.log("boton de inscripcion desactivado")
   }
 
 }
