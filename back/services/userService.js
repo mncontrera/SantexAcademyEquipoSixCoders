@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const fs = require('fs/promises');
 const path = require('path');
+const nodemailer = require('nodemailer');
 const db = require('../models');
 
 const saltRound = 10;
@@ -112,6 +113,30 @@ async function profile(id) {
   };
 }
 
+async function sendEmail(correo, asunto, description) {
+  const transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+      user: 'tu-mail@gmail.com',
+      pass: 'tu-password',
+    },
+  });
+
+  const mailOptions = {
+    from: 'tu-mail@gmail.com',
+    to: correo,
+    subject: asunto,
+    text: description,
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+  } catch (error) {
+    console.log(error);
+    throw new Error('Error al enviar el correo electrónico');
+  }
+}
+
 module.exports = {
-  login, create, edit, deleteUser, profile,
+  login, create, edit, deleteUser, profile, sendEmail,
 };

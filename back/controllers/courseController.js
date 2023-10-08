@@ -131,6 +131,34 @@ async function getTeacherCourses(req, res, next) {
   }
 }
 
+async function paidRegistration(req, res, next) {
+  try {
+    const {
+      userId, courseId,
+    } = req.body;
+
+    try {
+      await courseService.paidRegistration(userId, courseId);
+      return res.status(200).json({ message: 'Pago de matricula asignado.' });
+    } catch (error) {
+      return res.status(500).json({ error: 'Error al asignar pago de la matricula.' });
+    }
+  } catch (error) {
+    next(error);
+    return error;
+  }
+}
+
+async function getAllPaidRegitrationUsers(req, res, next) {
+  const { courseId, paid } = req.body;
+  try {
+    const result = await courseService.getAllPaidRegitrationUsers(courseId, paid);
+    res.status(200).json(result);
+  } catch (error) {
+    next(error);
+  }
+}
+
 module.exports = {
   createCourse,
   getCourse,
@@ -140,4 +168,6 @@ module.exports = {
   subscribeToCourse,
   getEnrolledCourses,
   getTeacherCourses,
+  paidRegistration,
+  getAllPaidRegitrationUsers,
 };

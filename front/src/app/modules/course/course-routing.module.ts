@@ -27,6 +27,10 @@ const routes: Routes = [
     path: 'professor-courses',
     component: ProfessorCoursesComponent,
   },
+  {
+    path: 'get-courses',
+    component: GetCoursesComponent,
+  },
 ];
 
 @NgModule({
