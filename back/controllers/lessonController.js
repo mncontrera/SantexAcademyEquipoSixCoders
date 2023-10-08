@@ -75,8 +75,9 @@ async function attendedLesson(req, res, next) {
     } = req.body;
 
     try {
-      await lessonService.attendedUser(userId, lessonId);
-      return res.status(200).json({ message: 'Asistencia asignada.' });
+      const result = await lessonService.attendedUser(userId, lessonId);
+      // return res.status(200).json({ message: 'Asistencia asignada.' });
+      return res.status(200).json(result);
     } catch (error) {
       return res.status(500).json({ error: 'Error al asignar asistencia.' });
     }
