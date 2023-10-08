@@ -263,6 +263,25 @@ async function getTeacherCourses(teacherId) {
   return Courses;
 }
 
+async function paidRegistration(userId, courseId) {
+  const user = await db.Enrolled.findOne({ where: { userId, courseId } });
+  user.paid = !user.paid;
+  await user.save();
+  return user;
+}
+
+async function getAllPaidRegitrationUsers(courseId) {
+  const user = await db.Enrolled.findAll(
+    {
+      where: {
+        courseId,
+        paid: true,
+      },
+    },
+  );
+  return user;
+}
+
 module.exports = {
   create,
   getCourse,
@@ -274,4 +293,6 @@ module.exports = {
   getTeacherCourses,
   isSubscribed,
   validateUserRole,
+  paidRegistration,
+  getAllPaidRegitrationUsers,
 };
