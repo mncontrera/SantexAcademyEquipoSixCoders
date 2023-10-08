@@ -10,7 +10,7 @@
       <p>Clases inician el {{courseData.startDate | date: 'EEEE d of MMMM' }}</p>
       <p>Precio: $ {{courseData.price}}</p>
       <img [src]="courseImg" alt="" style="width: 340px; height: auto;">
-      <button mat-raised-button color="accent" (click)="subscribeToCourse()">Inscribirse</button>
+      <button mat-raised-button color="accent" (click)="subscribeToCourse(); disableButton();" disabled="{{disabledBtn}}">Inscribirse</button>
     </div>
   </div>
 </div>

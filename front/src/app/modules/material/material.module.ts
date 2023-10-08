@@ -11,6 +11,9 @@ import { MatDatepickerModule} from '@angular/material/datepicker'
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatRadioModule } from '@angular/material/radio';
 import {MatCardModule} from '@angular/material/card';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
+
 
 const MATERIALCOMPONENTS = [
   MatButtonModule,
@@ -25,7 +28,9 @@ const MATERIALCOMPONENTS = [
   MatDatepickerModule,
   MatNativeDateModule,
   MatRadioModule,
-  MatCardModule
+  MatCardModule,
+  MatPaginatorModule,
+  MatSortModule,
 ]
 
 @NgModule({

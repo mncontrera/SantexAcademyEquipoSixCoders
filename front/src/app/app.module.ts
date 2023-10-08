@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -11,6 +11,10 @@ import { TokenInterceptor } from './core/interceptors/token.interceptor';
 import { CookieService } from 'ngx-cookie-service';
 import { CourseModule } from './modules/course/course.module';
 import { ContactModule } from './modules/contact/contact.module';
+
+import localeEs from "@angular/common/locales/es";
+import { registerLocaleData } from "@angular/common";
+registerLocaleData(localeEs, "es");
 
 @NgModule({
   declarations: [
@@ -28,7 +32,8 @@ import { ContactModule } from './modules/contact/contact.module';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
-    CookieService
+    CookieService,
+    { provide: LOCALE_ID, useValue: "es" }
   ],
   bootstrap: [AppComponent]
 })

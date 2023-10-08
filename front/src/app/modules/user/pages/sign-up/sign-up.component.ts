@@ -34,7 +34,40 @@ export class SignUpComponent implements OnInit {
       console.log(value)
     });
     this.formSignUp.reset();
-    this.formSignUp.get('rolId')?.setValue("1")
+    this.formSignUp.get('rolId')?.setValue("1");
+
+    const passwordInput = document.querySelector("#passwordInput");
+    const passwordInput2 = document.querySelector("#passwordInput2");
+    const eye = document.querySelector("#eye");
+    const eye2 = document.querySelector("#eye2");
+    eye?.addEventListener("click", function(){
+      let isPass = passwordInput?.getAttribute("type");
+      let type;
+      if(isPass === "password") {
+        type = "text";
+        eye.classList.remove('fa-eye-slash');
+        eye.classList.add('fa-eye');
+      }else{
+        type = "password";
+        eye.classList.remove('fa-eye');
+        eye.classList.add('fa-eye-slash');
+      }
+      passwordInput?.setAttribute("type", type);
+    });
+    eye2?.addEventListener("click", function(){
+      let isPass = passwordInput2?.getAttribute("type");
+      let type;
+      if(isPass === "password") {
+        type = "text";
+        eye2.classList.remove('fa-eye-slash');
+        eye2.classList.add('fa-eye');
+      }else{
+        type = "password";
+        eye2.classList.remove('fa-eye');
+        eye2.classList.add('fa-eye-slash');
+      }
+      passwordInput2?.setAttribute("type", type);
+    })
   }
 
   data!: SignUpReq;
