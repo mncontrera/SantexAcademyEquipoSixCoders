@@ -101,6 +101,21 @@ async function subscribeToCourse(req, res, next) {
   }
 }
 
+async function getEnrolledUsers(req, res, next) {
+  try {
+    const { courseId } = req.body;
+    try {
+      const result = await courseService.getEnrolledUsers(courseId);
+      return res.status(200).json(result);
+    } catch (error) {
+      return res.status(500).json({ error: 'Error en la peticion de inscriptos' });
+    }
+  } catch (error) {
+    next(error);
+    return (error);
+  }
+}
+
 async function getEnrolledCourses(req, res, next) {
   try {
     const { id } = req.params;
@@ -170,4 +185,5 @@ module.exports = {
   getTeacherCourses,
   paidRegistration,
   getAllPaidRegitrationUsers,
+  getEnrolledUsers,
 };

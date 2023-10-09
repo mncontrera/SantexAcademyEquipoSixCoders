@@ -214,13 +214,33 @@ async function subscribeToCourse(userId, courseId) {
   };
 }
 
+async function getEnrolledUsers(courseId) {
+  const enrolledUsers = await db.Enrolled.findAll({
+    where: {
+      courseId,
+    },
+    include: [{
+      model: db.User,
+      as: 'UserEnrollments',
+      attributes: {
+        exclude: ['id', 'rolId', 'email', 'password', 'createdAt', 'updatedAt', 'deleted'],
+      },
+    }],
+    attributes: ['id', 'paid'],
+  });
+  enrolledUsers.map((enrollment) => {
+    const user = enrollment.get('UserEnrollments');
+    if (user && user.image) {
+      const imagePath = path.join(__dirname, '../resources/assets/uploads', user.image);
+      user.image = fs.readFileSync(imagePath, 'base64');
+    }
+    return user;
+  });
+
+  return enrolledUsers;
+}
+
 async function getEnrolledCourses(userId) {
-  // const Courses = await db.Course.findAll({
-  //   where: {
-  //     userId,
-  //     deleted: null,
-  //   },
-  // });
   const Courses = await db.sequelize.query('SELECT c.* FROM Enrolleds JOIN Courses c ON Enrolleds.courseId = c.id JOIN Users u ON Enrolleds.userId = u.id WHERE Enrolleds.userId = :userId;',
     {
       replacements: { userId },
@@ -295,4 +315,5 @@ module.exports = {
   validateUserRole,
   paidRegistration,
   getAllPaidRegitrationUsers,
+  getEnrolledUsers,
 };
