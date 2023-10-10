@@ -7,7 +7,7 @@
     </div>
     <div class="carousel-inner">
       <div class="carousel-item" *ngFor="let course of coursesList; let i = index" [class.active]="i === 0">
-        <img [src]="course.image" class="d-block w-100" alt="{{ course.title }}">
+        <img [src]="course.image" class="d-block w-80 h-80" alt="{{ course.title }}">
         <div class="carousel-caption d-none d-md-block">
             <h5>{{ course.title }}</h5>
             <p>{{ course.image }}</p>

@@ -1,4 +1,10 @@
 #carrousel{
     margin-top: 50px;
+    margin-left: 40%;
     height: 100px;
+    width: 500px;
+}
+
+.carousel-item{
+    margin-left: 10%;
 }
