@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
 
@@ -15,15 +15,14 @@ myForm: FormGroup<any>;
   constructor(private httpClient: HttpClient){
   this.myForm= new FormGroup({
     correo: new FormControl('', [Validators.required, Validators.email]),
-    asunto: new FormControl('', [Validators.required, Validators.maxLength(30)]),
     description: new FormControl('', [Validators.required, Validators.maxLength(150)])
   });
  }
 
  enviarConsulta() {
-  const { correo, asunto, description } = this.myForm.value;
+  const { correo, description } = this.myForm.value;
 
-  this.httpClient.post('/api/user/sendEmail', { correo, asunto, description }).subscribe({
+  this.httpClient.post('/api/user/sendEmail', { correo, description }).subscribe({
     next: (response) => {
       console.log('Correo electrónico enviado con éxito', response);
     },

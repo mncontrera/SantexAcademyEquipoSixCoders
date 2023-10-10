@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
 
-import { ContactRoutingModule } from './contact-routing.module';
 import { ContactComponent } from './pages/contact/contact.component';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -14,7 +13,6 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   imports: [
     CommonModule, 
-    ContactRoutingModule,
     ReactiveFormsModule,
     HttpClientModule
   ],
