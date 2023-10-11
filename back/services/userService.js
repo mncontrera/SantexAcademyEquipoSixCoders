@@ -56,6 +56,7 @@ async function login(email, password) {
       email: user.email,
       image: imageBuffer,
       telephone: user.telephone,
+      userRole: user.rolId,
     },
   };
 }
