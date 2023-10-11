@@ -36,9 +36,10 @@ async function getCourse(req, res, next) {
 async function getAllCourses(req, res, next) {
   try {
     const result = await courseService.getAllCourses();
-    res.status(200).json(result);
+    return res.status(200).json(result);
   } catch (error) {
     next(error);
+    return (error);
   }
 }
 
