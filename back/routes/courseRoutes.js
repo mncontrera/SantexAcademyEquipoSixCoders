@@ -12,9 +12,9 @@ router.delete('/deleteCourse/:id', courseController.deleteCourse);
 router.get('/getTeacherCourses/:id', courseController.getTeacherCourses);
 
 router.post('/subscribe/', courseController.subscribeToCourse);
-router.get('/getEnrolledUsers', courseController.getEnrolledUsers);
+router.get('/getEnrolledUsers/:id', courseController.getEnrolledUsers);
 router.get('/getEnrolledCourses/:id', courseController.getEnrolledCourses);
-router.post('/paidRegistration', courseController.paidRegistration);
+router.put('/paidRegistration', courseController.paidRegistration);
 router.get('/paidRegitrationUsers', courseController.getAllPaidRegitrationUsers);
 
 module.exports = router;

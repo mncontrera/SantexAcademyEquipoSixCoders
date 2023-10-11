@@ -223,19 +223,21 @@ async function getEnrolledUsers(courseId) {
       model: db.User,
       as: 'UserEnrollments',
       attributes: {
-        exclude: ['id', 'rolId', 'email', 'password', 'createdAt', 'updatedAt', 'deleted'],
+        exclude: ['rolId', 'email', 'password', 'createdAt', 'updatedAt', 'deleted'],
       },
     }],
-    attributes: ['id', 'paid'],
+    attributes: ['paid'],
   });
-  enrolledUsers.map((enrollment) => {
-    const user = enrollment.get('UserEnrollments');
-    if (user && user.image) {
+  for (let index = 0; index < enrolledUsers.length; index += 1) {
+    const user = enrolledUsers[index].get('UserEnrollments');
+    if (user.image) {
       const imagePath = path.join(__dirname, '../resources/assets/uploads', user.image);
-      user.image = fs.readFileSync(imagePath, 'base64');
+      let imageBuffer = null;
+      // eslint-disable-next-line no-await-in-loop
+      imageBuffer = await fs.readFile(imagePath);
+      enrolledUsers[index].UserEnrollments.image = imageBuffer;
     }
-    return user;
-  });
+  }
 
   return enrolledUsers;
 }
@@ -287,7 +289,11 @@ async function paidRegistration(userId, courseId) {
   const user = await db.Enrolled.findOne({ where: { userId, courseId } });
   user.paid = !user.paid;
   await user.save();
-  return user;
+  return {
+    courseId: user.courseId,
+    userId: user.userId,
+    paid: user.paid,
+  };
 }
 
 async function getAllPaidRegitrationUsers(courseId) {
