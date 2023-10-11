@@ -81,3 +81,15 @@
 
   }
 }
+
+#about-us-section {
+  margin-top: 140px;
+  margin-bottom: 200px;
+  & .about-us-container {
+    margin: 0px 160px;
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+
+  }
+}
