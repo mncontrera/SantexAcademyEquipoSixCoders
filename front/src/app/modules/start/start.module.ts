@@ -4,9 +4,6 @@ import { CommonModule } from '@angular/common';
 import { StartRoutingModule } from './start-routing.module';
 import { StartPageComponent } from './pages/start-page/start-page.component';
 import { SharedModule } from "../../shared/shared.module";
-import { CourseModule } from "../course/course.module";
-import { ContactModule } from "../contact/contact.module";
-import { CarrouselModule } from "../carrousel/carrousel.module";
 
 
 @NgModule({
@@ -18,10 +15,7 @@ import { CarrouselModule } from "../carrousel/carrousel.module";
     imports: [
         CommonModule,
         StartRoutingModule,
-        SharedModule,
-        CourseModule,
-        ContactModule,
-        CarrouselModule
+        SharedModule
     ]
 })
 export class StartModule { }
