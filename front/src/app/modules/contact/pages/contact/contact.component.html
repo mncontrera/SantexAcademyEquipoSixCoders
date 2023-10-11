@@ -27,23 +27,7 @@
             <label class="input-label" for="contactDescription">Mensaje</label>
             <textarea class="inputForm" id="contactDescription" cols="88" rows="5" formControlName="description"></textarea>
           </div>
-        </div>
-        <div class="contact-form">
-          <form [formGroup]="myForm" >
-            <div class="label-and-input">
-              <label for="inputMail" class="input-label">Email de contacto</label>
-              <input type="text" placeholder="Ej: DiegoCampos@mail.com" formControlName="correo"
-              class="inputForm" id="inputId">
-            </div>
-  
-            <div class="label-and-input">
-              <label class="input-label" for="contactDescription">Mensaje</label>
-              <textarea class="inputForm" id="contactDescription" cols="88" rows="5" formControlName="description"></textarea>
-            </div>
-  
-            <button mat-raised-button color="primary" class="custom-btn" (click)="enviarConsulta()">Enviar consulta</button>
-          </form>
-        </div>
+
           <button mat-raised-button color="primary" class="custom-btn" (click)="enviarConsulta()">Enviar consulta</button>
         </form>
       </div>
