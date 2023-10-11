@@ -100,10 +100,10 @@ async function userProfile(req, res, next) {
 }
 
 async function sendEmail(req, res) {
-  const { correo, asunto, description } = req.body;
+  const { correo, description } = req.body;
 
   try {
-    await userService.sendEmail(correo, asunto, description);
+    await userService.sendEmail(correo, description);
     return res.status(200).json({ message: 'Correo electrónico enviado con éxito' });
   } catch (error) {
     return res.status(500).json({ error: 'Error al enviar el correo electrónico' });

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+
 const routes: Routes = [
   {
     path: 'dashboard',
@@ -22,6 +23,14 @@ const routes: Routes = [
     path: 'attendance',
     loadChildren: () => import('./modules/attendance/attendance.module').then(m => m.AttendanceModule),
   },
+    {
+    path: 'contact',
+    loadChildren: () => import('./modules/contact/contact.module').then(m => m.ContactModule)
+    },
+    {
+      path: 'carrousel',
+      loadChildren: () => import('./modules/carrousel/carrousel.module').then(m => m.CarrouselModule)
+    }
   // {
   //   path: '**',
   //   redirectTo: 'user/edit-profile'

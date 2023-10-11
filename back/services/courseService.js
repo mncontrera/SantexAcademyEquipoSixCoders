@@ -214,13 +214,36 @@ async function subscribeToCourse(userId, courseId) {
   };
 }
 
+async function getEnrolledUsers(courseId) {
+  const enrolledUsers = await db.Enrolled.findAll({
+    where: {
+      courseId,
+    },
+    include: [{
+      model: db.User,
+      as: 'UserEnrollments',
+      attributes: {
+        exclude: ['rolId', 'email', 'password', 'createdAt', 'updatedAt', 'deleted'],
+      },
+    }],
+    attributes: ['paid'],
+  });
+
+  for (let index = 0; index < enrolledUsers.length; index += 1) {
+    const user = enrolledUsers[index].get('UserEnrollments');
+    if (user.image) {
+      const imagePath = path.join(__dirname, '../resources/assets/uploads', user.image);
+      let imageBuffer = null;
+      // eslint-disable-next-line no-await-in-loop
+      imageBuffer = await fs.readFile(imagePath);
+      enrolledUsers[index].UserEnrollments.image = imageBuffer;
+    }
+  }
+
+  return enrolledUsers;
+}
+
 async function getEnrolledCourses(userId) {
-  // const Courses = await db.Course.findAll({
-  //   where: {
-  //     userId,
-  //     deleted: null,
-  //   },
-  // });
   const Courses = await db.sequelize.query('SELECT c.* FROM Enrolleds JOIN Courses c ON Enrolleds.courseId = c.id JOIN Users u ON Enrolleds.userId = u.id WHERE Enrolleds.userId = :userId;',
     {
       replacements: { userId },
@@ -267,7 +290,12 @@ async function paidRegistration(userId, courseId) {
   const user = await db.Enrolled.findOne({ where: { userId, courseId } });
   user.paid = !user.paid;
   await user.save();
-  return user;
+  // return user;
+  return {
+    courseId: user.courseId,
+    userId: user.userId,
+    paid: user.paid,
+  };
 }
 
 async function getAllPaidRegitrationUsers(courseId) {
@@ -295,4 +323,5 @@ module.exports = {
   validateUserRole,
   paidRegistration,
   getAllPaidRegitrationUsers,
+  getEnrolledUsers,
 };
