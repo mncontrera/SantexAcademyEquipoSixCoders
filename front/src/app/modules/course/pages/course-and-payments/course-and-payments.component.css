@@ -25,15 +25,38 @@
       /* padding: 20px 40px; */
       grid-area: 1 / 2 / 6 / 6;
 
+      & .course-data{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
+
       & .profile-header{
         width: 100%;
         padding: 20px 10px;
         max-width: -webkit-fill-available;
-        text-align: center;
+        /* text-align: center; */
         margin-bottom: 40px;
 
-        & .title{
+        & .lessonTitle{
           font-size: 24px;
+        }
+
+        & .lessonSubTitle{
+          font-size: 20px;
+          margin-bottom: 20px;
+        }
+
+        & .lessons-container {
+          & .single-lesson {
+            /* border: 1px solid black; */
+            margin-bottom: 2px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: baseline;
+            padding: 3px;
+          }
         }
       }
 
@@ -101,46 +124,20 @@
   }
 }
 
-#toast {
-  visibility: hidden;
-  min-width: 250px; /* Set a default minimum width */
-  margin-left: -125px; /* Divide value of min-width by 2 */
-  background-color: #f46c19; /* Black background color */
-  color: #fff; /* White text color */
-  text-align: center; /* Centered text */
-  border-radius: 2px; /* Rounded borders */
-  padding: 16px; /* Padding */
-  position: fixed; /* Sit on top of the screen */
-  z-index: 1; /* Add a z-index if needed */
-  left: 90%; /* Center the snackbar */
-  bottom: 30px; /* 30px from the bottom */
-
+table {
+  width: 100%;
 }
 
-#toast.show {
-  visibility: visible; /* Show the snackbar */
-  /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
-  However, delay the fade out process for 2.5 seconds */
-  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+.img-card {
+  border-radius: 50%;
+  height: 42px;
+  width: 42px;
+  background-size: cover;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
-@-webkit-keyframes fadein {
-  from {bottom: 0; opacity: 0;}
-  to {bottom: 30px; opacity: 1;}
-}
-
-@keyframes fadein {
-  from {bottom: 0; opacity: 0;}
-  to {bottom: 30px; opacity: 1;}
-}
-
-@-webkit-keyframes fadeout {
-  from {bottom: 30px; opacity: 1;}
-  to {bottom: 0; opacity: 0;}
-}
-
-@keyframes fadeout {
-  from {bottom: 30px; opacity: 1;}
-  to {bottom: 0; opacity: 0;}
-}
+/* .row-is-clicked.mat-column-attended {
+  color:red;
+} */

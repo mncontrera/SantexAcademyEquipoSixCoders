@@ -89,8 +89,9 @@
 
           <input type="file" (change)="onSelectFile($event);onUpload2($event)"  id="imageInput" style="display: none;" />
           <label for="imageInput" class="imageInput">Seleccionar imagen</label>
-          <button mat-raised-button color="primary" class="custom-btn">Crear curso</button>
+          <button mat-raised-button color="primary" class="custom-btn" (click)="showToast()">Crear curso</button>
           <!-- <p>formulario valido? {{allFields.valid}} -->
+          <div id="toast">Curso creado correctamente.</div>
         </form>
       </div>
     </div>

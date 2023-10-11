@@ -2,7 +2,21 @@
   margin-top: 140px;
   margin-bottom: 200px;
   & .course-info-container{
+    /* margin: 0px 120px; */
+    display: grid;
+    grid-template-columns: 1fr 6fr;
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
     margin: 0px 120px;
+    border: 1px solid black;
+    border-radius: 8px;
+
+    & .side-nav{
+      border-right: 1px solid black;
+      padding: 20px 40px;
+      grid-area: 1 / 1 / 6 / 2;
+    }
   }
 }
 

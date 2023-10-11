@@ -23,8 +23,10 @@
       <button mat-raised-button color="primary" class="registro" *ngIf="!userIsLogued" routerLink="/user/signup" >Registrarse <img src="../../../../assets/2124045_arrow_essential_app_up_icon.svg" alt=""></button>
 
       <span *ngIf="userIsLogued" class="userLogued">Hola {{userName}}</span>
-      <button mat-raised-button color="primary" routerLink="/course/create-course" *ngIf="userIsLogued" style="margin-right: 15px;">Nuevo curso</button>
-      <button mat-raised-button color="accent" routerLink="/user/edit-profile" *ngIf="userIsLogued" (click)="toProfile()">A perfil</button>
+      <button mat-raised-button color="primary" routerLink="/user/student-courses" *ngIf="userIsLogued && studentRole" style="margin-right: 15px;">Mi aprendizaje</button>
+      <button mat-raised-button color="primary" routerLink="/course/create-course" *ngIf="userIsLogued && teacherRole" style="margin-right: 15px;">Nuevo curso</button>
+      <button mat-raised-button color="accent" routerLink="/user/edit-profile" *ngIf="userIsLogued && studentRole" (click)="toProfile()">Perfil estudiante</button>
+      <button mat-raised-button color="accent" routerLink="/user/edit-profile" *ngIf="userIsLogued && teacherRole" (click)="toProfile()">Perfil maestro <i class="fa-solid fa-eye-slash" id="eye"></i></button>
       <button mat-raised-button color="primary" *ngIf="userIsLogued" class="registro" (click)="logOut()" routerLink="/home">Salir <img src="../../../../assets/2124045_arrow_essential_app_up_icon.svg" alt=""></button>
     </div>
   </div>

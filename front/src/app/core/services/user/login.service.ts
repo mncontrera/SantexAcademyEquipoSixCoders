@@ -19,6 +19,8 @@ export class LoginService {
   currentUserLogin: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   currentUserData: BehaviorSubject<any> = new BehaviorSubject<any>({user: {name: "ejemploNombre"} });
 
+  currentUserRole: BehaviorSubject<any> = new BehaviorSubject<any>(1);
+
   authToken: string = "";
 
   constructor(
@@ -29,7 +31,7 @@ export class LoginService {
 	login(dataReq: LoginReq):Observable<any> {
     return this.apiService.post<any>('/api/user/login', dataReq).pipe(
       tap((userLoginData) => {
-        console.log(userLoginData)
+        console.log(userLoginData);
         this.authToken = userLoginData.accessToken;
         this.tokenService.saveToken(userLoginData.accessToken, userLoginData.user.name);
 
@@ -37,6 +39,8 @@ export class LoginService {
         if(this.authToken) {
           this.currentUserLogin.next(true);
         }
+
+        localStorage.setItem('currentUserRole', userLoginData.user.userRole);
       }),
       catchError(handleError)
     )
