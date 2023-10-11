@@ -228,6 +228,7 @@ async function getEnrolledUsers(courseId) {
     }],
     attributes: ['paid'],
   });
+
   for (let index = 0; index < enrolledUsers.length; index += 1) {
     const user = enrolledUsers[index].get('UserEnrollments');
     if (user.image) {
@@ -289,6 +290,7 @@ async function paidRegistration(userId, courseId) {
   const user = await db.Enrolled.findOne({ where: { userId, courseId } });
   user.paid = !user.paid;
   await user.save();
+  // return user;
   return {
     courseId: user.courseId,
     userId: user.userId,
