@@ -4,6 +4,8 @@ import { User } from 'src/app/core/interfaces/user-interface';
 import { FilesService } from 'src/app/core/services/user/files.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { CookieService } from 'ngx-cookie-service';
+import { ViewportScroller } from '@angular/common';
+import { Router } from "@angular/router";
 
 export interface File {
   originalname: string,
@@ -35,7 +37,9 @@ export class NavBarComponent implements OnInit {
     private loginService: LoginService,
     private filesService: FilesService,
     private sanitizer: DomSanitizer,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private viewportScroller: ViewportScroller,
+    private router: Router
     ) { }
 
   ngOnInit(): void {
@@ -96,6 +100,10 @@ export class NavBarComponent implements OnInit {
 
   toProfile() {
     console.log("Bienvenido a la pagina de perfil de usuario.")
+  }
+
+  public onClick(elementId: string): void {
+    this.viewportScroller.scrollToAnchor(elementId);
   }
 
 }
