@@ -12,6 +12,8 @@ import { GetCoursesComponent } from './pages/get-courses/get-courses.component';
 import { CourseInformationComponent } from './pages/course-information/course-information.component';
 import { EditCourseComponent } from './pages/edit-course/edit-course.component';
 import { ProfessorCoursesComponent } from './pages/professor-courses/professor-courses.component';
+import { TeacherCourseInformationComponent } from './pages/teacher-course-information/teacher-course-information.component';
+import { CourseAndPaymentsComponent } from './pages/course-and-payments/course-and-payments.component';
 
 
 @NgModule({
@@ -20,7 +22,9 @@ import { ProfessorCoursesComponent } from './pages/professor-courses/professor-c
     GetCoursesComponent,
     CourseInformationComponent,
     EditCourseComponent,
-    ProfessorCoursesComponent
+    ProfessorCoursesComponent,
+    TeacherCourseInformationComponent,
+    CourseAndPaymentsComponent
   ],
   imports: [
     CommonModule,

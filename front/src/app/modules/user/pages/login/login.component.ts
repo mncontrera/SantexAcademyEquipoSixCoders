@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { LoginService } from 'src/app/core/services/user/login.service';
 import { LoginReq } from 'src/app/core/interfaces/login-request-interface';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-login',
@@ -25,6 +26,7 @@ export class LoginComponent implements OnInit{
     private uFormBuilder: UntypedFormBuilder,
     private router: Router,
     private loginService: LoginService,
+    private cookieService: CookieService,
     ) {
     this.formLogin = this.uFormBuilder.group({
       email: ['nico@gmail.com',[Validators.required, Validators.email,]],
@@ -79,6 +81,8 @@ export class LoginComponent implements OnInit{
           localStorage.setItem('userLastname', userLoginData.user.lastname);
           localStorage.setItem('userEmail', userLoginData.user.email);
           localStorage.setItem('userTelephone', userLoginData.user.telephone);
+
+          this.cookieService.set('tokenDeAcceso', `${this.token}`, 4, '/')
         },
         error: (errorData) => {
           console.log("Error en la peticion")

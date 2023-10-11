@@ -1,0 +1,128 @@
+<div id="create-course-section">
+  <div class="create-course-container">
+    <div class="side-nav">
+      <div class="options">
+        <mat-nav-list role="optionsList">
+          <!-- <h3 matSubheader>Lista de opciones</h3> -->
+          <!-- <mat-divider></mat-divider> -->
+          <mat-list-item role="listitem">
+            <a routerLink="/course/professor-courses">Ver mis cursos</a>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item role="listitem">
+            <a routerLink="/course/edit-course">Editar curso</a>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item role="listitem">
+            <a routerLink="/attendance/course-with-lessons">Ver curso con clases</a>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item role="listitem">
+            <a routerLink="/attendance/create-lesson">Agregar clases</a>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        </mat-nav-list>
+      </div>
+    </div>
+    <div class="profile-info">
+      <div class="course-data">
+        <div class="course-data-left">
+          <mat-card class="example-card" style="height: 300px; max-width: 250px;">
+            <mat-card-header>
+              <div mat-card-avatar class="example-header-image"></div>
+              <mat-card-title>{{courseData.title}}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <p>
+                Descripción: {{courseData.description}}
+              </p>
+              <!-- <p>Descripción: Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis, maiores quos neque ipsam, laborum nisi cupiditate eligendi eos, doloremque eaque sit magni. Nobis aperiam veritatis nisi minima, esse ullam adipisci?</p> -->
+              <p>Creado por <span style="font-weight: 500;">{{courseData.teacher}}</span></p>
+              <p>Clases inician el {{courseData.startDate | date: 'EEEE d of MMMM' }}</p>
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <div class="course-data-right">
+          <mat-card class="example-card" style="max-width: 250px; height: 300px;">
+            <img mat-card-xl-image [src]="currentImage" alt="Photo of a Shiba Inu">
+            <mat-card-content>
+              <p>Precio: $ {{courseData.price}}</p>
+            </mat-card-content>
+          </mat-card>
+          <!-- <img [src]="currentImage" alt="" style="width: 340px; height: auto;">
+          <p>Precio: $ {{courseData.price}}</p> -->
+        </div>
+        <div class="lesson-data">
+          <mat-card class="example-card" style="max-width: 250px; height: 300px;">
+            <mat-card-header>
+              <div mat-card-avatar class="example-header-image"></div>
+              <mat-card-title>{{currentLessonData.lessonTitle}}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <!-- <p>Descripción: {{currentLessonData.description}}</p> -->
+              <p>Descripción: Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis, maiores quos neque ipsam, laborum nisi cupiditate eligendi eos, doloremque eaque sit magni. Nobis aperiam veritatis nisi minima, esse ullam adipisci?</p>
+              <p style="font-size: 22px;">Fecha: {{currentLessonData.lessonDateTime}}</p>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+      <div class="profile-header">
+        <!-- <div class="lesson-info">
+          <p>Título de clase: {{currentLessonData.lessonTitle}}</p>
+          <p>Descripción: {{currentLessonData.description}}</p>
+          <p>Fecha: {{currentLessonData.lessonDateTime}}</p>
+        </div> -->
+
+        <!-- <div class="sublessonTitle">
+          Marca la asistencia de cada alumno
+        </div> -->
+        <div class="attendants-container">
+          <mat-form-field appearance="standard">
+            <mat-label>(modificar para lista de PAGOS)</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Buscar nombre o apellido" #input>
+          </mat-form-field>
+
+          <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" #empTbSort="matSort">
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by id">ID</th>
+              <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+            </ng-container>
+            <ng-container matColumnDef="profilePic">
+              <th mat-header-cell *matHeaderCellDef>ProfilePic</th>
+              <td mat-cell *matCellDef="let element">
+                <!-- <img matListAvatar [src]="userProfileImage" alt="..." style="height: 40px; width: auto;"> -->
+                <div class="img-card" style=" background-image: url('{{element.userImage}}');"></div>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+              <td mat-cell *matCellDef="let element" > {{element.name}}</td>
+              <!-- <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{element.name}}</mat-cell> -->
+            </ng-container>
+            <ng-container matColumnDef="lastname">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Apellido</th>
+              <td mat-cell *matCellDef="let element"> {{element.lastname}} </td>
+            </ng-container>
+            <ng-container matColumnDef="paid">
+              <th mat-header-cell *matHeaderCellDef>Estado</th>
+              <td mat-cell *matCellDef="let element"> {{element.paid ? 'Pagado' : 'Sin Pagar'}} </td>
+            </ng-container>
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef>Pago</th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-raised-button routerLink="/course/course-and-payments" (click)="markPayment(element.id)" [class.row-is-clicked]="">Marcar</button>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" style="background-color: #d1b0b0;"></tr>
+          </table>
+          <mat-paginator [pageSizeOptions]="[2, 4]"
+                 showFirstLastButtons
+                 aria-label="Select page of periodic elements">
+          </mat-paginator>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

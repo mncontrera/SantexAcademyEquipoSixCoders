@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ContactRoutingModule } from './contact-routing.module';
 import { ContactComponent } from './pages/contact/contact.component';
 import { HttpClientModule } from '@angular/common/http';
+import { MaterialModule } from '../material/material.module';
 
 
 @NgModule({
@@ -13,10 +14,11 @@ import { HttpClientModule } from '@angular/common/http';
     ContactComponent
   ],
   imports: [
-    CommonModule, 
+    CommonModule,
     ContactRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MaterialModule
   ],
   exports:[
     ContactComponent
