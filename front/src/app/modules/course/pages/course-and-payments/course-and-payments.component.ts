@@ -11,13 +11,13 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort, Sort} from '@angular/material/sort';
 
-@Component({
-  selector: 'app-lessons-and-attendance',
-  templateUrl: './lessons-and-attendance.component.html',
-  styleUrls: ['./lessons-and-attendance.component.css'],
-})
 
-export class LessonsAndAttendanceComponent implements OnInit, AfterViewInit {
+@Component({
+  selector: 'app-course-and-payments',
+  templateUrl: './course-and-payments.component.html',
+  styleUrls: ['./course-and-payments.component.css']
+})
+export class CourseAndPaymentsComponent implements OnInit {
 
   courseData:any;
 
@@ -37,13 +37,15 @@ export class LessonsAndAttendanceComponent implements OnInit, AfterViewInit {
 
   // dataSource:any = this.lessonAttendantsList.attendants;
   // dataSource!: attendantElement[];
-  displayedColumns: string[] = ['userId', 'profilePic', 'name', 'lastname', 'attended', 'actions'];
+  displayedColumns: string[] = ['id', 'profilePic', 'name', 'lastname', 'paid', 'actions'];
 
   userProfileImage:any;
   currentLessonData!: lessonData;
 
   // dataSource = new MatTableDataSource<attendantElement>(ELEMENT_DATA);
   dataSource:any;
+
+  courseAttendantsList:courseAttendant[] = [];
 
   constructor(
     private router: Router,
@@ -86,7 +88,8 @@ export class LessonsAndAttendanceComponent implements OnInit, AfterViewInit {
       this.courseService.getProfessorCourse().subscribe({
         next: (res) => {
           this.courseData = res.course;
-          console.log(res);
+          // console.log("course data response")
+          // console.log(res);
 
           localStorage.setItem('currentTeacherCourseId', this.courseData.id);
 
@@ -112,26 +115,56 @@ export class LessonsAndAttendanceComponent implements OnInit, AfterViewInit {
         }
       })
 
-      let currentLesson = localStorage.getItem('currentLessonId');
-      this.attendanceService.getLessonAttendants(currentLesson).subscribe({
+      // let currentLesson = localStorage.getItem('currentLessonId');
+      // this.attendanceService.getLessonAttendants(currentLesson).subscribe({
+      //   next: (res) => {
+      //     this.lessonAttendantsList = res.attendants;
+      //     // console.log(res)
+      //     for (let index = 0; index < this.lessonAttendantsList.length; index++) {
+      //       const element = this.lessonAttendantsList[index];
+
+      //       if(this.lessonAttendantsList[index].userImage) {
+      //         this.lessonAttendantsList[index].userImage = "data:image/jpeg;base64," + this.fileService.arrayBufferToBase64(element.userImage.data);
+      //       }
+      //     }
+
+
+      //     // this.dataSource = new MatTableDataSource<attendantElement>(this.lessonAttendantsList);
+      //     // console.log(this.dataSource.data[0])
+      //     // this.dataSource.paginator = this.paginator;
+      //     // this.empTbSort.disableClear = true;
+      //     // this.dataSource.sort = this.empTbSort;
+      //     // this.dataSource.sortingDataAccessor = (data: any, sortHeaderId: string): string => {
+      //     //   if (typeof data[sortHeaderId] === 'string') {
+      //     //     return data[sortHeaderId].toLocaleLowerCase();
+      //     //   }
+
+      //     //   return data[sortHeaderId];
+      //     // };
+      //   },
+      //   error: (errorData) => {
+      //     console.log(errorData);
+      //     throw "Error en la peticion";
+      //   },
+      //   complete: () => {
+      //     console.log("peticion completada")
+      //   }
+      // })
+
+      this.courseService.getStudentPayments().subscribe({
         next: (res) => {
-          this.lessonAttendantsList = res.attendants;
-          this.currentLessonData = res.lesson;
-          console.log(this.currentLessonData);
-
-          for (let index = 0; index < this.lessonAttendantsList.length; index++) {
-            const element = this.lessonAttendantsList[index];
-
-            if(this.lessonAttendantsList[index].userImage) {
-              this.lessonAttendantsList[index].userImage = "data:image/jpeg;base64," + this.fileService.arrayBufferToBase64(element.userImage.data);
-            }
+          console.log("AAAAAAAAAAAAAAA response from student payments")
+          console.log(res);
+          for (let index = 0; index < res.length; index++) {
+            const element = res[index];
+            this.courseAttendantsList.push(element.UserEnrollments);
+            this.courseAttendantsList[index].paid = element.paid;
+            // this.courseAttendantsList[index].userId = element.id;
           }
-          this.dataSource = new MatTableDataSource<attendantElement>(this.lessonAttendantsList);
-          // this.dataSource = this.lessonAttendantsList;
-          console.log("AAAAAAAAAAAAAAAAAAAAAAAAAA");
-          console.log(this.dataSource.data[0])
+          console.log(this.courseAttendantsList)
+
+          this.dataSource = new MatTableDataSource<courseAttendant>(this.courseAttendantsList);
           this.dataSource.paginator = this.paginator;
-          // this.dataSource.sort = this.sort;
           this.empTbSort.disableClear = true;
           this.dataSource.sort = this.empTbSort;
           this.dataSource.sortingDataAccessor = (data: any, sortHeaderId: string): string => {
@@ -141,13 +174,6 @@ export class LessonsAndAttendanceComponent implements OnInit, AfterViewInit {
 
             return data[sortHeaderId];
           };
-        },
-        error: (errorData) => {
-          console.log(errorData);
-          throw "Error en la peticion";
-        },
-        complete: () => {
-          console.log("peticion completada")
         }
       })
     } catch (error) {
@@ -167,20 +193,22 @@ export class LessonsAndAttendanceComponent implements OnInit, AfterViewInit {
     }
   }
 
-  markAttendance(userId:any) {
-    const lessonId = this.currentLessonData.id;
+  markPayment(userId:any) {
+    const courseId = this.courseData.id
     let reqBody = {
-      lessonId,
+      courseId,
       userId
     }
     try {
-      this.attendanceService.markAttendance(reqBody).subscribe({
+      this.courseService.markPayment(reqBody).subscribe({
         next: (res) => {
           console.log(res);
           // this.dataSource.data[0].name = "asdasdasd";
           // this.dataSource.data.map((x:any) => console.log(x.userId));
-          this.dataSource.data.map((item: any) => {if (item.userId === res.userId) {item.attended = res.attended} });
-          // console.log(this.dataSource.data)
+
+          this.dataSource.data.map((item: any) => {if (item.id === res.userId) {item.paid = res.paid} });
+
+          console.log(this.dataSource.data)
         },
         error: (errorData) => {
           console.log(errorData);
@@ -243,3 +271,12 @@ const ELEMENT_DATA: attendantElement[] = [
   {attended: false, id: 2, name: 'acio', lastname: "qwe", lessonId: "4", userId: 3, userImage: "ab"},
   {attended: false, id: 4, name: 'ecio', lastname: "qwe", lessonId: "4", userId: 5, userImage: "ab"},
 ]
+
+export interface courseAttendant {
+  paid: any;
+  lastname: string;
+  name: string;
+  id: number;
+  userImage: any;
+  telephone: string;
+}

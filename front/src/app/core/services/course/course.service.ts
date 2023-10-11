@@ -44,7 +44,8 @@ export class CourseService {
 
   getProfessorCourse(){
     const courseId = localStorage.getItem('currentProfessorCourseId');
-    return this.apiService.get<any>(`${this.baseUrl}/getCourse/${courseId}`);
+    console.log("current course id", courseId)
+    return this.apiService.get<any>(`${this.baseUrl}getCourse/${courseId}`);
   }
 
   editCourse(file: Blob, formData:any) {
@@ -72,6 +73,19 @@ export class CourseService {
   getStudentCourses(){
     const professorId = localStorage.getItem('userId');
     return this.apiService.get<any>(`/api/course/getEnrolledCourses/${professorId}`);
+  }
+
+  getStudentPayments() {
+    const courseId = localStorage.getItem('currentTeacherCourseId');
+    return this.apiService.get<any>(`${this.baseUrl}/getEnrolledUsers/${courseId}`).pipe(
+      catchError(handleError)
+    );
+  }
+
+  markPayment(dataReq:any) {
+    return this.apiService.put<any>(`${this.baseUrl}paidRegistration`, dataReq).pipe(
+      catchError(handleError)
+    );
   }
 
 }

@@ -6,6 +6,7 @@ import { AccountCreatedComponent } from './pages/account-created/account-created
 import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
 import { VigilantGuard } from 'src/app/core/guards/vigilant.guard';
 import { StudentCoursesComponent } from './pages/student-courses/student-courses.component';
+import { LoginGuardGuard } from 'src/app/core/guards/login-guard.guard';
 
 const routes: Routes = [
   {
@@ -23,14 +24,12 @@ const routes: Routes = [
   {
     path: 'account-created',
     component: AccountCreatedComponent,
-    children: [
-
-    ]
+    // canActivate: [LoginGuardGuard]
   },
   {
     path: 'edit-profile',
     component: EditProfileComponent,
-    // canActivate: [VigilantGuard]
+    canActivate: [LoginGuardGuard]
   },
   {
     path: 'student-courses',

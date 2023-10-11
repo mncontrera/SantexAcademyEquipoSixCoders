@@ -5,11 +5,16 @@ import { GetCoursesComponent } from './pages/get-courses/get-courses.component';
 import { CourseInformationComponent } from './pages/course-information/course-information.component';
 import { EditCourseComponent } from './pages/edit-course/edit-course.component';
 import { ProfessorCoursesComponent } from './pages/professor-courses/professor-courses.component';
+import { TeacherCourseInformationComponent } from './pages/teacher-course-information/teacher-course-information.component';
+import { CourseAndPaymentsComponent } from './pages/course-and-payments/course-and-payments.component';
+import { VigilantGuard } from 'src/app/core/guards/vigilant.guard';
+import { TeacherGuardGuard } from 'src/app/core/guards/teacher-guard.guard';
 
 const routes: Routes = [
   {
     path: 'create-course',
     component: CreateCourseComponent,
+    canActivate: [TeacherGuardGuard],
   },
   {
     path: 'courses',
@@ -22,6 +27,7 @@ const routes: Routes = [
   {
     path: 'edit-course',
     component: EditCourseComponent,
+    canActivate: [TeacherGuardGuard],
   },
   {
     path: 'professor-courses',
@@ -30,6 +36,14 @@ const routes: Routes = [
   {
     path: 'get-courses',
     component: GetCoursesComponent,
+  },
+  {
+    path: 'teacher-course',
+    component: TeacherCourseInformationComponent,
+  },
+  {
+    path: 'course-and-payments',
+    component: CourseAndPaymentsComponent,
   },
 ];
 

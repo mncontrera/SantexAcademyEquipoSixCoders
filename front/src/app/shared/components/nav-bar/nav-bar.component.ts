@@ -3,6 +3,7 @@ import { LoginService } from 'src/app/core/services/user/login.service';
 import { User } from 'src/app/core/interfaces/user-interface';
 import { FilesService } from 'src/app/core/services/user/files.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { CookieService } from 'ngx-cookie-service';
 
 export interface File {
   originalname: string,
@@ -27,10 +28,14 @@ export class NavBarComponent implements OnInit {
   previsualization: string = "";
   loading?: boolean;
 
+  teacherRole:boolean = false;
+  studentRole:boolean = false;
+
   constructor(
     private loginService: LoginService,
     private filesService: FilesService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private cookieService: CookieService
     ) { }
 
   ngOnInit(): void {
@@ -51,11 +56,27 @@ export class NavBarComponent implements OnInit {
     this.loginService.currentUserData.subscribe({
       next: (loguedUserData) => {
         this.userName = loguedUserData.user.name;
+        if(loguedUserData.user.userRole === 2) {
+          this.teacherRole = true;
+          this.studentRole = false;
+        }
+        if(loguedUserData.user.userRole === 1) {
+          this.studentRole = true;
+          this.teacherRole = false;
+        }
       }
     })
 
     if(this.userIsLogued){
       this.userName = localStorage.getItem('userName')
+    }
+
+    let userRole = localStorage.getItem('currentUserRole');
+    if( userRole === '2') {
+      this.teacherRole = true;
+    }
+    if( userRole === '1') {
+      this.studentRole = true;
     }
 
   }
@@ -69,6 +90,8 @@ export class NavBarComponent implements OnInit {
     localStorage.removeItem('userId');
     localStorage.removeItem('userTelephone');
     localStorage.removeItem('userEmail');
+    this.cookieService.delete('tokenDeAcceso', '/');
+    localStorage.removeItem('currentUserRole');
   }
 
   toProfile() {

@@ -49,6 +49,29 @@ export class EditProfileComponent implements OnInit {
     }else{
       this.currentImage = '../../../../../assets/profile-pic-placeholder.jpeg';
     }
+
+    const deleteButton = document.getElementById('deleteButton');
+    const deleteModal = document.getElementById('deleteModal');
+    const confirmDelete = document.getElementById('confirmDelete');
+    const cancelDelete = document.getElementById('cancelDelete');
+
+    // Function to open the modal
+    deleteButton?.addEventListener('click', function () {
+      deleteModal!.style.display = 'block';
+    });
+
+    // Function to close the modal when the cancel button is clicked
+    cancelDelete?.addEventListener('click', function () {
+      deleteModal!.style.display = 'none';
+    });
+
+    // Function to perform the delete action when the confirm button is clicked
+    confirmDelete?.addEventListener('click', function () {
+      // Perform the delete action here
+      // You can replace this with your actual delete code
+      // alert('Item deleted successfully');
+      deleteModal!.style.display = 'none';
+    });
   }
 
   // lee el archivo que se cargo en input, y con filereader devuelve el archivo seleccionado para usarlo como src de etiqueta img
