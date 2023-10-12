@@ -1,0 +1,12 @@
+#carrousel{
+    margin-top: -80px;
+    margin-left: 20%;
+    height: 100px;
+    width: 1000px;
+}
+
+.carousel-item{
+    margin-left: 30%;
+    margin-top: 0;
+}
+ 
