@@ -29,13 +29,6 @@
     }
   }
 
-  & .logo{
-    width: 8%;
-    & img{
-      width: 80%;
-    }
-  }
-
   & .botones{
     & .userLogued{
       margin-right: 15px;
@@ -56,37 +49,6 @@
     }
   }
 }
-
-.mat-toolbar{
-  border-bottom: 1px solid black;
-  position: fixed;
-  top: 0px;
-  z-index: 2;
-}
-
-/* #nav-bar{
-  border-bottom: 1px solid black;
-  position: fixed;
-  top: 0px;
-  z-index: 2;
-
-  display: flex;
-    box-sizing: border-box;
-    padding: 0 16px;
-    width: 100%;
-    flex-direction: row;
-    align-items: center;
-    white-space: nowrap;
-
-    height: 64px;
-
-    background: whitesmoke;
-    color: rgba(0, 0, 0, 0.87);
-
-    font: 500 20px / 32px Roboto, "Helvetica Neue", sans-serif;
-    letter-spacing: normal;
-    margin: 0;
-} */
 
 ul li .router-link-active{
   color: #316BDB;

@@ -27,7 +27,6 @@
       <button mat-raised-button color="primary" routerLink="/course/create-course" *ngIf="userIsLogued && teacherRole" style="margin-right: 15px;">Nuevo curso</button>
       <button mat-raised-button color="accent" routerLink="/user/edit-profile" *ngIf="userIsLogued && studentRole" (click)="toProfile()">Perfil estudiante</button>
       <button mat-raised-button color="accent" routerLink="/user/edit-profile" *ngIf="userIsLogued && teacherRole" (click)="toProfile()">Perfil maestro</button>
-      <!-- <button mat-raised-button color="primary" *ngIf="userIsLogued" class="registro" (click)="logOut()" routerLink="/home">Salir <img src="../../../../assets/2124045_arrow_essential_app_up_icon.svg" alt=""></button> -->
       <button mat-raised-button color="primary" *ngIf="userIsLogued" class="registro" (click)="logOut()" routerLink="/home">Salir <i class="fa-solid fa-arrow-right-from-bracket" style="font-size: 18px; margin-left: 3px;"></i></button>
     </div>
   </div>
