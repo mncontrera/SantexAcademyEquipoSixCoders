@@ -22,7 +22,9 @@ async function createUser(req, res) {
     } = req.body;
 
     try {
+      await userService.checkEmail(email);
       await userService.create(name, lastname, email, password, rolId, image);
+      await userService.sendConfirmationEmail(email);
       return res.status(201).json({ message: 'Usuario creado correctamente' });
     } catch (error) {
       return res.status(500).json({ error: 'Error al crear el usuario' });

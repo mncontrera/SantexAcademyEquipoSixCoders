@@ -1,10 +1,10 @@
 const express = require('express');
 const courseController = require('../controllers/courseController');
-const { isAuthenticated } = require('../middleware/authentication.middleware');
+// const { isAuthenticated } = require('../middleware/authentication.middleware');
 
 const router = express.Router();
 
-router.post('/create', isAuthenticated, courseController.createCourse);
+router.post('/create', courseController.createCourse);
 router.get('/getCourse/:id', courseController.getCourse);
 router.get('/getAllCourses', courseController.getAllCourses);
 router.put('/editCourse/:id', courseController.editCourse);

@@ -10,6 +10,23 @@ async function create(lessonTitle, description, lessonDateTime, courseId, delete
     courseId,
     deleted,
   });
+
+  const enrolledUsers = await db.Enrolled.findAll({
+    where: { courseId },
+  });
+  const lessonId = lesson.id;
+  const lessonsAttendantRecord = [];
+
+  enrolledUsers.forEach((Enrolled) => {
+    const userId = Enrolled.id;
+    lessonsAttendantRecord.push({
+      courseId,
+      lessonId,
+      userId,
+      attended: false,
+    });
+  });
+  await db.LessonsAttendant.bulkCreate(lessonsAttendantRecord);
   return lesson;
 }
 
@@ -27,8 +44,7 @@ async function getLesson(id) {
     lessonId: attendant.lessonId,
     userId: attendant.userId,
     attended: attendant.attended,
-    // name: user.name,
-    // lastname: user.lastname,
+
   }));
 
   // eslint-disable-next-line prefer-const

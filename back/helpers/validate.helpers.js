@@ -7,8 +7,6 @@ const nameValidation = body('name')
 const lastnameValidation = body('lastname')
   .notEmpty().withMessage('El apellido es requerido');
 
-// const telephoneValidation = body('telephone')
-//   .notEmpty().withMessage('El teléfono es requerido');
 const telephoneValidation = body('telephone')
   .isLength({ max: 40 })
   .withMessage(`El telefono no debe tener mas de 

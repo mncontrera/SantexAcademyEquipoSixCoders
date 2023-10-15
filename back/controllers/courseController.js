@@ -9,7 +9,6 @@ async function createCourse(req, res, next) {
     const {
       title, description, price, startDate, endDate, userId, lessons,
     } = JSON.parse(req.body.data);
-
     try {
       await courseService.create(title, description, price, startDate, endDate, image, userId,
         lessons);
@@ -80,7 +79,7 @@ async function subscribeToCourse(req, res, next) {
     const {
       userId, courseId,
     } = req.body;
-    const isUserRoleValid = await courseService.validateUserRole(userId, '2');
+    const isUserRoleValid = await courseService.validateUserRole(userId);
 
     if (!isUserRoleValid) {
       return res.status(403).json({ error: 'No tienes permiso para suscribirte a cursos' });

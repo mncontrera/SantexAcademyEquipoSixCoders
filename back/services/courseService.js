@@ -6,14 +6,28 @@ const db = require('../models');
 async function validateUserRole(userId) {
   const user = await db.User.findByPk(userId);
 
-  return user;
+  return {
+    user: user.rolId,
+  };
+}
+
+async function isSubscribed(userId, courseId) {
+  const enrollment = await db.Enrolled.findOne({
+    where: {
+      userId,
+      courseId,
+    },
+  });
+
+  return !!enrollment;
 }
 
 async function create(title, description, price, startDate, endDate, image, userId, lessons) {
   const userRol = await validateUserRole(userId);
-  if (userRol.rolId === '1') {
+  if (userRol.rolId === '2') {
     throw new Error('No tienes permiso para suscribirte a cursos');
   }
+
   const course = await db.Courses.create({
     title,
     description,
@@ -142,17 +156,6 @@ async function deleteCourse(id) {
 
   await course.save();
   return course;
-}
-
-async function isSubscribed(userId, courseId) {
-  const enrollment = await db.Enrolled.findOne({
-    where: {
-      userId,
-      courseId,
-    },
-  });
-
-  return !!enrollment;
 }
 
 async function subscribeToCourse(userId, courseId) {
