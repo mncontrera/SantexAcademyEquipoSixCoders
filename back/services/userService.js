@@ -12,14 +12,14 @@ async function sendEmail(correo, description) {
   const transporter = nodemailer.createTransport({
     service: 'outlook',
     auth: {
-      user: 'd.a.campos@hotmail.com',
+      user: config.development.myemail,
       pass: config.development.myemailpassword,
     },
   });
 
   const mailOptions = {
-    from: 'd.a.campos@hotmail.com',
-    to: 'diegoacampos.dc@gmail.com , d.a.campos@hotmail.com , martinnicolascontrera@gmail.com',
+    from: config.development.myemail,
+    to: config.development.myemail,
     subject: correo,
     text: description,
   };
@@ -35,13 +35,13 @@ async function sendConfirmationEmail(email) {
   const transporter = nodemailer.createTransport({
     service: 'outlook',
     auth: {
-      user: 'd.a.campos@hotmail.com',
+      user: config.development.myemail,
       pass: config.development.myemailpassword,
     },
   });
 
   const mailOptions = {
-    from: 'd.a.campos@hotmail.com',
+    from: config.development.myemail,
     to: email,
     subject: 'Confirmacion de cuenta',
     text: 'Su cuenta fue creada con exito',
