@@ -4,6 +4,7 @@ const fs = require('fs/promises');
 const path = require('path');
 const nodemailer = require('nodemailer');
 const db = require('../models');
+const config = require('../config/config');
 
 const saltRound = 10;
 
@@ -12,7 +13,7 @@ async function sendEmail(correo, description) {
     service: 'outlook',
     auth: {
       user: 'd.a.campos@hotmail.com',
-      pass: 'Pochito1988',
+      pass: config.development.myemailpassword,
     },
   });
 
@@ -35,7 +36,7 @@ async function sendConfirmationEmail(email) {
     service: 'outlook',
     auth: {
       user: 'd.a.campos@hotmail.com',
-      pass: 'Pochito1988',
+      pass: config.development.myemailpassword,
     },
   });
 

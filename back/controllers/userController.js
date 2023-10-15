@@ -27,6 +27,7 @@ async function createUser(req, res) {
       await userService.sendConfirmationEmail(email);
       return res.status(201).json({ message: 'Usuario creado correctamente' });
     } catch (error) {
+      console.log(error);
       return res.status(500).json({ error: 'Error al crear el usuario' });
     }
   });

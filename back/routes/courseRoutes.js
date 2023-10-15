@@ -17,4 +17,8 @@ router.get('/getEnrolledCourses/:id', courseController.getEnrolledCourses);
 router.put('/paidRegistration', courseController.paidRegistration);
 router.get('/paidRegitrationUsers', courseController.getAllPaidRegitrationUsers);
 
+router.get('/createOrder', courseController.createOrder);
+router.get('/succes', courseController.succesOrder);
+router.get('/webhook', courseController.webhookOrder);
+
 module.exports = router;

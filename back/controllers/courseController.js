@@ -175,6 +175,20 @@ async function getAllPaidRegitrationUsers(req, res, next) {
   }
 }
 
+async function createOrder(req, res) {
+  const result = await courseService.createOrder();
+  return res.status(200).json(result);
+}
+
+async function succesOrder(req, res) {
+  const result = await courseService.succesOrder();
+  return res.status(200).json(result);
+}
+
+async function webhookOrder(req, res) {
+  const result = await courseService.webhookOrder();
+  return res.status(200).json(result);
+}
 module.exports = {
   createCourse,
   getCourse,
@@ -187,4 +201,7 @@ module.exports = {
   paidRegistration,
   getAllPaidRegitrationUsers,
   getEnrolledUsers,
+  createOrder,
+  succesOrder,
+  webhookOrder,
 };
