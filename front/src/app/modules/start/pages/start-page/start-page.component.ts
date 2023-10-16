@@ -12,4 +12,14 @@ export class StartPageComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  showSomething() {
+    console.log("holaaaaaaaa")
+  }
+
+  watchCourseById(teacherId: any){
+    console.log("hola"+teacherId)
+    localStorage.setItem('currentCourseId', teacherId);
+    console.log("holaaaaaaaa")
+  }
+
 }

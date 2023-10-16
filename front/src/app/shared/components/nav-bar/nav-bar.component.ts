@@ -13,11 +13,15 @@ export interface File {
   filename: string
 }
 
+
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css']
 })
+
+
+
 export class NavBarComponent implements OnInit {
 
   userIsLogued?:boolean;
@@ -42,7 +46,14 @@ export class NavBarComponent implements OnInit {
     private router: Router
     ) { }
 
+  alg2 = document.getElementsByClassName("botones") as HTMLCollectionOf<HTMLElement>;
+  alg3 = document.getElementById("algo");
+
+  elm1 = document.querySelector<HTMLElement>('botones');
+
   ngOnInit(): void {
+    let alg = document.getElementsByClassName('botones');
+    let elm2 = document.querySelector<HTMLElement>('botones')!;
 
     this.loginService.currentUserLogin.subscribe({
       next: (logedIn) => {
@@ -104,6 +115,17 @@ export class NavBarComponent implements OnInit {
 
   public onClick(elementId: string): void {
     this.viewportScroller.scrollToAnchor(elementId);
+  }
+
+  esconderBotones(){
+    console.log("botones AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa")
+    // const elm = document.querySelector<HTMLElement>('botones')!;
+    // elm.style.display = 'none';
+    // this.elm1!.style.display = 'none'
+
+
+    // const test = document.querySelector<HTMLElement>('botones');
+    // test.style.display = 'none'
   }
 
 }

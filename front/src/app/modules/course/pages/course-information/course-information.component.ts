@@ -16,6 +16,9 @@ export class CourseInformationComponent implements OnInit {
 
   disabledBtn:boolean = false;
 
+  userRoleId:any = localStorage.getItem('currentUserRole');
+  isTeacher:boolean = false;
+
   constructor(
     private router: Router,
     private courseService: CourseService,
@@ -23,6 +26,10 @@ export class CourseInformationComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    if(this.userRoleId === "2") {
+      this.isTeacher = true;
+    }
+    console.log(this.isTeacher)
     try {
       this.courseService.getSingleCourse().subscribe({
         next: (res) => {

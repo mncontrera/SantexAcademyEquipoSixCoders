@@ -1,7 +1,7 @@
 
 #contact-section{
   margin-top: 200px;
-  margin-bottom: 200px;
+  margin-bottom: 60px;
 
   & .contact-container{
     display: grid;
@@ -93,6 +93,21 @@
     }
     & .isInvalid{
       visibility: visible;
+    }
+  }
+}
+
+@media (width <= 600px) {
+  #contact-section {
+    margin: 80px 0px;
+  }
+  .contact-container {
+    margin: 0px 15px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    & .contact-form {
+      width: 100% !important;
+      padding: 0px 20px !important;
     }
   }
 }

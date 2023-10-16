@@ -26,19 +26,38 @@
           </li>
         </ul> -->
         <mat-nav-list role="optionsList">
-          <mat-list-item role="listitem">
+          <!-- <mat-list-item role="listitem">
+            <div class="icon-container">
+              <i class="fa-solid fa-chalkboard-user"></i>
+            </div>
             <a routerLink="/user/student-courses">Mis cursos como estudiante</a>
           </mat-list-item>
-          <mat-divider></mat-divider>
+          <mat-divider></mat-divider> -->
           <mat-list-item role="listitem">
-            <a>Ver perfil</a>
+            <div class="icon-container">
+              <i class="fa-solid fa-chalkboard-user"></i>
+            </div>
+            <a routerLink="/course/professor-courses">Ver mis cursos</a>
           </mat-list-item>
           <mat-divider></mat-divider>
+          <!-- <mat-list-item role="listitem">
+            <div class="icon-container">
+              <i class="fa-regular fa-calendar-plus"></i>
+            </div>
+            <a>Ver perfil</a>
+          </mat-list-item> -->
+          <mat-divider></mat-divider>
           <mat-list-item role="listitem">
+            <div class="icon-container">
+              <i class="fa-regular fa-pen-to-square"></i>
+            </div>
             <a routerLink="/user/edit-profile">Editar perfil</a>
           </mat-list-item>
           <mat-divider></mat-divider>
           <mat-list-item role="listitem">
+            <div class="icon-container">
+              <i class="fa-solid fa-trash-can"></i>
+            </div>
             <a id="deleteButton">Borrar cuenta</a>
           </mat-list-item>
           <mat-divider></mat-divider>

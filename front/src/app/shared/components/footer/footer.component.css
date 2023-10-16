@@ -3,7 +3,7 @@ body{
 }
 
 .contenedor{
-  margin: 0px 150px;
+  /* margin: 0px 150px; */
   display: grid;
   grid-template-columns: 2fr repeat(2, 4fr) 2fr;
   grid-template-rows: 1fr;
@@ -111,6 +111,7 @@ body{
     display: flex;
     align-content: center;
     justify-content: center;
+    box-sizing: content-box;
     & span{
       font-size: 25px;
     }
@@ -118,3 +119,30 @@ body{
 }
 
 
+@media (width <= 600px) {
+  .footer {
+    margin-top: 90px;
+    & .contenedor{
+      margin: 0px 15px !important;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      & .logo {
+        display: inline-block;
+        align-self: center;
+        margin-bottom: 10px;
+      }
+      & .mas-info {
+        margin-top: 25px;
+      }
+      & .ir-arriba {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+      }
+    }
+  }
+  /* .contenedor{
+    margin: 0px 15px !important;
+  } */
+}

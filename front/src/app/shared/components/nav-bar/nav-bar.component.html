@@ -15,7 +15,7 @@
         <a (click)="onClick('about-us-section')" style="cursor: pointer;">Nosotros</a>
       </li>
       <li>
-        <a routerLink="/dashboard" routerLinkActive="router-link-active" >Contacto</a>
+        <a (click)="onClick('contact-section')" style="cursor: pointer;">Contacto</a>
       </li>
     </ul>
     <div class="botones">
@@ -25,10 +25,43 @@
       <span *ngIf="userIsLogued" class="userLogued">Hola {{userName}}</span>
       <button mat-raised-button color="primary" routerLink="/user/student-courses" *ngIf="userIsLogued && studentRole" style="margin-right: 15px;">Mi aprendizaje</button>
       <button mat-raised-button color="primary" routerLink="/course/create-course" *ngIf="userIsLogued && teacherRole" style="margin-right: 15px;">Nuevo curso</button>
-      <button mat-raised-button color="accent" routerLink="/user/edit-profile" *ngIf="userIsLogued && studentRole" (click)="toProfile()">Perfil estudiante</button>
-      <button mat-raised-button color="accent" routerLink="/user/edit-profile" *ngIf="userIsLogued && teacherRole" (click)="toProfile()">Perfil maestro</button>
+      <button mat-raised-button color="accent" routerLink="/user/edit-profile" *ngIf="userIsLogued && studentRole" (click)="toProfile()">Perfil de Estudiante</button>
+      <button mat-raised-button color="accent" routerLink="/user/edit-profile" *ngIf="userIsLogued && teacherRole" (click)="toProfile()">Perfil de Maestro</button>
       <!-- <button mat-raised-button color="primary" *ngIf="userIsLogued" class="registro" (click)="logOut()" routerLink="/home">Salir <img src="../../../../assets/2124045_arrow_essential_app_up_icon.svg" alt=""></button> -->
       <button mat-raised-button color="primary" *ngIf="userIsLogued" class="registro" (click)="logOut()" routerLink="/home">Salir <i class="fa-solid fa-arrow-right-from-bracket" style="font-size: 18px; margin-left: 3px;"></i></button>
     </div>
   </div>
 </mat-toolbar>
+<header class="header">
+  <a href="#" class="logo">
+      <img src="../../../../assets/noc-logo.png" style="width: 50px; height: auto;">
+  </a>
+  <input class="side-menu" type="checkbox" id="side-menu"/>
+  <div class="botones" id="algo" style="margin-top: 20px;">
+    <button mat-raised-button color="accent" routerLink="/user/login" *ngIf="!userIsLogued">Entrar</button>
+    <button mat-raised-button color="primary" class="registro" *ngIf="!userIsLogued" routerLink="/user/signup" >Registrarse <img src="../../../../assets/2124045_arrow_essential_app_up_icon.svg" alt=""></button>
+
+    <span *ngIf="userIsLogued" class="userLogued">Hola {{userName}}</span>
+    <button mat-raised-button color="primary" routerLink="/user/student-courses" *ngIf="userIsLogued && studentRole" style="margin-right: 15px;">Mi aprendizaje</button>
+    <button mat-raised-button color="primary" routerLink="/course/create-course" *ngIf="userIsLogued && teacherRole" style="margin-right: 15px;">Nuevo curso</button>
+    <button mat-raised-button color="accent" routerLink="/user/edit-profile" *ngIf="userIsLogued && studentRole" (click)="toProfile()">Perfil de Estudiante</button>
+    <button mat-raised-button color="accent" routerLink="/user/edit-profile" *ngIf="userIsLogued && teacherRole" (click)="toProfile()">Perfil de Maestro</button>
+  </div>
+  <label class="hamb" for="side-menu" (click)="esconderBotones()"><span class="hamb-line" ></span></label>
+  <nav class="nav">
+      <ul class="menu">
+        <li>
+          <a routerLink="/home" routerLinkActive="router-link-active" >Inicio</a>
+        </li>
+        <li>
+          <a routerLink="/course/courses" routerLinkActive="router-link-active" >Cursos</a>
+        </li>
+        <li>
+          <a (click)="onClick('about-us-section')" style="cursor: pointer;">Nosotros</a>
+        </li>
+        <li>
+          <a routerLink="/dashboard" routerLinkActive="router-link-active" >Contacto</a>
+        </li>
+      </ul>
+  </nav>
+</header>

@@ -19,14 +19,14 @@
           <mat-divider></mat-divider>
           <mat-list-item role="listitem">
             <div class="icon-container">
-              <i class="fa-regular fa-pen-to-square"></i>
+              <i class="fa-solid fa-person-chalkboard"></i>
             </div>
             <a routerLink="/attendance/course-with-lessons">Curso con clases</a>
           </mat-list-item>
           <mat-divider></mat-divider>
           <mat-list-item role="listitem">
             <div class="icon-container">
-              <i class="fa-solid fa-person-chalkboard"></i>
+              <i class="fa-regular fa-calendar-plus"></i>
             </div>
             <a routerLink="/attendance/create-lesson">Agregar clases</a>
           </mat-list-item>
@@ -40,9 +40,16 @@
           <mat-divider></mat-divider>
           <mat-list-item role="listitem">
             <div class="icon-container">
+              <i class="fa-solid fa-folder-plus"></i>
+            </div>
+            <a routerLink="/course/create-course">Nuevo curso</a>
+          </mat-list-item>
+          <mat-list-item role="listitem">
+            <div class="icon-container">
               <i class="fa-solid fa-trash-can"></i>
             </div>
-            <a (click)="deleteCourse()" routerLink="/dashboard">Borrar este curso</a>
+            <!-- <a (click)="deleteCourse()" routerLink="/dashboard">Borrar este curso</a> -->
+            <a id="deleteButton">Borrar este curso</a>
           </mat-list-item>
           <mat-divider></mat-divider>
         </mat-nav-list>
@@ -126,6 +133,14 @@
           <label for="imageInput" class="imageInput">Seleccionar imagen</label>
           <button mat-raised-button color="primary" class="custom-btn" (click)="showToast()">Editar curso</button>
           <div id="toast">¡Curso editado correctamente!</div>
+
+          <div id="deleteModal" class="modal">
+            <div class="modal-content">
+                <p>¿Estás seguro de que quieres BORRAR tu cuenta?</p>
+                <button mat-raised-button color="primary" id="cancelDelete">No</button>
+                <button mat-raised-button style="background-color: red; color: white;" id="confirmDelete" (click)="deleteCourse()">Sí</button>
+            </div>
+          </div>
         </form>
       </div>
     </div>

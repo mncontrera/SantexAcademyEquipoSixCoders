@@ -1,10 +1,3 @@
-<div id="info-section">
-  <div class="container">
-    <div class="image">
-      <img src="../../../../../assets/noc_bg.jpg" width="100%" height="700px">
-    </div>
-  </div>
-</div>
 <div id="seccion-principal">
   <div class="contenedor-seccion-principal">
     <div class="parte-izquierda">
@@ -55,7 +48,145 @@
     </div>
   </div>
 </div>
-<app-carrousel></app-carrousel>
+<div id="info-section">
+  <div class="container">
+    <div class="image">
+      <img src="../../../../../assets/noc_bg.jpg" width="100%" height="700px">
+    </div>
+  </div>
+</div>
+<!-- <app-carrousel></app-carrousel> -->
+<div id="carousel-section">
+  <div class="carousel-container" >
+    <div class="carousel-title">
+      <h3>Nuestos próximos Cursos!</h3>
+    </div>
+    <div id="carouselExample" class="carousel slide carousel-slide" data-bs-theme="dark">
+      <!-- <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div> -->
+      <div class="carousel-inner"  data-bs-ride="carousel" style="cursor: pointer;">
+        <div class="carousel-item active" routerLink="/course/course-information" (click)="watchCourseById(2);" >
+          <div class="img-container" style="display: inline-block; width: 33%; height: 400px; position: relative; ">
+            <!-- <span style="position: absolute; left: 50%; color: green;">some text</span> -->
+            <div style="width: 100%; height: 350px; background-image: url('../../../../../assets/intro-js.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover;"></div>
+            <div style="display: flex;
+            justify-content: center;
+            align-items: center; margin-top: 5px;">
+              <span style="font-size: 20px;">Introducción a Javascript</span>
+            </div>
+          </div>
+
+
+          <div class="img-container" style="display: inline-block; width: 33%; height: 400px; position: relative; ">
+            <!-- <div class="course-image" style="width: 100%; height: auto; display: inline-block;">
+
+            </div> -->
+            <div style="width: 100%; height: 350px; background-image: url('../../../../../assets/intro-angular.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover;"></div>
+            <div style="display: flex;
+            justify-content: center;
+            align-items: center; margin-top: 5px;">
+              <span style="font-size: 20px;">Curso de Angular</span>
+            </div>
+          </div>
+
+
+          <div class="img-container" style="display: inline-block; width: 33%; height: 400px; position: relative;">
+            <div style="width: 100%; height: 350px; background-image: url('../../../../../assets/js-stack.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover;"></div>
+            <div style="display: flex;
+            justify-content: center;
+            align-items: center; margin-top: 5px;">
+              <span style="font-size: 20px;">Curso de Javascript Stack</span>
+            </div>
+          </div>
+
+          <!-- <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmWjUNk1IuZf6nl0MAu4xcsmuRJM4Bg-nvqh3yfrxrH9C-e7iqo1YBcpRdVHNh_Altkxw&usqp=CAU" class=" " alt="..." style="width: 33%; height: 400px;"> -->
+        </div>
+
+        <div class="carousel-item" routerLink="/course/course-information" (click)="watchCourseById(2);">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSLMjbSSZ-FQr96kwR3enydKqktYGnkb4Y6AybhzNd0WsDT8pVmlWn5lEgZfDTH6jissw&usqp=CAU" class=" " alt="..." style="width: 33%; height: 400px;">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKgPazkkqDamnilYvtr8iBdGNfOY0pWfGbvo5R-tFFW9gWYThoj1aaHpVTXA1Ls9tcjYo&usqp=CAU" class=" " alt="..." style="width: 33%; height: 400px;">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKgPazkkqDamnilYvtr8iBdGNfOY0pWfGbvo5R-tFFW9gWYThoj1aaHpVTXA1Ls9tcjYo&usqp=CAU" class=" " alt="..." style="width: 33%; height: 400px;">
+        </div>
+
+        <div class="carousel-item" routerLink="/course/course-information" (click)="watchCourseById(2);">
+          <img src="https://i.pinimg.com/originals/1c/b0/82/1cb08209829389704ded4928c294791d.jpg" class=" " alt="..." style="width: 33%; height: 400px;">
+          <!-- https://i.pinimg.com/originals/4e/5f/68/4e5f689b220b5fa0f5549051f48d1d8d.jpg -->
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAvo8hTZdcoEaGJpGvn9vfLvGsLbWf_SoSYA&usqp=CAU" class="" alt="..." style="width: 33%; height: 400px;">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAvo8hTZdcoEaGJpGvn9vfLvGsLbWf_SoSYA&usqp=CAU" class="" alt="..." style="width: 33%; height: 400px;">
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true" style="color: red;"></span>
+        <span class="visually-hidden" style="color: red;">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+
+    <div id="carouselResponsive" class="carousel slide carousel-slide" style="border: 2px solid black; width: 1500px; height: 430px;" data-bs-theme="dark">
+      <!-- <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div> -->
+      <div class="carousel-inner"  data-bs-ride="carousel" style="cursor: pointer;">
+        <div class="carousel-item active" routerLink="/course/course-information" (click)="watchCourseById(2);" >
+          <div class="img-container img-1" style="display: inline-block; width: 33%; height: 400px; position: relative; ">
+            <!-- <span style="position: absolute; left: 50%; color: green;">some text</span> -->
+            <div style="width: 100%; height: 350px; background-image: url('../../../../../assets/intro-js.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover;"></div>
+            <div style="display: flex;
+            justify-content: center;
+            align-items: center; margin-top: 5px;">
+              <span style="font-size: 20px;">Introducción a Javascript</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="carousel-item active" routerLink="/course/course-information" (click)="watchCourseById(2);" >
+          <div class="img-container img-2" style="display: inline-block; width: 33%; height: 400px; position: relative; ">
+            <!-- <div class="course-image" style="width: 100%; height: auto; display: inline-block;">
+
+            </div> -->
+            <div style="width: 100%; height: 350px; background-image: url('../../../../../assets/intro-angular.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover;"></div>
+            <div style="display: flex;
+            justify-content: center;
+            align-items: center; margin-top: 5px;">
+              <span style="font-size: 20px;">Curso de Angular</span>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="carousel-item active" routerLink="/course/course-information" (click)="watchCourseById(2);" >
+          <div class="img-container img-3" style="display: inline-block; width: 33%; height: 400px; position: relative;">
+            <div style="width: 100%; height: 350px; background-image: url('../../../../../assets/js-stack.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover;"></div>
+            <div style="display: flex;
+            justify-content: center;
+            align-items: center; margin-top: 5px;">
+              <span style="font-size: 20px;">Curso de Javascript Stack</span>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true" style="color: red;"></span>
+        <span class="visually-hidden" style="color: red;">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </div>
+</div>
 <div id="about-us-section">
   <div class="about-us-container">
     <div class="left-side">
@@ -63,13 +194,16 @@
         <h3>Sobre Nosotros</h3>
       </div>
       <div class="description">
-        <p>La tarea más ardua de nuestra institución, por la zona en la que se encuentra, es la sensibilización del emprendedor.<br> No hay organizaciones en la región que se dediquen al acompañamiento, por lo que es difícil la generación de confianza,<br> el concepto de incubadora de empresa es desconocido. La tarea más ardua de nuestra institución, por la zona en la que se encuentra,<br> es la sensibilización del emprendedor. No hay organizaciones en la región que se dediquen al acompañamiento,<br> por lo que es difícil la generación de confianza, el concepto de incubadora de empresa es desconocido..</p>
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consectetur quas vitae ab rem cumque esse voluptas quam deleniti. Blanditiis aperiam nobis voluptate dolor labore architecto sed eius adipisci assumenda praesentium. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae error aspernatur, corrupti porro quasi reprehenderit eum facilis esse numquam ab quo nam perferendis dolorum soluta culpa, eligendi amet, minima a?
+        </p>
       </div>
     </div>
     <div class="right-side">
       <div class="about-us-image">
-        <img src="" alt="">
+        <img src="../../../../../assets/pexels-rdne-stock-project-5922205.jpg" alt="">
       </div>
     </div>
   </div>
 </div>
+<app-contact></app-contact>
