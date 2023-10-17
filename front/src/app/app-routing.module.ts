@@ -15,13 +15,21 @@ const routes: Routes = [
     loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule),
   },
   {
+    path: 'course',
+    loadChildren: () => import('./modules/course/course.module').then(m => m.CourseModule),
+  },
+  {
+    path: 'attendance',
+    loadChildren: () => import('./modules/attendance/attendance.module').then(m => m.AttendanceModule),
+  },
+  {
     path: '**',
-    redirectTo: 'user/signup'
+    redirectTo: '/home'
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { anchorScrolling: 'enabled'})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

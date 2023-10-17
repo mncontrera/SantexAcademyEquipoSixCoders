@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SignUpReq } from 'src/app/core/interfaces/sign-up-request-interface';
-import { SignupService } from 'src/app/core/services/user/signup.service';
+import { UserService } from 'src/app/core/services/user/user.service';
 
 
 @Component({
@@ -17,7 +17,7 @@ export class SignUpComponent implements OnInit {
   constructor(
     private uFormBuilder: UntypedFormBuilder,
     private router: Router,
-    private signUpService: SignupService
+    private userService: UserService
   ) {
     this.formSignUp = this.uFormBuilder.group({
       name: ['name',[Validators.required, Validators.maxLength(40),]],
@@ -34,7 +34,40 @@ export class SignUpComponent implements OnInit {
       console.log(value)
     });
     this.formSignUp.reset();
-    this.formSignUp.get('rolId')?.setValue("1")
+    this.formSignUp.get('rolId')?.setValue("1");
+
+    const passwordInput = document.querySelector("#passwordInput");
+    const passwordInput2 = document.querySelector("#passwordInput2");
+    const eye = document.querySelector("#eye");
+    const eye2 = document.querySelector("#eye2");
+    eye?.addEventListener("click", function(){
+      let isPass = passwordInput?.getAttribute("type");
+      let type;
+      if(isPass === "password") {
+        type = "text";
+        eye.classList.remove('fa-eye-slash');
+        eye.classList.add('fa-eye');
+      }else{
+        type = "password";
+        eye.classList.remove('fa-eye');
+        eye.classList.add('fa-eye-slash');
+      }
+      passwordInput?.setAttribute("type", type);
+    });
+    eye2?.addEventListener("click", function(){
+      let isPass = passwordInput2?.getAttribute("type");
+      let type;
+      if(isPass === "password") {
+        type = "text";
+        eye2.classList.remove('fa-eye-slash');
+        eye2.classList.add('fa-eye');
+      }else{
+        type = "password";
+        eye2.classList.remove('fa-eye');
+        eye2.classList.add('fa-eye-slash');
+      }
+      passwordInput2?.setAttribute("type", type);
+    })
   }
 
   data!: SignUpReq;
@@ -42,12 +75,11 @@ export class SignUpComponent implements OnInit {
   sendForm(event: any) {
     if(this.formSignUp.valid){
       console.log(this.formSignUp.value)
-      console.log("acontinuacion debe estar la peticion post");
 
       this.data = this.formSignUp.value as SignUpReq;
 
       try {
-        this.signUpService.signUp(this.data).subscribe({
+        this.userService.createUser(this.data).subscribe({
           next: (userSignUpData) => {
             console.log("user sign up data response: \n")
             console.log(userSignUpData);
@@ -59,7 +91,7 @@ export class SignUpComponent implements OnInit {
           complete: () => {
             console.log("peticion completada")
             this.formSignUp.reset();
-            this.router.navigateByUrl('/user/accountCreated');
+            this.router.navigateByUrl('/user/account-created');
           }
         })
       } catch (error) {

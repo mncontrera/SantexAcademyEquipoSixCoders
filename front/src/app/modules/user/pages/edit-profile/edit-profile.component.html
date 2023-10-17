@@ -1,0 +1,137 @@
+
+<div id="profile-section">
+  <div class="profile-container">
+    <div class="side-nav">
+      <div class="display-basic-info">
+        <div class="profile-image">
+          <img id="image" [src]="currentImage" alt="profilec-image" height="200px">
+        </div>
+        <div class="names">
+          <p>{{userName}} {{userLastname}}</p>
+        </div>
+      </div>
+      <div class="options">
+        <!-- <ul>
+          <li>
+            <a routerLink="/user/student-courses">Ver mis cursos</a>
+          </li>
+          <li>
+            <a >Ver pefil</a>
+          </li>
+          <li>
+            <a >Editar pefil</a>
+          </li>
+          <li>
+            <a (click)="deleteAccount()" routerLink="/dashboard">Borrar cuenta</a>
+          </li>
+        </ul> -->
+        <mat-nav-list role="optionsList">
+          <!-- <mat-list-item role="listitem">
+            <div class="icon-container">
+              <i class="fa-solid fa-chalkboard-user"></i>
+            </div>
+            <a routerLink="/user/student-courses">Mis cursos como estudiante</a>
+          </mat-list-item>
+          <mat-divider></mat-divider> -->
+          <mat-list-item role="listitem">
+            <div class="icon-container">
+              <i class="fa-solid fa-chalkboard-user"></i>
+            </div>
+            <a routerLink="/course/professor-courses">Ver mis cursos</a>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <!-- <mat-list-item role="listitem">
+            <div class="icon-container">
+              <i class="fa-regular fa-calendar-plus"></i>
+            </div>
+            <a>Ver perfil</a>
+          </mat-list-item> -->
+          <mat-divider></mat-divider>
+          <mat-list-item role="listitem">
+            <div class="icon-container">
+              <i class="fa-regular fa-pen-to-square"></i>
+            </div>
+            <a routerLink="/user/edit-profile">Editar perfil</a>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item role="listitem">
+            <div class="icon-container">
+              <i class="fa-solid fa-trash-can"></i>
+            </div>
+            <a id="deleteButton">Borrar cuenta</a>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        </mat-nav-list>
+      </div>
+    </div>
+    <div class="profile-info">
+      <div class="profile-header">
+        <div class="title">
+          <p>Perfil público</p>
+        </div>
+        <div class="subtitle">
+          Añade información sobre ti
+        </div>
+      </div>
+      <div class="profile-form">
+        <form [formGroup]="profileForm" (ngSubmit)="editProfile2($event)">
+          <div class="label-and-input">
+            <label for="inputId" class="input-label">Nombre</label>
+            <input
+            type="text"
+            placeholder="Ej: John"
+            formControlName="name"
+            class="inputForm"
+            id="inputId"
+            >
+            <div class="error-message" [class.isInvalid]="nameField?.invalid && nameField?.touched">
+              <p>Nombre requerido</p>
+            </div>
+
+          </div>
+
+          <div class="label-and-input">
+            <label class="input-label">Apellido</label>
+            <input
+            type="text"
+            placeholder="Ej: Doe"
+            formControlName="lastname"
+            class="inputForm"
+            >
+            <div class="error-message" [class.isInvalid]="lastnameField?.invalid && lastnameField?.touched">
+              <p>Apellido requerido</p>
+            </div>
+          </div>
+
+          <div class="label-and-input">
+            <label class="input-label">Teléfono</label>
+            <input
+            type="text"
+            placeholder="Ej: +54 3516548259"
+            formControlName="telephone"
+            class="inputForm"
+            >
+            <div class="error-message" [class.isInvalid]="telephoneField?.invalid && telephoneField?.touched">
+              <p>Teléfono requerido</p>
+            </div>
+          </div>
+
+          <input type="file" (change)="onSelectFile($event);onUpload2($event)"  id="imageInput" style="display: none;" />
+          <label for="imageInput" class="imageInput">Elegir imagen</label>
+
+          <button mat-raised-button color="primary" class="custom-btn" (click)="showToast()">Guardar</button>
+          <!-- <p>formulario valido? {{allFields.valid}} -->
+          <div id="toast">Perfil guardado correctamente.</div>
+
+          <div id="deleteModal" class="modal">
+            <div class="modal-content">
+                <p>¿Estás seguro de que quieres BORRAR tu cuenta?</p>
+                <button mat-raised-button color="primary" id="cancelDelete">No</button>
+                <button mat-raised-button style="background-color: red; color: white;" id="confirmDelete" (click)="deleteAccount()">Sí</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

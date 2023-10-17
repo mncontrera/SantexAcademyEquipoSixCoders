@@ -19,45 +19,40 @@
           </div>
         </div>
         <div class="campos-del-formulario">
-          <form [formGroup]="formLogin" (ngSubmit)="saveForm($event)">
-            <mat-form-field [floatLabel]="'always'" class="email-label correo" hideRequiredMarker="">
-              <mat-label class="mat-label-email">Correo electrónico</mat-label>
+          <form [formGroup]="formLogin" (ngSubmit)="sendLoginForm($event)">
+
+            <div class="label-and-input">
+              <label for="emailInput" class="input-label">Correo electrónico</label>
               <input
-              matInput
               type="email"
               placeholder="john@gmail.com"
               formControlName="email"
-              class="emailInput"
-              >
-            </mat-form-field>
-            <div class="messages" [class.active]="formLogin.get('email')?.invalid">
-              <mat-error *ngIf="emailField?.touched && emailField?.hasError('required')">
-                Campo requerido
-              </mat-error>
-              <mat-error *ngIf="emailField?.touched && emailField?.hasError('email')">
-                Necesita formato de email
-              </mat-error>
+              class="inputForm"
+              id="emailInput">
+              <div class="error-message" [class.isInvalid]="emailField?.invalid && emailField?.touched">
+                <p>Email requerido</p>
+              </div>
             </div>
 
-
-            <mat-form-field [floatLabel]="'always'" class="password-label" hideRequiredMarker="">
-              <mat-label class="mat-label-email">Contraseña</mat-label>
-              <input matInput type="password" placeholder="********" formControlName="password" class="passwordInput">
-              <mat-icon matSuffix>visibility_off</mat-icon>
-            </mat-form-field>
-            <div class="messages" [class.active]="formLogin.get('password')?.invalid">
-              <mat-error *ngIf="passwordField?.touched && passwordField?.hasError('required')">
-                Campo requerido
-              </mat-error>
-              <mat-error *ngIf="passwordField?.touched && passwordField?.hasError('minlength')">
-                Debe tener al menos 8 caracteres
-              </mat-error>
+            <div class="label-and-input">
+              <label for="passwordInput" class="input-label">Correo electrónico</label>
+              <input
+              type="password"
+              placeholder="password1"
+              formControlName="password"
+              class="inputForm"
+              id="passwordInput">
+              <i class="fa-solid fa-eye-slash" id="eye"></i>
+              <div class="error-message" [class.isInvalid]="passwordField?.invalid && passwordField?.touched">
+                <p>pass requerida</p>
+              </div>
             </div>
+
             <div class="checkbox-y-contraseña">
               <div class="checkbox-texto">
-                <input type="checkbox" name="asd"><span>Recordarme</span>
+                <input type="checkbox" name="asd" class="inputCheckbox"><span>Recordarme</span>
               </div>
-              <p>¿Olvidaste tu contraseña?</p>
+              <p class="forgot-password">¿Olvidaste tu contraseña?</p>
             </div>
             <button mat-raised-button color="accent">Iniciar sesión</button>
           </form>

@@ -1,0 +1,124 @@
+<div id="create-course-section">
+  <div class="create-course-container">
+    <div class="side-nav">
+      <div class="options">
+        <mat-nav-list role="optionsList">
+          <mat-list-item role="listitem">
+            <div class="icon-container">
+              <i class="fa-solid fa-chalkboard-user"></i>
+            </div>
+            <a routerLink="/course/professor-courses">Ver mis cursos</a>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item role="listitem">
+            <div class="icon-container">
+              <i class="fa-regular fa-pen-to-square"></i>
+            </div>
+            <a routerLink="/course/edit-course">Editar curso</a>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item role="listitem">
+            <div class="icon-container">
+              <i class="fa-solid fa-person-chalkboard"></i>
+            </div>
+            <a routerLink="/attendance/course-with-lessons">Curso con clases</a>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item role="listitem">
+            <div class="icon-container">
+              <i class="fa-regular fa-calendar-plus"></i>
+            </div>
+            <a routerLink="/attendance/create-lesson">Agregar clases</a>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item role="listitem">
+            <div class="icon-container">
+              <i class="fa-solid fa-dollar-sign"></i>
+            </div>
+            <a routerLink="/course/course-and-payments">Pagos del curso</a>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item role="listitem">
+            <div class="icon-container">
+              <i class="fa-solid fa-folder-plus"></i>
+            </div>
+            <a routerLink="/course/create-course">Nuevo curso</a>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item role="listitem">
+            <div class="icon-container">
+              <i class="fa-solid fa-trash-can"></i>
+            </div>
+            <!-- <a (click)="deleteCourse()" routerLink="/dashboard">Borrar este curso</a> -->
+            <a id="deleteButton">Borrar este curso</a>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        </mat-nav-list>
+      </div>
+    </div>
+    <div class="profile-info">
+      <div class="course-data">
+
+        <div class="course-data-left">
+          <mat-card class="example-card" style="height: 280px; max-width: 350px;">
+            <mat-card-header>
+              <div mat-card-avatar class="example-header-image"></div>
+              <mat-card-title>{{courseData.title}}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content >
+              <p class="course-description">
+                Descripción: {{courseData.description}}
+              </p>
+              <p>Duración: 3 semanas</p>
+              <p>Creado por <span style="font-weight: 500;">{{courseData.teacher}}</span></p>
+              <p>Clases inician el {{courseData.startDate | date: 'EEEE d of MMMM' }}</p>
+            </mat-card-content>
+          </mat-card>
+        </div>
+
+        <div class="course-data-right">
+          <mat-card class="example-card">
+            <img mat-card-image [src]="currentImage" alt="Photo of" style="height: 230px;  max-width: 350px; width: 350px;">
+            <mat-card-content>
+              <p>Precio: $ {{courseData.price}}</p>
+            </mat-card-content>
+          </mat-card>
+          <!-- <img [src]="currentImage" alt="" style="width: 340px; height: auto;">
+          <p>Precio: $ {{courseData.price}}</p> -->
+        </div>
+      </div>
+      <div class="profile-header">
+        <!-- <div class="lessonTitle">
+          <p>Lista de clases</p>
+        </div> -->
+        <div class="lessonSubTitle">
+          Selecciona una clase para ver detalles y tomar asistencia
+        </div>
+        <div class="lessons-container">
+          <table mat-table [dataSource]="lessonsList" class="mat-elevation-z8">
+            <ng-container matColumnDef="position">
+              <th mat-header-cell *matHeaderCellDef>ID</th>
+              <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+            </ng-container>
+            <ng-container matColumnDef="title">
+              <th mat-header-cell *matHeaderCellDef>Título</th>
+              <td mat-cell *matCellDef="let element" > {{element.lessonTitle}} </td>
+            </ng-container>
+            <ng-container matColumnDef="date">
+              <th mat-header-cell *matHeaderCellDef>Fecha</th>
+              <td mat-cell *matCellDef="let element"> {{element.lessonDateTime}} </td>
+            </ng-container>
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef>Acciones</th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-raised-button routerLink="/attendance/lessons-and-attendance" (click)="goToLesson(element.id)" style="background-color: #9859E8; color: white">Ver asistencias</button>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" style="background-color: #FAF5DE;"></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,5 @@
 'use strict';
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -9,6 +10,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      image: { 
+        type: Sequelize.STRING,
+        onDelete:'CASCADE',
+        onUpdate:'CASCADE'
+         },
       name: {
         type: Sequelize.STRING
       },
@@ -16,6 +22,9 @@ module.exports = {
         type: Sequelize.STRING
       },
       email: {
+        type: Sequelize.STRING
+      },
+      telephone: {
         type: Sequelize.STRING
       },
       password: {
@@ -35,6 +44,9 @@ module.exports = {
       },
       updatedAt: {
         type: Sequelize.DATE
+      },
+      deleted:{
+        type: Sequelize.INTEGER
       }
     });
   },

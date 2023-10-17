@@ -1,63 +1,142 @@
-// const jwt = require('jsonwebtoken');
-const { Op } = require('sequelize');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const fs = require('fs/promises');
+const path = require('path');
+const nodemailer = require('nodemailer');
 const db = require('../models');
 
-async function create(name, lastname, email, password, rolId) {
+const saltRound = 10;
+
+async function create(name, lastname, email, password, rolId, image) {
+  const passwordHash = await bcrypt.hash(password, saltRound);
   const user = await db.User.create({
     name,
     lastname,
     email,
-    password,
+    password: passwordHash,
     rolId,
+    image,
   });
-  const logedUser = user;
-  return logedUser;
+  return user;
 }
 
 async function login(email, password) {
   const user = await db.User.findOne({
-    where: {
-      [Op.and]: [
-        { email },
-        { password },
-      ],
-    },
+    where: { email },
   });
-  return user;
-  // if(!user){
-  //     throw new Error(`Id y/o password incorrectos`)
-  // }
-
-  // const token = jwt.sign({
-  //     id:user.id,
-  //     name:user.name,
-  // }, 'claveUltraSecreta')
-
-  // return {
-  //     accesToken: token
-  // }
-}
-
-async function edit(id, name, lastname, email, password, rolId) {
-  const user = await db.User.findByPk(id);
-  if (!user) {
+  if (user.deleted === 1) {
     throw new Error('Usuario no encontrado');
   }
-  const updatedFields = {};
+  if (!user) {
+    throw new Error('Correo electrónico no encontrado');
+  }
 
-  updatedFields.name = name;
+  const checkPassword = await bcrypt.compare(password, user.password);
+  if (!checkPassword) {
+    throw new Error('Contrasena incorrecta');
+  }
 
-  updatedFields.lastname = lastname;
+  let imageBuffer = null;
+  if (user.image) {
+    const imagePath = path.join(__dirname, '../resources/assets/uploads', user.image);
+    imageBuffer = await fs.readFile(imagePath);
+  }
 
-  updatedFields.email = email;
+  const token = jwt.sign({
+    id: user.id,
+    name: user.name,
+  }, 'claveSixCoders');
 
-  updatedFields.password = password;
+  return {
+    accessToken: token,
+    user: {
+      id: user.id,
+      name: user.name,
+      lastname: user.lastname,
+      email: user.email,
+      image: imageBuffer,
+      telephone: user.telephone,
+    },
+  };
+}
 
-  updatedFields.rolId = rolId;
+async function edit(id, name, lastname, telephone, image) {
+  const user = await db.User.findByPk(id);
 
-  await user.update(updatedFields);
-
+  if (image) {
+    const updatedFields = {
+      name,
+      lastname,
+      telephone,
+      image,
+    };
+    await user.update(updatedFields);
+  } else {
+    const updatedFields = {
+      name,
+      lastname,
+      telephone,
+    };
+    await user.update(updatedFields);
+  }
+  return user;
+}
+async function deleteUser(id) {
+  const user = await db.User.findByPk(id);
+  user.deleted = 1;
+  await user.save();
   return user;
 }
 
-module.exports = { login, create, edit };
+async function profile(id) {
+  const user = await db.User.findByPk(id);
+
+  if (!user) {
+    throw new Error('Correo electrónico no encontrado');
+  }
+
+  let imageBuffer = null;
+  if (user.image) {
+    const imagePath = path.join(__dirname, '../resources/assets/uploads', user.image);
+    imageBuffer = await fs.readFile(imagePath);
+  }
+
+  return {
+
+    user: {
+      id: user.id,
+      name: user.name,
+      image: imageBuffer,
+      telephone: user.telephone,
+      lastname: user.lastname,
+    },
+  };
+}
+
+async function sendEmail(correo, asunto, description) {
+  const transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+      user: 'tu-mail@gmail.com',
+      pass: 'tu-password',
+    },
+  });
+
+  const mailOptions = {
+    from: 'tu-mail@gmail.com',
+    to: correo,
+    subject: asunto,
+    text: description,
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+  } catch (error) {
+    console.log(error);
+    throw new Error('Error al enviar el correo electrónico');
+  }
+}
+
+module.exports = {
+  login, create, edit, deleteUser, profile, sendEmail,
+};

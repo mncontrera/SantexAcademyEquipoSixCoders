@@ -1,6 +1,6 @@
 <div id="seccion-principal">
   <div class="contenedor-seccion-principal">
-    <div class="parte-izquierda">
+    <div class="parte-izquierda" style="position: relative; display: flex; flex-direction: column; align-items: center;">
       <div class="textos">
         <div class="texto-principal">
           <p>
@@ -10,6 +10,9 @@
         <div class="texto-secundario">
           <p>Aprende y se parte de la comunidad!</p>
         </div>
+      </div>
+      <div style="align-self: flex-end; margin-top: -60px;">
+        <img src="../../../../../assets/figma-ilustration.svg" alt="" style="height: 300px; width: auto;">
       </div>
     </div>
     <div class="parte-derecha">
@@ -51,7 +54,188 @@
 <div id="info-section">
   <div class="container">
     <div class="image">
-      <img src="../../../../../assets/noc_bg.jpg" alt="">
+      <img src="../../../../../assets/noc_bg.jpg" width="100%" height="700px">
     </div>
   </div>
 </div>
+<!-- <app-carrousel></app-carrousel> -->
+<div id="carousel-section">
+  <div class="carousel-container" >
+    <div class="carousel-title">
+      <h3>Nuestos próximos Cursos!</h3>
+    </div>
+    <div id="carouselExample" class="carousel slide carousel-slide" data-bs-theme="dark">
+      <!-- <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div> -->
+      <div class="carousel-inner"  data-bs-ride="carousel" style="cursor: pointer;">
+
+
+        <!-- <div class="carousel-item active" routerLink="/course/course-information" (click)="watchCourseById(2);" > -->
+        <div class="carousel-item active" >
+
+          <div class="img-container" style="display: inline-block; width: 33%; height: 400px; position: relative; " *ngFor="let item of firstSlice">
+            <div style="width: 100%; height: 350px; background-image: url('{{item.image}}'); background-position: center; background-repeat: no-repeat; background-size: cover;" routerLink="/course/course-information" (click)="watchCourseById(item.id);"></div>
+            <div style="display: flex;
+            justify-content: center;
+            align-items: center; margin-top: 5px;" routerLink="/course/course-information" (click)="watchCourseById(item.id);">
+              <span style="font-size: 20px;">{{item.title}}</span>
+            </div>
+          </div>
+
+
+
+          <!-- <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmWjUNk1IuZf6nl0MAu4xcsmuRJM4Bg-nvqh3yfrxrH9C-e7iqo1YBcpRdVHNh_Altkxw&usqp=CAU" class=" " alt="..." style="width: 33%; height: 400px;"> -->
+        </div>
+
+        <div class="carousel-item">
+
+          <div class="img-container" style="display: inline-block; width: 33%; height: 400px; position: relative; " *ngFor="let item of secondSlice">
+            <div style="width: 100%; height: 350px; background-image: url('{{item.image}}'); background-position: center; background-repeat: no-repeat; background-size: cover;" routerLink="/course/course-information" (click)="watchCourseById(item.id);"></div>
+            <div style="display: flex;
+            justify-content: center;
+            align-items: center; margin-top: 5px;" routerLink="/course/course-information" (click)="watchCourseById(item.id);">
+              <span style="font-size: 20px;">{{item.title}}</span>
+            </div>
+          </div>
+
+          <!-- <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSLMjbSSZ-FQr96kwR3enydKqktYGnkb4Y6AybhzNd0WsDT8pVmlWn5lEgZfDTH6jissw&usqp=CAU" class=" " alt="..." style="width: 33%; height: 400px;">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKgPazkkqDamnilYvtr8iBdGNfOY0pWfGbvo5R-tFFW9gWYThoj1aaHpVTXA1Ls9tcjYo&usqp=CAU" class=" " alt="..." style="width: 33%; height: 400px;">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKgPazkkqDamnilYvtr8iBdGNfOY0pWfGbvo5R-tFFW9gWYThoj1aaHpVTXA1Ls9tcjYo&usqp=CAU" class=" " alt="..." style="width: 33%; height: 400px;"> -->
+        </div>
+
+        <div class="carousel-item" >
+          <div class="img-container" style="display: inline-block; width: 33%; height: 400px; position: relative; " *ngFor="let item of thirdSlice">
+            <div style="width: 100%; height: 350px; background-image: url('{{item.image}}'); background-position: center; background-repeat: no-repeat; background-size: cover;" routerLink="/course/course-information" (click)="watchCourseById(item.id);"></div>
+            <div style="display: flex;
+            justify-content: center;
+            align-items: center; margin-top: 5px;" routerLink="/course/course-information" (click)="watchCourseById(item.id);">
+              <span style="font-size: 20px;">{{item.title}}</span>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true" style="color: red;"></span>
+        <span class="visually-hidden" style="color: red;">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+
+
+
+
+
+
+    <div id="carouselResponsive" class="carousel slide carousel-slide" style="border: 2px solid black; width: 1500px; height: 430px;" data-bs-theme="dark">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
+      <div class="carousel-inner"  data-bs-ride="carousel" style="cursor: pointer;">
+        <div class="carousel-item active" *ngFor="let item of firstCourse">
+          <div class="img-container" style="display: inline-block; width: 100%; height: 400px; position: relative; " >
+            <div style="width: 100%; height: 350px; background-image: url('{{item.image}}'); background-position: center; background-repeat: no-repeat; background-size: cover;" routerLink="/course/course-information" (click)="watchCourseById(item.id);"></div>
+            <div style="display: flex;
+            justify-content: center;
+            align-items: center; margin-top: 5px;" routerLink="/course/course-information" (click)="watchCourseById(item.id);">
+              <span style="font-size: 20px;">{{item.title}}</span>
+            </div>
+          </div>
+
+          <!-- <div class="img-container img-1" style="display: inline-block; width: 33%; height: 400px; position: relative; ">
+            <div style="width: 100%; height: 350px; background-image: url('../../../../../assets/intro-js.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover;"></div>
+            <div style="display: flex;
+            justify-content: center;
+            align-items: center; margin-top: 5px;">
+              <span style="font-size: 20px;">Introducción a Javascript</span>
+            </div>
+          </div> -->
+        </div>
+
+        <div class="carousel-item" *ngFor="let item of coursesTail">
+          <div class="img-container" style="display: inline-block; width: 100%; height: 400px; position: relative; " >
+            <div style="width: 100%; height: 350px; background-image: url('{{item.image}}'); background-position: center; background-repeat: no-repeat; background-size: cover;" routerLink="/course/course-information" (click)="watchCourseById(item.id);"></div>
+            <div style="display: flex;
+            justify-content: center;
+            align-items: center; margin-top: 5px;" routerLink="/course/course-information" (click)="watchCourseById(item.id);">
+              <span style="font-size: 20px;">{{item.title}}</span>
+            </div>
+          </div>
+
+          <!-- <div class="img-container img-1" style="display: inline-block; width: 33%; height: 400px; position: relative; ">
+            <div style="width: 100%; height: 350px; background-image: url('../../../../../assets/intro-js.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover;"></div>
+            <div style="display: flex;
+            justify-content: center;
+            align-items: center; margin-top: 5px;">
+              <span style="font-size: 20px;">Introducción a Javascript</span>
+            </div>
+          </div> -->
+        </div>
+
+        <!-- <div class="carousel-item active" routerLink="/course/course-information" (click)="watchCourseById(2);" >
+          <div class="img-container img-2" style="display: inline-block; width: 33%; height: 400px; position: relative; ">
+
+            <div style="width: 100%; height: 350px; background-image: url('../../../../../assets/intro-angular.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover;"></div>
+            <div style="display: flex;
+            justify-content: center;
+            align-items: center; margin-top: 5px;">
+              <span style="font-size: 20px;">Curso de Angular</span>
+            </div>
+          </div>
+        </div> -->
+
+
+
+        <!-- <div class="carousel-item active" routerLink="/course/course-information" (click)="watchCourseById(2);" >
+          <div class="img-container img-3" style="display: inline-block; width: 33%; height: 400px; position: relative;">
+            <div style="width: 100%; height: 350px; background-image: url('../../../../../assets/js-stack.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover;"></div>
+            <div style="display: flex;
+            justify-content: center;
+            align-items: center; margin-top: 5px;">
+              <span style="font-size: 20px;">Curso de Javascript Stack</span>
+            </div>
+          </div>
+        </div> -->
+
+
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true" style="color: red;"></span>
+        <span class="visually-hidden" style="color: red;">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </div>
+</div>
+<div id="about-us-section">
+  <div class="about-us-container">
+    <div class="left-side">
+      <div class="title">
+        <h3>Sobre Nosotros</h3>
+      </div>
+      <div class="description">
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consectetur quas vitae ab rem cumque esse voluptas quam deleniti. Blanditiis aperiam nobis voluptate dolor labore architecto sed eius adipisci assumenda praesentium. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae error aspernatur, corrupti porro quasi reprehenderit eum facilis esse numquam ab quo nam perferendis dolorum soluta culpa, eligendi amet, minima a?
+        </p>
+      </div>
+    </div>
+    <div class="right-side">
+      <div class="about-us-image">
+        <img src="../../../../../assets/pexels-rdne-stock-project-5922205.jpg" alt="">
+      </div>
+    </div>
+  </div>
+</div>
+<app-contact></app-contact>

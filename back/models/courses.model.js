@@ -11,20 +11,24 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      models.Lessons.belongsTo(Courses, { foreignKey: 'courseId' });
 
-      // nuevo
-      models.Enrolled.belongsTo(Courses, {
-        foreignKey: 'courseId',
-      });
+      models.Enrolled.belongsTo(Courses, { foreignKey: 'courseId', as: 'CourseEnrollments' });
     }
   }
   Courses.init({
     title: DataTypes.STRING,
+    description: DataTypes.STRING,
+    price: DataTypes.STRING,
     startDate: DataTypes.DATE,
     endDate: DataTypes.DATE,
+    image: DataTypes.STRING,
+    userId: DataTypes.INTEGER,
+    lessons: DataTypes.INTEGER,
+    deleted: DataTypes.INTEGER,
   }, {
     sequelize,
-    modelName: 'Cours',
+    modelName: 'Courses',
   });
   return Courses;
 };

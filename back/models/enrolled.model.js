@@ -12,20 +12,13 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
 
-      // models.User.hasMany(Enrolled, {
-      //   foreignkey: 'userId',
-      // });
-      // models.Enrolled.hasMany(User, {
-      //   foreignKey: 'userId',
-      // });
-      models.Cours.hasMany(Enrolled, {
-        foreignKey: 'courseId',
-      });
+      Enrolled.belongsTo(models.User, { foreignKey: 'userId', as: 'UserEnrollments' });
     }
   }
   Enrolled.init({
     userId: DataTypes.INTEGER,
     courseId: DataTypes.INTEGER,
+    paid: DataTypes.BOOLEAN,
   }, {
     sequelize,
     modelName: 'Enrolled',
