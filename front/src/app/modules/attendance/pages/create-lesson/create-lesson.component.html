@@ -4,19 +4,53 @@
       <div class="options">
         <mat-nav-list role="optionsList">
           <mat-list-item role="listitem">
+            <div class="icon-container">
+              <i class="fa-solid fa-chalkboard-user"></i>
+            </div>
             <a routerLink="/course/professor-courses">Ver mis cursos</a>
           </mat-list-item>
           <mat-divider></mat-divider>
           <mat-list-item role="listitem">
+            <div class="icon-container">
+              <i class="fa-regular fa-pen-to-square"></i>
+            </div>
             <a routerLink="/course/edit-course">Editar curso</a>
           </mat-list-item>
           <mat-divider></mat-divider>
           <mat-list-item role="listitem">
-            <a routerLink="/attendance/course-with-lessons">Ver curso con clases</a>
+            <div class="icon-container">
+              <i class="fa-solid fa-person-chalkboard"></i>
+            </div>
+            <a routerLink="/attendance/course-with-lessons">Curso con clases</a>
           </mat-list-item>
           <mat-divider></mat-divider>
           <mat-list-item role="listitem">
+            <div class="icon-container">
+              <i class="fa-regular fa-calendar-plus"></i>
+            </div>
+            <a routerLink="/attendance/create-lesson">Agregar clases</a>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item role="listitem">
+            <div class="icon-container">
+              <i class="fa-solid fa-dollar-sign"></i>
+            </div>
+            <a routerLink="/course/course-and-payments">Pagos del curso</a>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item role="listitem">
+            <div class="icon-container">
+              <i class="fa-solid fa-folder-plus"></i>
+            </div>
             <a routerLink="/course/create-course">Nuevo curso</a>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item role="listitem">
+            <div class="icon-container">
+              <i class="fa-solid fa-trash-can"></i>
+            </div>
+            <!-- <a (click)="deleteCourse()" routerLink="/dashboard">Borrar este curso</a> -->
+            <a id="deleteButton">Borrar este curso</a>
           </mat-list-item>
           <mat-divider></mat-divider>
         </mat-nav-list>
@@ -25,13 +59,13 @@
     <div class="profile-info">
       <div class="course-data">
         <div class="course-data-left">
-          <mat-card class="example-card" style="height: 250px; max-width: 350px;">
+          <mat-card class="example-card" style="height: 280px; max-width: 350px;">
             <mat-card-header>
               <div mat-card-avatar class="example-header-image"></div>
               <mat-card-title>{{courseData.title}}</mat-card-title>
             </mat-card-header>
             <mat-card-content>
-              <p>
+              <p class="course-description">
                 Descripción: {{courseData.description}}
               </p>
               <p>Duración: 3 semanas</p>
@@ -41,8 +75,8 @@
           </mat-card>
         </div>
         <div class="course-data-right">
-          <mat-card class="example-card" style="height: 250px; max-width: 350px; width: 350px;">
-            <img mat-card-image [src]="currentImage" alt="Photo of a Shiba Inu">
+          <mat-card class="example-card">
+            <img mat-card-image [src]="currentImage" alt="Photo of a Shiba Inu" style="height: 230px;  max-width: 350px; width: 350px;">
             <mat-card-content>
               <p>Precio: $ {{courseData.price}}</p>
             </mat-card-content>

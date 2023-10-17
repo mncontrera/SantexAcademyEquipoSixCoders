@@ -1,7 +1,7 @@
 <div id="professor-courses-section">
   <div class="professor-courses-container">
-    <p>Mis cursos</p>
-    <div class="cards-container">
+    <p class="title">Cursos del maestro</p>
+    <!-- <div class="cards-container">
       <div class="course-cards" *ngFor="let item of coursesList">
         <mat-card class="example-card">
           <div class="img-card" style=" background-image: url('{{item.image}}');"></div>
@@ -19,6 +19,44 @@
           </mat-card-actions>
         </mat-card>
       </div>
+    </div> -->
+
+    <div class="cards-container">
+      <mat-paginator [length]="length"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="pageSizeOptions"
+      (page)="OnPageChange($event)">
+      </mat-paginator>
+
+      <mat-grid-list [cols]=4 rowHeight="5:6" (window:resize)="onResize($event)" >
+        <mat-grid-tile *ngFor="let item of coursesList">
+          <div>
+            <!-- <div class="course-cards" *ngFor="let item of coursesList"> -->
+              <mat-card class="example-card">
+                <div class="img-card" style=" background-image: url('{{item.image}}');"></div>
+                <mat-card-header>
+                  <mat-card-title class="course-title">{{item.title}}</mat-card-title>
+                </mat-card-header>
+                <mat-card-content class="course-description">
+                  <p>
+                    {{item.description}}
+                  </p>
+                </mat-card-content>
+                <mat-card-actions class="actions">
+                  <div class="course-price">$ {{item.price}}</div>
+                  <div class="watch-course-btn">
+                    <button mat-raised-button color="primary" routerLink="/course/edit-course" (click)="watchProfessorCourseById(item.id);" style="background-color: #9859E8; color: white">Editar curso</button>
+                  </div>
+                </mat-card-actions>
+              </mat-card>
+            <!-- </div> -->
+
+          </div>
+        </mat-grid-tile>
+      </mat-grid-list>
+
+      <!-- <mat-paginator #paginator [pageSizeOptions]="[2, 4,]"></mat-paginator> -->
+
     </div>
   </div>
 </div>

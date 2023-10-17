@@ -9,7 +9,6 @@ import { CarrouselComponent } from './pages/carrousel/carrousel.component';
   declarations: [
     CarrouselComponent
   ],
-  providers: [],
   imports: [
     CommonModule,
     CarrouselRoutingModule

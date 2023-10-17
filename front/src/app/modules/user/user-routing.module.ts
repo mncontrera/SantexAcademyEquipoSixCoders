@@ -16,9 +16,6 @@ const routes: Routes = [
   {
     path: 'signup',
     component: SignUpComponent,
-    children: [
-
-    ],
     // canActivate: [VigilantGuard]
   },
   {
@@ -29,7 +26,7 @@ const routes: Routes = [
   {
     path: 'edit-profile',
     component: EditProfileComponent,
-    canActivate: [LoginGuardGuard]
+    // canActivate: [LoginGuardGuard]
   },
   {
     path: 'student-courses',

@@ -81,6 +81,7 @@ export class LoginComponent implements OnInit{
           localStorage.setItem('userLastname', userLoginData.user.lastname);
           localStorage.setItem('userEmail', userLoginData.user.email);
           localStorage.setItem('userTelephone', userLoginData.user.telephone);
+          localStorage.setItem('userRole', userLoginData.user.userRole)
 
           this.cookieService.set('tokenDeAcceso', `${this.token}`, 4, '/')
         },

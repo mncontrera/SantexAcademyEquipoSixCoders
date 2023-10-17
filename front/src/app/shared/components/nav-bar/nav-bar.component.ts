@@ -4,6 +4,8 @@ import { User } from 'src/app/core/interfaces/user-interface';
 import { FilesService } from 'src/app/core/services/user/files.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { CookieService } from 'ngx-cookie-service';
+import { ViewportScroller } from '@angular/common';
+import { Router } from "@angular/router";
 
 export interface File {
   originalname: string,
@@ -11,11 +13,15 @@ export interface File {
   filename: string
 }
 
+
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css']
 })
+
+
+
 export class NavBarComponent implements OnInit {
 
   userIsLogued?:boolean;
@@ -35,10 +41,19 @@ export class NavBarComponent implements OnInit {
     private loginService: LoginService,
     private filesService: FilesService,
     private sanitizer: DomSanitizer,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private viewportScroller: ViewportScroller,
+    private router: Router
     ) { }
 
+  alg2 = document.getElementsByClassName("botones") as HTMLCollectionOf<HTMLElement>;
+  alg3 = document.getElementById("algo");
+
+  elm1 = document.querySelector<HTMLElement>('botones');
+
   ngOnInit(): void {
+    let alg = document.getElementsByClassName('botones');
+    let elm2 = document.querySelector<HTMLElement>('botones')!;
 
     this.loginService.currentUserLogin.subscribe({
       next: (logedIn) => {
@@ -96,6 +111,21 @@ export class NavBarComponent implements OnInit {
 
   toProfile() {
     console.log("Bienvenido a la pagina de perfil de usuario.")
+  }
+
+  public onClick(elementId: string): void {
+    this.viewportScroller.scrollToAnchor(elementId);
+  }
+
+  esconderBotones(){
+    console.log("botones AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa")
+    // const elm = document.querySelector<HTMLElement>('botones')!;
+    // elm.style.display = 'none';
+    // this.elm1!.style.display = 'none'
+
+
+    // const test = document.querySelector<HTMLElement>('botones');
+    // test.style.display = 'none'
   }
 
 }

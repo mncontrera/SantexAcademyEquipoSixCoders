@@ -14,28 +14,30 @@ import { EditCourseComponent } from './pages/edit-course/edit-course.component';
 import { ProfessorCoursesComponent } from './pages/professor-courses/professor-courses.component';
 import { TeacherCourseInformationComponent } from './pages/teacher-course-information/teacher-course-information.component';
 import { CourseAndPaymentsComponent } from './pages/course-and-payments/course-and-payments.component';
+import { ContactModule } from "../contact/contact.module";
 
 
 @NgModule({
-  declarations: [
-    CreateCourseComponent,
-    GetCoursesComponent,
-    CourseInformationComponent,
-    EditCourseComponent,
-    ProfessorCoursesComponent,
-    TeacherCourseInformationComponent,
-    CourseAndPaymentsComponent
-  ],
-  imports: [
-    CommonModule,
-    CourseRoutingModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MaterialModule,
-  ],
-  exports: [
-    GetCoursesComponent,
-  ]
+    declarations: [
+        CreateCourseComponent,
+        GetCoursesComponent,
+        CourseInformationComponent,
+        EditCourseComponent,
+        ProfessorCoursesComponent,
+        TeacherCourseInformationComponent,
+        CourseAndPaymentsComponent
+    ],
+    exports: [
+        GetCoursesComponent,
+    ],
+    imports: [
+        CommonModule,
+        CourseRoutingModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MaterialModule,
+        ContactModule
+    ]
 })
 export class CourseModule {  }

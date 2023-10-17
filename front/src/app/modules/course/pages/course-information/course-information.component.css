@@ -24,5 +24,35 @@
       justify-content: space-evenly;
       align-items: center;
     }
+    & .course-description {
+      /* height: 63px; */
+      overflow: hidden;
+      display: -webkit-box!important;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+    }
+    & .course-data-right {
+      & .example-card {
+        height: 280px;
+        max-width: 400px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+    }
+  }
+}
+
+@media (width <= 600px) {
+  .course-data {
+    display: flex;
+    flex-direction: column !important;
+  }
+  #course-info-section {
+    margin: 0px;
+    & .course-info-container {
+      margin: 0px;
+    }
+
   }
 }

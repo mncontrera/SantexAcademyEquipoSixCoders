@@ -101,21 +101,6 @@ async function subscribeToCourse(req, res, next) {
   }
 }
 
-async function getEnrolledUsers(req, res, next) {
-  try {
-    const { id } = req.params;
-    try {
-      const result = await courseService.getEnrolledUsers(id);
-      return res.status(200).json(result);
-    } catch (error) {
-      return res.status(500).json({ error: 'Error en la peticion de inscriptos' });
-    }
-  } catch (error) {
-    next(error);
-    return (error);
-  }
-}
-
 async function getEnrolledCourses(req, res, next) {
   try {
     const { id } = req.params;
@@ -153,9 +138,8 @@ async function paidRegistration(req, res, next) {
     } = req.body;
 
     try {
-      const result = await courseService.paidRegistration(userId, courseId);
-      // return res.status(200).json({ message: 'Pago de matricula asignado.' });
-      return res.status(200).json(result);
+      await courseService.paidRegistration(userId, courseId);
+      return res.status(200).json({ message: 'Pago de matricula asignado.' });
     } catch (error) {
       return res.status(500).json({ error: 'Error al asignar pago de la matricula.' });
     }
@@ -204,4 +188,5 @@ module.exports = {
   createOrder,
   succesOrder,
   webhookOrder,
+
 };

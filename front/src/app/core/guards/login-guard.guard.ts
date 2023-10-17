@@ -13,7 +13,7 @@ export class LoginGuardGuard implements CanActivate {
 
   redirect(flag:boolean) {
     if(!flag) {
-      this.router.navigate(['/user', 'login']);
+      this.router.navigate (['/user', 'login']);
     }
   }
 

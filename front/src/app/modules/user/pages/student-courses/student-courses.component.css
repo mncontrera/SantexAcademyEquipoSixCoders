@@ -2,21 +2,30 @@
   margin-top: 140px;
   margin-bottom: 200px;
   & .professor-courses-container{
+    & .title {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
     margin: 0px 120px;
     & .mat-card-header{
       display: flex;
       align-content: flex-start;
       justify-content: space-evenly;
     }
-    & .cards-container{
+    /* & .cards-container{
       display: flex;
-    }
+    } */
   }
 }
 
 .example-card {
   max-width: 340px;
   border: 1px solid black;
+  height: 437px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   & img{
     height: 300px;
     width: auto;
@@ -28,6 +37,29 @@
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
+  }
+  & .course-description {
+    height: 63px;
+    overflow: hidden;
+    display: -webkit-box!important;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+  & .course-title {
+    height: 60px;
+    width: 270px;
+  }
+  & .actions {
+    display: grid;
+    /* grid-template-columns: repeat(2, 1fr); */
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-column-gap: 60px;
+    grid-row-gap: 0px;
+    & .course-price {
+      text-align: center;
+      font-size: 20px;
+    }
   }
 }
 

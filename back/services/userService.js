@@ -116,7 +116,6 @@ async function login(email, password) {
       email: user.email,
       image: imageBuffer,
       telephone: user.telephone,
-      userRole: user.rolId,
     },
   };
 }
@@ -172,6 +171,30 @@ async function profile(id) {
       lastname: user.lastname,
     },
   };
+}
+
+async function sendEmail(correo, asunto, description) {
+  const transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+      user: 'tu-mail@gmail.com',
+      pass: 'tu-password',
+    },
+  });
+
+  const mailOptions = {
+    from: 'tu-mail@gmail.com',
+    to: correo,
+    subject: asunto,
+    text: description,
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+  } catch (error) {
+    console.log(error);
+    throw new Error('Error al enviar el correo electrónico');
+  }
 }
 
 module.exports = {

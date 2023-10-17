@@ -13,7 +13,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import {MatCardModule} from '@angular/material/card';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
-
+import {MatGridListModule} from '@angular/material/grid-list';
 
 const MATERIALCOMPONENTS = [
   MatButtonModule,
@@ -31,6 +31,7 @@ const MATERIALCOMPONENTS = [
   MatCardModule,
   MatPaginatorModule,
   MatSortModule,
+  MatGridListModule,
 ]
 
 @NgModule({

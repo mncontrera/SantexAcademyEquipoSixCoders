@@ -1,11 +1,7 @@
-import {LiveAnnouncer} from '@angular/cdk/a11y';
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CourseService } from 'src/app/core/services/course/course.service';
 import { FilesService } from 'src/app/core/services/user/files.service';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { formatDate } from '@angular/common';
-import { AttendanceService } from 'src/app/core/services/attendance/attendance.service';
 
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
@@ -51,9 +47,6 @@ export class CourseAndPaymentsComponent implements OnInit {
     private router: Router,
     private courseService: CourseService,
     private fileService: FilesService,
-    private uFormBuilder: UntypedFormBuilder,
-    private attendanceService: AttendanceService,
-    private _liveAnnouncer: LiveAnnouncer,
   ) {
     this.currentCourseId = localStorage.getItem('currentProfessorCourseId');
     this.currentLessonData = {
@@ -160,6 +153,14 @@ export class CourseAndPaymentsComponent implements OnInit {
             this.courseAttendantsList.push(element.UserEnrollments);
             this.courseAttendantsList[index].paid = element.paid;
             // this.courseAttendantsList[index].userId = element.id;
+          }
+          console.log(this.courseAttendantsList)
+          for (let index = 0; index < this.courseAttendantsList.length; index++) {
+            const element = this.courseAttendantsList[index];
+
+            if(this.courseAttendantsList[index].image) {
+              this.courseAttendantsList[index].image = "data:image/jpeg;base64," + this.fileService.arrayBufferToBase64(element.image.data);
+            }
           }
           console.log(this.courseAttendantsList)
 
@@ -277,6 +278,6 @@ export interface courseAttendant {
   lastname: string;
   name: string;
   id: number;
-  userImage: any;
+  image: any;
   telephone: string;
 }
