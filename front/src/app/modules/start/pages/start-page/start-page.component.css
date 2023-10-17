@@ -1,6 +1,9 @@
 #seccion-principal{
   margin-top: 140px;
-  margin-bottom: 200px;
+  /* margin-bottom: 200px; */
+  margin-bottom: 60px;
+  position: relative;
+  z-index: 1;
   & .contenedor-seccion-principal{
     flex-wrap: wrap;
     margin: 0px 160px;
@@ -26,11 +29,11 @@
         & .texto-principal{
           & p{
             font-size: 32px;
-            width: 90%;
+            /* width: 90%; */
             line-height: 1.2;
           }
         }
-        & texto-secundario{
+        & .texto-secundario{
           & p{
             font-size: 20px;
           }

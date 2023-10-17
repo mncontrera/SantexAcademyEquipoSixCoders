@@ -42,3 +42,17 @@
     }
   }
 }
+
+@media (width <= 600px) {
+  .course-data {
+    display: flex;
+    flex-direction: column !important;
+  }
+  #course-info-section {
+    margin: 0px;
+    & .course-info-container {
+      margin: 0px;
+    }
+
+  }
+}

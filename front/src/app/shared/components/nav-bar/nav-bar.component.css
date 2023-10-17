@@ -222,6 +222,12 @@ header{
       flex-wrap: wrap;
       justify-content: space-between;
       /* align-items: center; */
+      & .profiles-and-courses {
+        display: none;
+      }
+      & .sign-up-icon {
+        display: none;
+      }
   }
   #navbar{
       padding: 0px 30px;
@@ -350,6 +356,9 @@ header{
   }
   .side-menu:checked ~ nav{
       background-color: white;
+      position: relative;
+      z-index: 5;
+      height: 80vh;
   }
   .menu a{
       color: black;

@@ -22,10 +22,10 @@ const routes: Routes = [
     path: 'attendance',
     loadChildren: () => import('./modules/attendance/attendance.module').then(m => m.AttendanceModule),
   },
-  // {
-  //   path: '**',
-  //   redirectTo: 'user/edit-profile'
-  // }
+  {
+    path: '**',
+    redirectTo: '/home'
+  }
 ];
 
 @NgModule({

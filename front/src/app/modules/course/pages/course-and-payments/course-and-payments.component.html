@@ -116,7 +116,7 @@
           </mat-form-field>
 
           <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" #empTbSort="matSort">
-            <ng-container matColumnDef="id">
+            <ng-container matColumnDef="id" id="user-id-cell">
               <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by id">ID</th>
               <td mat-cell *matCellDef="let element"> {{element.id}} </td>
             </ng-container>
