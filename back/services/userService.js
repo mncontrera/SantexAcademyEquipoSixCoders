@@ -116,6 +116,7 @@ async function login(email, password) {
       email: user.email,
       image: imageBuffer,
       telephone: user.telephone,
+      userRole: user.rolId,
     },
   };
 }
@@ -173,7 +174,7 @@ async function profile(id) {
   };
 }
 
-async function sendEmail(correo, asunto, description) {
+async function sendEmail1(correo, asunto, description) {
   const transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
@@ -192,11 +193,11 @@ async function sendEmail(correo, asunto, description) {
   try {
     await transporter.sendMail(mailOptions);
   } catch (error) {
-    console.log(error);
     throw new Error('Error al enviar el correo electrónico');
   }
 }
 
 module.exports = {
-  login, create, edit, deleteUser, profile, sendEmail, checkEmail, sendConfirmationEmail,
+  // eslint-disable-next-line max-len
+  login, create, edit, deleteUser, profile, sendEmail, sendEmail1, checkEmail, sendConfirmationEmail,
 };
