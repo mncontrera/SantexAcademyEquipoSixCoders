@@ -12,7 +12,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-   await queryInterface.bulkInsert('',[
+   await queryInterface.bulkInsert('Enrolleds',[
     { id: 1, userId: 4, courseId: 1, createdAt: new Date(), updatedAt: new Date() },
     
     { id: 2, userId: 5, courseId: 1, createdAt: new Date(), updatedAt: new Date() },

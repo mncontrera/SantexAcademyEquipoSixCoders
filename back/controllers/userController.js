@@ -7,6 +7,17 @@ const {
 } = require('../helpers/validate.helpers');
 const { checkValidationResult } = require('../middleware/validation.middleware');
 
+async function sendEmail(req, res) {
+  const { correo, description } = req.body;
+
+  try {
+    await userService.sendEmail(correo, description);
+    return res.status(200).json({ message: 'Correo electrónico enviado con éxito' });
+  } catch (error) {
+    return res.status(500).json({ error: 'Error al enviar el correo electrónico' });
+  }
+}
+
 async function createUser(req, res) {
   await Promise.all([
     nameValidation.run(req),
@@ -99,17 +110,6 @@ async function userProfile(req, res, next) {
     res.status(200).json(result);
   } catch (error) {
     next(error);
-  }
-}
-
-async function sendEmail(req, res) {
-  const { correo, description } = req.body;
-
-  try {
-    await userService.sendEmail(correo, description);
-    return res.status(200).json({ message: 'Correo electrónico enviado con éxito' });
-  } catch (error) {
-    return res.status(500).json({ error: 'Error al enviar el correo electrónico' });
   }
 }
 

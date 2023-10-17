@@ -14,13 +14,13 @@ module.exports = {
     */
     await queryInterface.bulkInsert('Users',[{
       id: 1,
-      image: '../resources/assets/uploads/profesor1.jpg',
+      image: 'profesor1.jpg',
       name: 'Profesor1',
       lastname: 'De Prueba',
       email: 'Profesor1@gmail.com',
       telephone: '3542888666',
       password: await bcrypt.hash(
-        'Profesor1',
+        'Profesor123',
         10
       ),
       rolId: 2,
@@ -29,13 +29,13 @@ module.exports = {
     },
     {
       id: 2,
-      image: '../resources/assets/uploads/profesor2.jpg',
+      image: 'profesor2.jpg',
       name: 'Profesor2',
       lastname: 'De Prueba',
       email: 'Profesor2@gmail.com',
       telephone: '3542888666',
       password: await bcrypt.hash(
-        'Profesor2',
+        'Profesor123',
         10
       ),
       rolId: 2,
@@ -44,13 +44,13 @@ module.exports = {
     },
     {
       id: 3,
-      image: '../resources/assets/uploads/profesor3.jpg',
+      image: 'profesor3.jpg',
       name: 'Profesor3',
       lastname: 'De Prueba',
       email: 'Profesor3@gmail.com',
       telephone: '3542888666',
       password: await bcrypt.hash(
-        'Profesor3',
+        'Profesor123',
         10
       ),
       rolId: 1,
@@ -59,13 +59,13 @@ module.exports = {
     },
     {
       id: 4,
-      image: '../resources/assets/uploads/alumno1.jpg',
+      image: 'alumno1.jpg',
       name: 'Alumno1',
       lastname: 'De Prueba',
-      email: 'Alumno1@gmail.com',
+      email: 'alumno1@gmail.com',
       telephone: '3542888666',
       password: await bcrypt.hash(
-        'Alumno1',
+        'Alumno123',
         10
       ),
       rolId: 1,
@@ -74,13 +74,13 @@ module.exports = {
     },
     {
       id: 5,
-      image: '../resources/assets/uploads/alumno2.jpg',
+      image: 'alumno1.jpg',
       name: 'Alumno2',
       lastname: 'De Prueba',
-      email: 'Alumno2@gmail.com',
+      email: 'alumno2@gmail.com',
       telephone: '3542888666',
       password: await bcrypt.hash(
-        'Alumno2',
+        'Alumno123',
         10
       ),
       rolId: 1,
@@ -89,13 +89,13 @@ module.exports = {
     },
     {
       id: 6,
-      image: '../resources/assets/uploads/alumno3.jpg',
+      image: 'alumno1.jpg',
       name: 'Alumno3',
       lastname: 'De Prueba',
-      email: 'Alumno3@gmail.com',
+      email: 'alumno3@gmail.com',
       telephone: '3542888666',
       password: await bcrypt.hash(
-        'Alumno3',
+        'Alumno123',
         10
       ),
       rolId: 1,
@@ -104,13 +104,13 @@ module.exports = {
     },
     {
       id: 7,
-      image: '../resources/assets/uploads/alumno4.jpg',
+      image: 'alumno1.jpg',
       name: 'Alumno4',
       lastname: 'De Prueba',
-      email: 'Alumno4@gmail.com',
+      email: 'alumno4@gmail.com',
       telephone: '3542888666',
       password: await bcrypt.hash(
-        'Alumno4',
+        'Alumno123',
         10
       ),
       rolId: 1,
@@ -119,13 +119,13 @@ module.exports = {
     },
     {
       id: 8,
-      image: '../resources/assets/uploads/alumno5.jpg',
-      name: 'Alumno5',
+      image: 'alumno1.jpg',
+      name: 'alumno5',
       lastname: 'De Prueba',
       email: 'Alumno5@gmail.com',
       telephone: '3542888666',
       password: await bcrypt.hash(
-        'Alumno5',
+        'Alumno123',
         10
       ),
       rolId: 1,
@@ -134,13 +134,13 @@ module.exports = {
     },
     {
       id: 9,
-      image: '../resources/assets/uploads/alumno6.jpg',
+      image: 'alumno1.jpg',
       name: 'Alumno6',
       lastname: 'De Prueba',
-      email: 'Alumno1@gmail.com',
+      email: 'alumno1@gmail.com',
       telephone: '3542888666',
       password: await bcrypt.hash(
-        'Alumno6',
+        'Alumno123',
         10
       ),
       rolId: 1,
@@ -149,13 +149,13 @@ module.exports = {
     },
     {
       id: 10,
-      image: '../resources/assets/uploads/alumno7.jpg',
+      image: 'alumno1.jpg',
       name: 'Alumno7',
       lastname: 'De Prueba',
-      email: 'Alumno7@gmail.com',
+      email: 'alumno7@gmail.com',
       telephone: '3542888666',
       password: await bcrypt.hash(
-        'Alumno7',
+        'Alumno123',
         10
       ),
       rolId: 1,
@@ -164,13 +164,13 @@ module.exports = {
     },
     {
       id: 11,
-      image: '../resources/assets/uploads/alumno8.jpg',
+      image: 'alumno1.jpg',
       name: 'Alumno8',
       lastname: 'De Prueba',
-      email: 'Alumno1@gmail.com',
+      email: 'alumno1@gmail.com',
       telephone: '3542888666',
       password: await bcrypt.hash(
-        'Alumno8',
+        'Alumno123',
         10
       ),
       rolId: 1,
@@ -179,13 +179,13 @@ module.exports = {
     },
     {
       id: 12,
-      image: '../resources/assets/uploads/alumno9.jpg',
+      image: 'alumno1.jpg',
       name: 'Alumno9',
       lastname: 'De Prueba',
-      email: 'Alumno9@gmail.com',
+      email: 'alumno9@gmail.com',
       telephone: '3542888666',
       password: await bcrypt.hash(
-        'Alumno9',
+        'Alumno123',
         10
       ),
       rolId: 1,
@@ -194,13 +194,13 @@ module.exports = {
     },
     {
       id: 13,
-      image: '../resources/assets/uploads/alumno10.jpg',
+      image: 'alumno1.jpg',
       name: 'Alumno10',
       lastname: 'De Prueba',
-      email: 'Alumno10@gmail.com',
+      email: 'alumno10@gmail.com',
       telephone: '3542888666',
       password: await bcrypt.hash(
-        'Alumno10',
+        'Alumno123',
         10
       ),
       rolId: 1,
