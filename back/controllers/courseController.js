@@ -9,7 +9,6 @@ async function createCourse(req, res, next) {
     const {
       title, description, price, startDate, endDate, userId, lessons,
     } = JSON.parse(req.body.data);
-
     try {
       await courseService.create(title, description, price, startDate, endDate, image, userId,
         lessons);
@@ -36,9 +35,10 @@ async function getCourse(req, res, next) {
 async function getAllCourses(req, res, next) {
   try {
     const result = await courseService.getAllCourses();
-    res.status(200).json(result);
+    return res.status(200).json(result);
   } catch (error) {
     next(error);
+    return (error);
   }
 }
 
@@ -79,7 +79,7 @@ async function subscribeToCourse(req, res, next) {
     const {
       userId, courseId,
     } = req.body;
-    const isUserRoleValid = await courseService.validateUserRole(userId, '2');
+    const isUserRoleValid = await courseService.validateUserRole(userId);
 
     if (!isUserRoleValid) {
       return res.status(403).json({ error: 'No tienes permiso para suscribirte a cursos' });
@@ -159,6 +159,20 @@ async function getAllPaidRegitrationUsers(req, res, next) {
   }
 }
 
+async function createOrder(req, res) {
+  const result = await courseService.createOrder();
+  return res.status(200).json(result);
+}
+
+async function succesOrder(req, res) {
+  const result = await courseService.succesOrder();
+  return res.status(200).json(result);
+}
+
+async function webhookOrder(req, res) {
+  const result = await courseService.webhookOrder();
+  return res.status(200).json(result);
+}
 module.exports = {
   createCourse,
   getCourse,
@@ -170,4 +184,9 @@ module.exports = {
   getTeacherCourses,
   paidRegistration,
   getAllPaidRegitrationUsers,
+  getEnrolledUsers,
+  createOrder,
+  succesOrder,
+  webhookOrder,
+
 };

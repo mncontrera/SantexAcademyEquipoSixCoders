@@ -13,6 +13,10 @@ Agregar un archivo nuevo dentro de la carpeta back con el nombre  ".env" y copia
 * DB_PASSWORD
 * DB_DATABASE
 * DB_DIALECT 
+* DB_MYEMAIL
+* DB_MYPASSWORD
+
+
 
 Por ultimo para levantar el proyecto, se tienen que correr los siguientes comandos:
 
@@ -29,9 +33,9 @@ Por ultimo para levantar el proyecto, se tienen que correr los siguientes comand
 
 #### Para crear y popular la base de datos:
 ```
-$ ./node_modules/.bin/sequelize db:create
-$ ./node_modules/.bin/sequelize db:migrate
-$ ./node_modules/.bin/sequelize db:seed:all
+% sequelize db:create
+% sequelize db:migrate
+% sequelize db:seed:all
 ```
 ---------
 

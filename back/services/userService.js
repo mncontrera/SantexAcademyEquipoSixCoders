@@ -4,10 +4,69 @@ const fs = require('fs/promises');
 const path = require('path');
 const nodemailer = require('nodemailer');
 const db = require('../models');
+const config = require('../config/config');
 
 const saltRound = 10;
 
+async function sendEmail(correo, description) {
+  const transporter = nodemailer.createTransport({
+    service: 'outlook',
+    auth: {
+      user: config.development.myemail,
+      pass: config.development.myemailpassword,
+    },
+  });
+
+  const mailOptions = {
+    from: config.development.myemail,
+    to: config.development.myemail,
+    subject: correo,
+    text: description,
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+  } catch (error) {
+    throw new Error('Error al enviar el correo electrónico');
+  }
+}
+
+async function sendConfirmationEmail(email) {
+  const transporter = nodemailer.createTransport({
+    service: 'outlook',
+    auth: {
+      user: config.development.myemail,
+      pass: config.development.myemailpassword,
+    },
+  });
+
+  const mailOptions = {
+    from: config.development.myemail,
+    to: email,
+    subject: 'Confirmacion de cuenta',
+    text: 'Su cuenta fue creada con exito',
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+  } catch (error) {
+    throw new Error('Error al enviar el correo electrónico');
+  }
+}
+
+async function checkEmail(email) {
+  const existingUser = await db.User.findOne({
+    where: {
+      email,
+    },
+  });
+  if (existingUser) {
+    throw new Error('El email ya existe');
+  }
+}
+
 async function create(name, lastname, email, password, rolId, image) {
+  checkEmail(email);
   const passwordHash = await bcrypt.hash(password, saltRound);
   const user = await db.User.create({
     name,
@@ -17,6 +76,7 @@ async function create(name, lastname, email, password, rolId, image) {
     rolId,
     image,
   });
+  sendConfirmationEmail(email);
   return user;
 }
 
@@ -138,5 +198,5 @@ async function sendEmail(correo, asunto, description) {
 }
 
 module.exports = {
-  login, create, edit, deleteUser, profile, sendEmail,
+  login, create, edit, deleteUser, profile, sendEmail, checkEmail, sendConfirmationEmail,
 };

@@ -17,6 +17,8 @@ const config = {
     host: process.env.DB_HOST,
     dialect: 'mysql',
     operatorsAliases: '0',
+    myemail: process.env.DB_MYEMAIL,
+    myemailpassword: process.env.DB_MYPASSWORD,
   },
   test: {
     logging: (msg) => logger.api.debug(`Database: ${process.env.DB_DATABASE} - ${msg}`),
@@ -27,6 +29,8 @@ const config = {
     host: process.env.DB_HOST,
     dialect: 'mysql',
     operatorsAliases: '0',
+    myemail: process.env.DB_MYEMAIL,
+    myemailpassword: process.env.DB_MYPASSWORD,
   },
   production: {
     logging: (msg) => logger.api.debug(`Database: ${process.env.DB_DATABASE} - ${msg}`),
@@ -37,6 +41,8 @@ const config = {
     host: process.env.DB_HOST,
     dialect: 'mysql',
     operatorsAliases: '0',
+    myemail: process.env.DB_MYEMAIL,
+    myemailpassword: process.env.DB_MYPASSWORD,
   },
 };
 

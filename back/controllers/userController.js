@@ -7,6 +7,17 @@ const {
 } = require('../helpers/validate.helpers');
 const { checkValidationResult } = require('../middleware/validation.middleware');
 
+async function sendEmail(req, res) {
+  const { correo, description } = req.body;
+
+  try {
+    await userService.sendEmail(correo, description);
+    return res.status(200).json({ message: 'Correo electrónico enviado con éxito' });
+  } catch (error) {
+    return res.status(500).json({ error: 'Error al enviar el correo electrónico' });
+  }
+}
+
 async function createUser(req, res) {
   await Promise.all([
     nameValidation.run(req),
@@ -22,9 +33,12 @@ async function createUser(req, res) {
     } = req.body;
 
     try {
+      await userService.checkEmail(email);
       await userService.create(name, lastname, email, password, rolId, image);
+      await userService.sendConfirmationEmail(email);
       return res.status(201).json({ message: 'Usuario creado correctamente' });
     } catch (error) {
+      console.log(error);
       return res.status(500).json({ error: 'Error al crear el usuario' });
     }
   });

@@ -5,11 +5,11 @@ async function createLesson(req, res, next) {
     const {
       lessonTitle, description, lessonDateTime, courseId, deleted,
     } = req.body;
-    // JSON.parse(req.body.data);
 
     try {
-      await lessonService.create(lessonTitle, description, lessonDateTime, courseId, deleted);
-      return res.status(200).json({ message: 'Clase creada correctamente' });
+      const result = await lessonService.create(lessonTitle, description,
+        lessonDateTime, courseId, deleted);
+      return res.status(200).json(result);
     } catch (error) {
       return res.status(500).json({ error: 'Error al crear clase' });
     }
